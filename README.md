@@ -28,23 +28,23 @@ Here's the general process  -
 
 
 * Set-up project structure - 1 week
-  ** Timeline - Week of 16 September 2019
-  ** Repo - Week of 16 September 2019
-  ** Project board - Week of 16 September 2019
+  * Timeline - Week of 16 September 2019
+  * Repo - Week of 16 September 2019
+   * Project board - Week of 16 September 2019
 * Develop Spec - 6 weeks
-  ** Draft Spec - Week of 23 September 2019
-  ** Collect Feedback - Weeks of 23 & 30 September
-  ** Refine Spec - Week of 7 October
-  ** Share Final Spec for Feedback - Week of 14 October
-  ** Publish Final Spec - Week of 21 October
+  * Draft Spec - Week of 23 September 2019
+  * Collect Feedback - Weeks of 23 & 30 September
+  * Refine Spec - Week of 7 October
+  * Share Final Spec for Feedback - Week of 14 October
+  * Publish Final Spec - Week of 21 October
 * Develop Dashboard - 9 weeks
-** Design Dashboard - Week of 28 October
-** Collect Feedback - Weeks of 4 November & 11 November
-** Refine Dashboard - Week of 18 November
-** Implement Prototype - Week of 25 November
-** Collect Prototype Feedback - Weeks of 2 December & 9 December
-** Refine Prototype - Week of 16 December
-** Implement refined prototype - Week of 23 December
+  * Design Dashboard - Week of 28 October
+  * Collect Feedback - Weeks of 4 November & 11 November
+  * Refine Dashboard - Week of 18 November
+  * Implement Prototype - Week of 25 November
+  * Collect Prototype Feedback - Weeks of 2 December & 9 December
+  * Refine Prototype - Week of 16 December
+  * Implement refined prototype - Week of 23 December
 
 ## Get Involved
 
