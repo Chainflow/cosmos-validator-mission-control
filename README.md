@@ -1,6 +1,6 @@
 ## Introduction
 
-Chainflow has received an Interchain Foundation (ICF) grant to develop validator alerting and monitoring tools. This post will describe the motivations, goals, process and timeline of the project.
+[Chainflow](https://chainflow.io) has received an [Interchain Foundation (ICF)](https://interchain.io/) grant to develop validator alerting and monitoring tools. This post will describe the motivations, goals, process and timeline of the project.
 
 ## Motivation and Goals
 
