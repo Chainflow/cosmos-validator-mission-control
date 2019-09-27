@@ -54,4 +54,4 @@ Let me know what would be most valuable to you. If you'd like an existing tool y
 
 I'll have the project's Github repo published soon. In the meantime, you can contact me here.
 
-P.S. - Learn more about the Chainflow Cosmos validator here, including how to delegate to it.
+P.S. - Learn more about the Chainflow Cosmos validator [here](chainflow.io/staking), including how to delegate to it.
