@@ -52,6 +52,6 @@ As this tool will be open-sourced, I want it to be useful to you. Your input is 
 
 Let me know what would be most valuable to you. If you'd like an existing tool you've built considered for integration, please let me know that too.
 
-I'll have the project's Github repo published soon. In the meantime, you can contact me here.
+Contact me via any of the ways listed [here](https://chainflow.io/contact).
 
 P.S. - Learn more about the Chainflow Cosmos validator [here](https://chainflow.io/staking), including how to delegate to it.
