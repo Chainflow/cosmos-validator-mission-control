@@ -44,7 +44,7 @@ Here's the general process  -
   
   (Note: Combining the above 3 tasks into the Prototype work, as they're likely to happen in parallel.)
   
-  * Implement Prototype - Week of 25 November
+  * Design and Implement Prototype - Week of 25 November
   * Collect Prototype Feedback - Weeks of 2 December & 9 December
   * Refine Prototype - Week of 16 December
   * Implement refined prototype - Week of 23 December
