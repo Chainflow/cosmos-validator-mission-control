@@ -1,3 +1,35 @@
+## Updated Process and Timeline - 10 Jan 2020
+
+Here's an updated estimated timeline -
+
+* Set-up project structure - DONE
+  * Timeline - DONE
+  * Repo - DONE
+  * Project board - DONE
+  
+* Develop Spec - Complete by 14 Jan 2019
+  * Draft Spec - DONE
+  * Collect Feedback - DONE
+  * Refine Spec - DONE
+  * Share Final Spec for Feedback - DONE
+  * Publish Final Spec - by 14 Jan 2019
+  
+* Develop Dashboard
+  * ~~Design Dashboard - Week of 28 October~~
+  * ~~Collect Feedback - Weeks of 4 November & 11 November~~
+  * ~~Refine Dashboard - Week of 18 November~~
+  
+  (Note: Combining the above 3 tasks into the Prototype work below, as they're likely to happen in parallel.)
+  
+  The following work assumes a 13 Jan 2019 start date. 
+  Based on experience gained after developing and sharing the first timeline I am choosing to set a more conservative timeline estimate.
+  
+  * Confirm tooling ~ 1 week
+  * Design and Implement Prototype ~ 4-6 weeks
+  * Collect Prototype Feedback ~ 2 weeks
+  * ~~Refine Prototype - 2-4 weeks~~
+  * Refine and implement prototype ~ 2-4 weeks
+  
 ## Introduction
 
 [Chainflow](https://chainflow.io) has received an [Interchain Foundation (ICF)](https://interchain.io/) grant to develop validator alerting and monitoring tools. This post will describe the motivations, goals, process and timeline of the project.
@@ -51,7 +83,7 @@ Here's the general process  -
 
 ## Get Involved
 
-As this tool will be open-sourced, I want it to be useful to you. Your input is critical to making this happen. Please keep an eye out for feedback requests. Lengthly feedback cycles are included in the timeline, to encourage community participation.
+As this tool will be open-sourced, I want it to be useful to you. Your input is critical to making this happen. Please keep an eye out for feedback requests. Lengthy feedback cycles are included in the timeline, to encourage community participation.
 
 Let me know what would be most valuable to you. If you'd like an existing tool you've built considered for integration, please let me know that too.
 
