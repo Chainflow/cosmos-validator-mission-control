@@ -26,8 +26,8 @@ Here's an updated estimated timeline -
   
   * Confirm tooling ~ DONE
   * Design and Implement Prototype ~ 4-6 weeks (end b/w Feb 10-Feb 24)
-    * Identify data sources
-    * Build internal prototype for testing
+    * Identify data sources - In progress
+    * Build internal prototype for testing - In progress
     * Refine internal prototype
     * Release prototype for feedback
   * Collect Prototype Feedback ~ 2 weeks
