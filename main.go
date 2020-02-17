@@ -15,6 +15,7 @@ func main() {
 	}
 
 	m := targets.InitTargets(cfg)
+	runner := targets.NewRunner()
 	var wg sync.WaitGroup
 
 	for _, tg := range m.List {
@@ -22,7 +23,7 @@ func main() {
 		t := time.Tick(5 * time.Second)
 		go func(t <-chan time.Time, target targets.Target) {
 			for _ = range t {
-				target.Func(target.HTTPOptions, cfg)
+				runner.Run(target.Func, target.HTTPOptions, cfg)
 			}
 		}(t, tg)
 	}

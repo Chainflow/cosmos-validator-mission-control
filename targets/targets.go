@@ -9,6 +9,16 @@ import (
 	"time"
 )
 
+type targetRunner struct{}
+
+func NewRunner() *targetRunner {
+	return &targetRunner{}
+}
+
+func (m targetRunner) Run(function func(ops HTTPOptions, cfg *config.Config), ops HTTPOptions, cfg *config.Config) {
+	function(ops, cfg)
+}
+
 func InitTargets(cfg *config.Config) *Targets {
 	return &Targets{List: []Target{
 		{
