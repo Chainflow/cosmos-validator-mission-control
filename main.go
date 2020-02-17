@@ -22,7 +22,7 @@ func main() {
 		t := time.Tick(5 * time.Second)
 		go func(t <-chan time.Time, target targets.Target) {
 			for _ = range t {
-				target.Func(target.HTTPOptions)
+				target.Func(target.HTTPOptions, cfg)
 			}
 		}(t, tg)
 	}

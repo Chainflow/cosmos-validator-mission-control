@@ -8,11 +8,19 @@ import (
 )
 
 type (
+	Telegram struct {
+		BotToken string `mapstructure:"bot_token"`
+		ChatId   int64  `mapstructure:"chat_id"`
+	}
+
 	Config struct {
-		NodeURL         string `mapstructure:"node_url"`
-		OperatorAddress string `mapstructure:"operator_addr"`
-		AccountAddress  string `mapstructure:"account_addr"`
-		LCDEndpoint     string `mapstructure:"lcd_endpoint"`
+		NodeURL              string   `mapstructure:"node_url"`
+		OperatorAddress      string   `mapstructure:"operator_addr"`
+		AccountAddress       string   `mapstructure:"account_addr"`
+		LCDEndpoint          string   `mapstructure:"lcd_endpoint"`
+		Telegram             Telegram `mapstructure:"telegram"`
+		VotingPowerThreshold int64    `mapstructure:"voting_power_threshold"`
+		NumPeersThreshold    int64    `mapstructure:"num_peers_threshold"`
 	}
 )
 
@@ -35,13 +43,9 @@ func ReadFromTomlFile() (*Config, error) {
 	}
 
 	var cfg Config
-	if err := viper.Unmarshal(&cfg); err != nil {
+	if err := v.Unmarshal(&cfg); err != nil {
 		log.Fatalf("error unmarshaling config.toml to application config: %v", err)
 	}
-	cfg.NodeURL = v.GetString("node_url")
-	cfg.OperatorAddress = v.GetString("operator_addr")
-	cfg.AccountAddress = v.GetString("account_addr")
-	cfg.LCDEndpoint = v.GetString("lcd_endpoint")
 
 	if err := cfg.Validate(); err != nil {
 		log.Fatalf("error occurred in config validation: %v", err)

@@ -1,18 +1,18 @@
 package targets
 
-import "log"
+import (
+	"chainflow-vitwit/config"
+)
 
-func GetNodeAddrEndpointData(ops HTTPOptions) {
+func GetNodeAddrEndpointData(ops HTTPOptions, cfg *config.Config) {
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
-		log.Printf("Error: %v", err)
+		_ = SendTelegramAlert("Gaiad is not running", cfg)
 		return
 	}
 
 	if resp.StatusCode == 200 {
-		log.Println("Gaiad is running...")
 		return
 	}
-
-	log.Printf("Error response from gaiad: %s", string(resp.Body))
+	_ = SendTelegramAlert("Gaiad is not running", cfg)
 }

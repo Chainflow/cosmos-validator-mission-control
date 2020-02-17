@@ -1,5 +1,7 @@
 package targets
 
+import "chainflow-vitwit/config"
+
 type (
 	QueryParams map[string]string
 
@@ -14,7 +16,7 @@ type (
 		ExecutionType string
 		HTTPOptions   HTTPOptions
 		Name          string
-		Func          func(m HTTPOptions)
+		Func          func(m HTTPOptions, cfg *config.Config)
 	}
 
 	Targets struct {

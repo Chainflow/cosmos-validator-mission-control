@@ -1,12 +1,13 @@
 package targets
 
 import (
+	"chainflow-vitwit/config"
 	"log"
 	"os/exec"
 	"regexp"
 )
 
-func GaiadVersion(_ HTTPOptions) {
+func GaiadVersion(_ HTTPOptions, cfg *config.Config) {
 	cmd := exec.Command("gaiad", "version", "--long")
 	out, err := cmd.CombinedOutput()
 	if err != nil {

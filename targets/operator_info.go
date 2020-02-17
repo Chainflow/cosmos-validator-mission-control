@@ -1,12 +1,13 @@
 package targets
 
 import (
+	"chainflow-vitwit/config"
 	"encoding/json"
 	"log"
 	"strconv"
 )
 
-func GetOperatorInfo(ops HTTPOptions) {
+func GetOperatorInfo(ops HTTPOptions, cfg *config.Config) {
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
 		log.Printf("Error: %v", err)
