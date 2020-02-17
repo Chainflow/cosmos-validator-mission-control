@@ -2,7 +2,7 @@ package main
 
 import (
 	"chainflow-vitwit/config"
-	"chainflow-vitwit/monitor"
+	"chainflow-vitwit/targets"
 	"log"
 	"sync"
 	"time"
@@ -13,17 +13,18 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	m := monitor.InitNodeMonitors(cfg)
+
+	m := targets.InitTargets(cfg)
 	var wg sync.WaitGroup
 
-	for _, monit := range m.List {
+	for _, tg := range m.List {
 		wg.Add(1)
 		t := time.Tick(5 * time.Second)
-		go func(t <-chan time.Time, m monitor.NodeMonitor) {
+		go func(t <-chan time.Time, target targets.Target) {
 			for _ = range t {
-				m.Func(m.HTTPOptions)
+				target.Func(target.HTTPOptions)
 			}
-		}(t, monit)
+		}(t, tg)
 	}
 	wg.Wait()
 }

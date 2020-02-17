@@ -9,10 +9,10 @@ import (
 
 type (
 	Config struct {
-		NodeURL         string `json:"node_url" toml:"node_url"`
-		OperatorAddress string `json:"operator_addr" toml:"operator_addr"`
-		AccountAddress  string `json:"account_addr" toml:"account_addr"`
-		LCDEndpoint     string `json:"lcd_endpoint" toml:"lcd_endpoint"`
+		NodeURL         string `mapstructure:"node_url"`
+		OperatorAddress string `mapstructure:"operator_addr"`
+		AccountAddress  string `mapstructure:"account_addr"`
+		LCDEndpoint     string `mapstructure:"lcd_endpoint"`
 	}
 )
 
@@ -26,21 +26,24 @@ func ReadFromEnv() *Config {
 }
 
 func ReadFromTomlFile() (*Config, error) {
-	viper.AddConfigPath("./../")
-	viper.AddConfigPath(".")
-	viper.SetConfigName("config")
-	viper.SetConfigType("toml")
-	err := viper.ReadInConfig()
-	if err != nil {
+	v := viper.New()
+	v.AddConfigPath(".")
+	v.AddConfigPath("./config/")
+	v.SetConfigName("config")
+	if err := v.ReadInConfig(); err != nil {
 		log.Fatalf("error while reading config.toml: %v", err)
 	}
 
 	var cfg Config
-	if err = viper.Unmarshal(&cfg); err != nil {
+	if err := viper.Unmarshal(&cfg); err != nil {
 		log.Fatalf("error unmarshaling config.toml to application config: %v", err)
 	}
+	cfg.NodeURL = v.GetString("node_url")
+	cfg.OperatorAddress = v.GetString("operator_addr")
+	cfg.AccountAddress = v.GetString("account_addr")
+	cfg.LCDEndpoint = v.GetString("lcd_endpoint")
 
-	if err = cfg.Validate(); err != nil {
+	if err := cfg.Validate(); err != nil {
 		log.Fatalf("error occurred in config validation: %v", err)
 	}
 

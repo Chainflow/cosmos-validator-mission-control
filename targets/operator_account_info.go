@@ -1,12 +1,12 @@
-package monitor
+package targets
 
 import (
 	"encoding/json"
 	"log"
 )
 
-func AddressBalance(m HTTPOptions) {
-	resp, err := RunMonitor(m)
+func GetAccountInfo(ops HTTPOptions) {
+	resp, err := HitHTTPTarget(ops)
 	if err != nil {
 		log.Printf("Error: %v", err)
 		return
@@ -19,5 +19,7 @@ func AddressBalance(m HTTPOptions) {
 		return
 	}
 
-	log.Printf("Address Balance: %s", accResp.Account.Balance[0].Amount+accResp.Account.Balance[0].Denom)
+	addressBalance := accResp.Account.Balance[0].Amount + accResp.Account.Balance[0].Denom
+
+	log.Printf("Address Balance: %s", addressBalance)
 }

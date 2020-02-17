@@ -1,4 +1,4 @@
-package monitor
+package targets
 
 import (
 	"log"
@@ -18,5 +18,11 @@ func GaiadVersion(_ HTTPOptions) {
 
 	r := regexp.MustCompile(`version: ([0-9]{1}.[0-9]{1}.[0-9]{1})`)
 	matches := r.FindAllStringSubmatch(resp, -1)
-	log.Printf("Version: %s", matches[1])
+	if len(matches) == 0 {
+		return
+	}
+	if len(matches[0]) != 2 {
+		return
+	}
+	log.Printf("Version: %s", matches[0][1])
 }

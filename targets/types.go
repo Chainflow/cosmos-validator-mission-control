@@ -1,4 +1,4 @@
-package monitor
+package targets
 
 type (
 	QueryParams map[string]string
@@ -10,15 +10,15 @@ type (
 		Method      string
 	}
 
-	NodeMonitor struct {
+	Target struct {
 		ExecutionType string
 		HTTPOptions   HTTPOptions
 		Name          string
 		Func          func(m HTTPOptions)
 	}
 
-	Monitors struct {
-		List []NodeMonitor
+	Targets struct {
+		List []Target
 	}
 
 	PingResp struct {
@@ -100,8 +100,8 @@ type (
 	ValidatorDetails struct {
 		OperatorAddress         string               `json:"operatorAddress"`
 		ConsensusPubKey         string               `json:"consensusPubkey"`
-		Jailed                  string               `json:"jailed"`
-		Tombstoned              string               `json:"tombstoned"`
+		Jailed                  bool                 `json:"jailed"`
+		Tombstoned              bool                 `json:"tombstoned"`
 		Status                  string               `json:"status"`
 		Tokens                  string               `json:"tokens"`
 		TokensSelfBonded        string               `json:"tokensSelfBonded"`
