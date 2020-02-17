@@ -33,7 +33,7 @@ func ReadFromEnv() *Config {
 	}
 }
 
-func ReadFromTomlFile() (*Config, error) {
+func ReadFromFile() (*Config, error) {
 	v := viper.New()
 	v.AddConfigPath(".")
 	v.AddConfigPath("./config/")

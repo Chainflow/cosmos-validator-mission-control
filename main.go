@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	cfg, err := config.ReadFromTomlFile()
+	cfg, err := config.ReadFromFile()
 	if err != nil {
 		log.Fatal(err)
 	}
