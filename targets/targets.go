@@ -28,7 +28,7 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.NodeURL,
 				Method:   http.MethodGet,
 			},
-			Func: GetNodeAddrEndpointData,
+			Func: CheckGaiad,
 		},
 		{
 			ExecutionType: "http",
