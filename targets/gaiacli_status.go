@@ -27,6 +27,7 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config) {
 	validatorActive := status.NodeInfo.ValidatorInfo.VotingPower != "0"
 	if !validatorActive {
 		_ = SendTelegramAlert("Validator has been jailed!", cfg)
+		_ = SendEmailAlert("Validator has been jailed!", cfg)
 	}
 
 	currentBlockHeight := status.NodeInfo.SyncInfo.LatestBlockHeight
@@ -34,6 +35,7 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config) {
 	caughtUp := !status.NodeInfo.SyncInfo.CatchingUp
 	if caughtUp {
 		_ = SendTelegramAlert("Your node has been synced!", cfg)
+		_ = SendEmailAlert("Your node has been synced!", cfg)
 	}
 
 	vp, err := strconv.Atoi(status.NodeInfo.ValidatorInfo.VotingPower)
@@ -42,6 +44,7 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config) {
 	}
 	if int64(vp) <= cfg.VotingPowerThreshold {
 		_ = SendTelegramAlert(fmt.Sprintf("Your voting power has dropped below %d", cfg.VotingPowerThreshold), cfg)
+		_ = SendEmailAlert(fmt.Sprintf("Your voting power has dropped below %d", cfg.VotingPowerThreshold), cfg)
 	}
 
 	log.Printf("Validator Active: %t \nCurrent Block Height: %s \nCaught Up? %t \nVoting Power: %s \n",

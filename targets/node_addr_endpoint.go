@@ -8,6 +8,7 @@ func GetNodeAddrEndpointData(ops HTTPOptions, cfg *config.Config) {
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
 		_ = SendTelegramAlert("Gaiad is not running", cfg)
+		_ = SendEmailAlert("Gaiad is not running", cfg)
 		return
 	}
 
@@ -15,4 +16,5 @@ func GetNodeAddrEndpointData(ops HTTPOptions, cfg *config.Config) {
 		return
 	}
 	_ = SendTelegramAlert("Gaiad is not running", cfg)
+	_ = SendEmailAlert("Gaiad is not running", cfg)
 }

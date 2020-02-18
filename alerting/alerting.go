@@ -10,5 +10,13 @@ func NewTelegramAlerter() *telegramAlert {
 	return &telegramAlert{}
 }
 
+type Email interface {
+	Send(msg, token, toEmail string) error
+}
+
 type emailAlert struct {
+}
+
+func NewEmailAlerter() *emailAlert {
+	return &emailAlert{}
 }

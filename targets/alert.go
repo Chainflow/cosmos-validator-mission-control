@@ -13,3 +13,11 @@ func SendTelegramAlert(msg string, cfg *config.Config) error {
 	}
 	return nil
 }
+
+func SendEmailAlert(msg string, cfg *config.Config) error {
+	if err := alerting.NewEmailAlerter().Send(msg, cfg.SendGrid.Token, cfg.SendGrid.ToEmail); err != nil {
+		log.Printf("failed to send email alert: %v", err)
+		return err
+	}
+	return nil
+}

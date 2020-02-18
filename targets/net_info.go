@@ -26,6 +26,7 @@ func GetNetInfo(ops HTTPOptions, cfg *config.Config) {
 		log.Printf("Error converting num_peers to int: %v", err)
 	} else if int64(numPeers) < cfg.NumPeersThreshold {
 		_ = SendTelegramAlert(fmt.Sprintf("Number of peers has fallen below %d", cfg.NumPeersThreshold), cfg)
+		_ = SendEmailAlert(fmt.Sprintf("Number of peers has fallen below %d", cfg.NumPeersThreshold), cfg)
 	}
 
 	peerAddrs := make([]string, len(ni.Result.Peers))
