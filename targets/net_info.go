@@ -22,6 +22,7 @@ func GetNetInfo(ops HTTPOptions, cfg *config.Config) {
 	}
 
 	numPeers, err := strconv.Atoi(ni.Result.NumPeers)
+	NumPeersGauge.Set(float64(numPeers))
 	if err != nil {
 		log.Printf("Error converting num_peers to int: %v", err)
 	} else if int64(numPeers) < cfg.NumPeersThreshold {

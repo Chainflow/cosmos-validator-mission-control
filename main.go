@@ -12,6 +12,7 @@ import (
 
 func init() {
 	prometheus.MustRegister(targets.GaiadRunningGauge)
+	prometheus.MustRegister(targets.NumPeersGauge)
 }
 
 func main() {
