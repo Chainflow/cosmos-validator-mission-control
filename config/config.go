@@ -23,6 +23,13 @@ type (
 		Port string `mapstructure:"port"`
 	}
 
+	InfluxDB struct {
+		Port     string `mapstructure:"port"`
+		Database string `mapstructure:"database"`
+		Username string `mapstructure:"username"`
+		Password string `mapstructure:"password"`
+	}
+
 	Config struct {
 		NodeURL              string   `mapstructure:"node_url"`
 		OperatorAddress      string   `mapstructure:"operator_addr"`
@@ -33,6 +40,7 @@ type (
 		Scraper              Scraper  `mapstructure:"scraper"`
 		Telegram             Telegram `mapstructure:"telegram"`
 		SendGrid             SendGrid `mapstructure:"sendgrid"`
+		InfluxDB             InfluxDB `mapstructure:"influxdb"`
 	}
 )
 

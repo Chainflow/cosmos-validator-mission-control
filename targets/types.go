@@ -1,6 +1,9 @@
 package targets
 
-import "chainflow-vitwit/config"
+import (
+	"chainflow-vitwit/config"
+	client "github.com/influxdata/influxdb1-client/v2"
+)
 
 type (
 	QueryParams map[string]string
@@ -16,7 +19,7 @@ type (
 		ExecutionType string
 		HTTPOptions   HTTPOptions
 		Name          string
-		Func          func(m HTTPOptions, cfg *config.Config)
+		Func          func(m HTTPOptions, cfg *config.Config, c client.Client)
 	}
 
 	Targets struct {

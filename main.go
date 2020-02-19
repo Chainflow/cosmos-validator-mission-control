@@ -3,17 +3,12 @@ package main
 import (
 	"chainflow-vitwit/config"
 	"chainflow-vitwit/targets"
-	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"fmt"
+	"github.com/influxdata/influxdb1-client/v2"
 	"log"
-	"net/http"
+	"sync"
 	"time"
 )
-
-func init() {
-	prometheus.MustRegister(targets.GaiadRunningGauge)
-	prometheus.MustRegister(targets.NumPeersGauge)
-}
 
 func main() {
 	cfg, err := config.ReadFromFile()
@@ -28,21 +23,25 @@ func main() {
 		log.Fatal(err)
 	}
 
+	c, err := client.NewHTTPClient(client.HTTPConfig{
+		Addr:     fmt.Sprintf("http://localhost:%s", cfg.InfluxDB.Port),
+		Username: cfg.InfluxDB.Username,
+		Password: cfg.InfluxDB.Password,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer c.Close()
+
+	var wg sync.WaitGroup
 	for _, tg := range m.List {
+		wg.Add(1)
 		go func(target targets.Target) {
 			for {
-				runner.Run(target.Func, target.HTTPOptions, cfg)
+				runner.Run(target.Func, target.HTTPOptions, cfg, c)
 				time.Sleep(scrapeRate)
 			}
 		}(tg)
 	}
-
-	http.Handle("/metrics", promhttp.HandlerFor(
-		prometheus.DefaultGatherer,
-		promhttp.HandlerOpts{
-			// Opt into OpenMetrics to support exemplars.
-			EnableOpenMetrics: true,
-		},
-	))
-	log.Fatal(http.ListenAndServe(cfg.Scraper.Port, nil))
+	wg.Wait()
 }

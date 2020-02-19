@@ -3,6 +3,7 @@ package targets
 import (
 	"bytes"
 	"chainflow-vitwit/config"
+	client "github.com/influxdata/influxdb1-client/v2"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -15,8 +16,8 @@ func NewRunner() *targetRunner {
 	return &targetRunner{}
 }
 
-func (m targetRunner) Run(function func(ops HTTPOptions, cfg *config.Config), ops HTTPOptions, cfg *config.Config) {
-	function(ops, cfg)
+func (m targetRunner) Run(function func(ops HTTPOptions, cfg *config.Config, c client.Client), ops HTTPOptions, cfg *config.Config, c client.Client) {
+	function(ops, cfg, c)
 }
 
 func InitTargets(cfg *config.Config) *Targets {

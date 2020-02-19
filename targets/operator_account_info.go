@@ -3,10 +3,11 @@ package targets
 import (
 	"chainflow-vitwit/config"
 	"encoding/json"
+	client "github.com/influxdata/influxdb1-client/v2"
 	"log"
 )
 
-func GetAccountInfo(ops HTTPOptions, cfg *config.Config) {
+func GetAccountInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
 		log.Printf("Error: %v", err)

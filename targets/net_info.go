@@ -4,11 +4,12 @@ import (
 	"chainflow-vitwit/config"
 	"encoding/json"
 	"fmt"
+	client "github.com/influxdata/influxdb1-client/v2"
 	"log"
 	"strconv"
 )
 
-func GetNetInfo(ops HTTPOptions, cfg *config.Config) {
+func GetNetInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
 		log.Printf("Error getting node_info: %v", err)
@@ -22,7 +23,6 @@ func GetNetInfo(ops HTTPOptions, cfg *config.Config) {
 	}
 
 	numPeers, err := strconv.Atoi(ni.Result.NumPeers)
-	NumPeersGauge.Set(float64(numPeers))
 	if err != nil {
 		log.Printf("Error converting num_peers to int: %v", err)
 	} else if int64(numPeers) < cfg.NumPeersThreshold {

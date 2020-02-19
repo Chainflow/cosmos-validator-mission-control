@@ -4,12 +4,13 @@ import (
 	"chainflow-vitwit/config"
 	"encoding/json"
 	"fmt"
+	client "github.com/influxdata/influxdb1-client/v2"
 	"log"
 	"os/exec"
 	"strconv"
 )
 
-func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config) {
+func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	cmd := exec.Command("gaiacli", "status")
 	out, err := cmd.CombinedOutput()
 	if err != nil {

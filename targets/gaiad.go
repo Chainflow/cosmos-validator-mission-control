@@ -2,12 +2,13 @@ package targets
 
 import (
 	"chainflow-vitwit/config"
+	client "github.com/influxdata/influxdb1-client/v2"
 	"log"
 	"os/exec"
 	"regexp"
 )
 
-func GaiadVersion(_ HTTPOptions, cfg *config.Config) {
+func GaiadVersion(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	cmd := exec.Command("gaiad", "version", "--long")
 	out, err := cmd.CombinedOutput()
 	if err != nil {
