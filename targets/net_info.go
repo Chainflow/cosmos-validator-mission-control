@@ -10,6 +10,12 @@ import (
 )
 
 func GetNetInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
+	bp, err := createBatchPoints(cfg.InfluxDB.Database)
+	if err != nil {
+		return
+	}
+	var pts []*client.Point
+
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
 		log.Printf("Error getting node_info: %v", err)
@@ -23,6 +29,10 @@ func GetNetInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	numPeers, err := strconv.Atoi(ni.Result.NumPeers)
+	p1, err := createDataPoint("vcf_num_peers", map[string]string{}, map[string]interface{}{"count": numPeers})
+	if err == nil {
+		pts = append(pts, p1)
+	}
 	if err != nil {
 		log.Printf("Error converting num_peers to int: %v", err)
 	} else if int64(numPeers) < cfg.NumPeersThreshold {
@@ -34,6 +44,14 @@ func GetNetInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	for i, peer := range ni.Result.Peers {
 		peerAddrs[i] = peer.RemoteIP
 	}
+	if len(peerAddrs) > 0 {
+		p2, err := createDataPoint("vcf_peer_addresses", map[string]string{}, map[string]interface{}{"addresses": peerAddrs})
+		if err == nil {
+			pts = append(pts, p2)
+		}
+	}
 
+	bp.AddPoints(pts)
+	_ = writeBatchPoints(c, bp)
 	log.Printf("No. of peers: %s \n Peer Addresses: %v", numPeers, peerAddrs)
 }
