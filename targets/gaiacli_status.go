@@ -47,6 +47,6 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config) {
 		_ = SendEmailAlert(fmt.Sprintf("Your voting power has dropped below %d", cfg.VotingPowerThreshold), cfg)
 	}
 
-	log.Printf("Validator Active: %t \nCurrent Block Height: %s \nCaught Up? %t \nVoting Power: %s \n",
+	log.Printf("Validator Active: %t \nCurrent Block Height: %s \nCaught Up? %t \nVoting Power: %d \n",
 		validatorActive, currentBlockHeight, caughtUp, vp)
 }
