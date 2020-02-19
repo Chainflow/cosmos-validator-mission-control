@@ -7,6 +7,7 @@ require (
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
 	github.com/joho/godotenv v1.3.0 // indirect
 	github.com/leodido/go-urn v1.2.0 // indirect
+	github.com/prometheus/client_golang v1.4.1
 	github.com/robfig/cron v1.2.0 // indirect
 	github.com/sendgrid/rest v2.4.1+incompatible // indirect
 	github.com/sendgrid/sendgrid-go v3.5.0+incompatible

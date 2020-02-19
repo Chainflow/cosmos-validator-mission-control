@@ -3,10 +3,16 @@ package main
 import (
 	"chainflow-vitwit/config"
 	"chainflow-vitwit/targets"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"log"
-	"sync"
+	"net/http"
 	"time"
 )
+
+func init() {
+	prometheus.MustRegister(targets.GaiadRunningGauge)
+}
 
 func main() {
 	cfg, err := config.ReadFromFile()
@@ -16,16 +22,26 @@ func main() {
 
 	m := targets.InitTargets(cfg)
 	runner := targets.NewRunner()
-	var wg sync.WaitGroup
+	scrapeRate, err := time.ParseDuration(cfg.Scraper.Rate)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	for _, tg := range m.List {
-		wg.Add(1)
-		t := time.Tick(5 * time.Second)
-		go func(t <-chan time.Time, target targets.Target) {
-			for _ = range t {
+		go func(target targets.Target) {
+			for {
 				runner.Run(target.Func, target.HTTPOptions, cfg)
+				time.Sleep(scrapeRate)
 			}
-		}(t, tg)
+		}(tg)
 	}
-	wg.Wait()
+
+	http.Handle("/metrics", promhttp.HandlerFor(
+		prometheus.DefaultGatherer,
+		promhttp.HandlerOpts{
+			// Opt into OpenMetrics to support exemplars.
+			EnableOpenMetrics: true,
+		},
+	))
+	log.Fatal(http.ListenAndServe(cfg.Scraper.Port, nil))
 }

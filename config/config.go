@@ -18,6 +18,11 @@ type (
 		ToEmail string `mapstructure:"to_email"`
 	}
 
+	Scraper struct {
+		Rate string `mapstructure:"rate"`
+		Port string `mapstructure:"port"`
+	}
+
 	Config struct {
 		NodeURL              string   `mapstructure:"node_url"`
 		OperatorAddress      string   `mapstructure:"operator_addr"`
@@ -25,6 +30,7 @@ type (
 		LCDEndpoint          string   `mapstructure:"lcd_endpoint"`
 		VotingPowerThreshold int64    `mapstructure:"voting_power_threshold"`
 		NumPeersThreshold    int64    `mapstructure:"num_peers_threshold"`
+		Scraper              Scraper  `mapstructure:"scraper"`
 		Telegram             Telegram `mapstructure:"telegram"`
 		SendGrid             SendGrid `mapstructure:"sendgrid"`
 	}

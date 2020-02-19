@@ -12,6 +12,7 @@ func CheckGaiad(_ HTTPOptions, cfg *config.Config) {
 	if err != nil {
 		_ = SendTelegramAlert("Gaiad is not running", cfg)
 		_ = SendEmailAlert("Gaiad is not running", cfg)
+		GaiadRunningGauge.Set(float64(0))
 		return
 	}
 
@@ -19,5 +20,8 @@ func CheckGaiad(_ HTTPOptions, cfg *config.Config) {
 	if resp != "" {
 		_ = SendTelegramAlert(fmt.Sprintf("Gaiad is not running: \n%v", resp), cfg)
 		_ = SendEmailAlert(fmt.Sprintf("Gaiad is not running: \n%v", resp), cfg)
+		GaiadRunningGauge.Set(float64(0))
+		return
 	}
+	GaiadRunningGauge.Set(float64(1))
 }
