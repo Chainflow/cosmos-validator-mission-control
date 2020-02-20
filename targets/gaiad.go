@@ -18,6 +18,7 @@ func GaiadVersion(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Printf("cmd.Run() failed with %s\n", err)
+		_ = writeToInfluxDb(c, bp, "vcf_gaiad_version", map[string]string{}, map[string]interface{}{"v": "NA"})
 		return
 	}
 

@@ -42,11 +42,12 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	currentBlockHeight := status.NodeInfo.SyncInfo.LatestBlockHeight
-	if currentBlockHeight != "" {
-		p2, err := createDataPoint("vcf_current_block_height", map[string]string{}, map[string]interface{}{"height": currentBlockHeight})
-		if err == nil {
-			pts = append(pts, p2)
-		}
+	if currentBlockHeight == "" {
+		currentBlockHeight = "NA"
+	}
+	p2, err := createDataPoint("vcf_current_block_height", map[string]string{}, map[string]interface{}{"height": currentBlockHeight})
+	if err == nil {
+		pts = append(pts, p2)
 	}
 
 	caughtUp := !status.NodeInfo.SyncInfo.CatchingUp
@@ -62,6 +63,7 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	vp, err := strconv.Atoi(status.NodeInfo.ValidatorInfo.VotingPower)
 	if err != nil {
 		log.Printf("Error while converting votingPower to int: %v", err)
+		vp = 0
 	}
 	p4, err := createDataPoint("vcf_voting_power", map[string]string{}, map[string]interface{}{"power": vp})
 	if err == nil {

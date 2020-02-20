@@ -16,6 +16,7 @@ func GetAccountInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
 		log.Printf("Error: %v", err)
+		_ = writeToInfluxDb(c, bp, "vcf_account_balance", map[string]string{}, map[string]interface{}{"balance": "NA"})
 		return
 	}
 
@@ -23,6 +24,7 @@ func GetAccountInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	err = json.Unmarshal(resp.Body, &accResp)
 	if err != nil {
 		log.Printf("Error: %v", err)
+		_ = writeToInfluxDb(c, bp, "vcf_account_balance", map[string]string{}, map[string]interface{}{"balance": "NA"})
 		return
 	}
 
