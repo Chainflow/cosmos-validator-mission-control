@@ -66,20 +66,20 @@ type (
 	}
 
 	GaiaCliStatusNodeInfo struct {
-		ProtocolVersion interface{}   `json:"protocol_version"`
-		Id              string        `json:"id"`
-		ListenAddr      string        `json:"listen_addr"`
-		Network         string        `json:"network"`
-		Version         string        `json:"version"`
-		Channels        string        `json:"channels"`
-		Moniker         string        `json:"moniker"`
-		Other           interface{}   `json:"other"`
-		SyncInfo        SyncInfo      `json:"sync_info"`
-		ValidatorInfo   ValidatorInfo `json:"validator_info"`
+		ProtocolVersion interface{} `json:"protocol_version"`
+		Id              string      `json:"id"`
+		ListenAddr      string      `json:"listen_addr"`
+		Network         string      `json:"network"`
+		Version         string      `json:"version"`
+		Channels        string      `json:"channels"`
+		Moniker         string      `json:"moniker"`
+		Other           interface{} `json:"other"`
 	}
 
 	GaiaCliStatus struct {
-		NodeInfo GaiaCliStatusNodeInfo `json:"node_info"`
+		NodeInfo      GaiaCliStatusNodeInfo `json:"node_info"`
+		SyncInfo      SyncInfo              `json:"sync_info"`
+		ValidatorInfo ValidatorInfo         `json:"validator_info"`
 	}
 
 	ValidatorUptime struct {

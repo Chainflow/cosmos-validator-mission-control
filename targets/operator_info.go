@@ -40,7 +40,13 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		pts = append(pts, p2)
 	}
 
-	fee := validatorResp.Validator.Details.Commission.Rate
+	var fee float64
+	f, err := strconv.ParseFloat(validatorResp.Validator.Details.Commission.Rate, 64)
+	if err != nil {
+		fee = 0
+	} else {
+		fee = f * 100
+	}
 	p3, err := createDataPoint("vcf_validator_fee", map[string]string{}, map[string]interface{}{"rate": fee})
 	if err == nil {
 		pts = append(pts, p3)

@@ -16,5 +16,6 @@ require (
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/viper v1.6.2
 	github.com/technoweenie/multipartstreamer v1.0.1 // indirect
+	golang.org/x/text v0.3.2
 	gopkg.in/go-playground/validator.v9 v9.31.0
 )
