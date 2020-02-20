@@ -28,20 +28,20 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
-	operatorAddress := validatorResp.Validator.Details.OperatorAddress
+	operatorAddress := validatorResp.Result.OperatorAddress
 	p1, err := createDataPoint("vcf_operator_address", map[string]string{}, map[string]interface{}{"address": operatorAddress})
 	if err == nil {
 		pts = append(pts, p1)
 	}
 
-	address := validatorResp.Validator.Uptime.Address
+	address := cfg.AccountAddress
 	p2, err := createDataPoint("vcf_address", map[string]string{}, map[string]interface{}{"address": address})
 	if err == nil {
 		pts = append(pts, p2)
 	}
 
 	var fee float64
-	f, err := strconv.ParseFloat(validatorResp.Validator.Details.Commission.Rate, 64)
+	f, err := strconv.ParseFloat(validatorResp.Result.Commission.CommissionRates.Rate, 64)
 	if err != nil {
 		fee = 0
 	} else {
@@ -52,7 +52,7 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		pts = append(pts, p3)
 	}
 
-	validatorDetails := validatorResp.Validator.Details.Description
+	validatorDetails := validatorResp.Result.Description
 	p4, err := createDataPoint("vcf_validator_desc", map[string]string{"tag": "moniker"}, map[string]interface{}{"val": validatorDetails.Moniker})
 	p7, err := createDataPoint("vcf_validator_desc", map[string]string{"tag": "website"}, map[string]interface{}{"val": validatorDetails.Website})
 	p8, err := createDataPoint("vcf_validator_desc", map[string]string{"tag": "details"}, map[string]interface{}{"val": validatorDetails.Details})
@@ -62,7 +62,7 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	var maxRate float64
-	mr, err := strconv.ParseFloat(validatorResp.Validator.Details.Commission.MaxRate, 64)
+	mr, err := strconv.ParseFloat(validatorResp.Result.Commission.CommissionRates.MaxRate, 64)
 	if err != nil {
 		maxRate = 0
 	} else {
@@ -74,7 +74,7 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	var maxChangeRate float64
-	mcr, err := strconv.ParseFloat(validatorResp.Validator.Details.Commission.MaxChangeRate, 64)
+	mcr, err := strconv.ParseFloat(validatorResp.Result.Commission.CommissionRates.MaxChangeRate, 64)
 	if err != nil {
 		log.Printf("error in atoi: %v", err)
 		maxChangeRate = 0

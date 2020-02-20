@@ -49,7 +49,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Operator Information",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "v1/validator/" + cfg.OperatorAddress,
+				Endpoint: cfg.LCDEndpoint + "staking/validators/" + cfg.OperatorAddress,
 				Method:   http.MethodGet,
 			},
 			Func: GetOperatorInfo,
@@ -58,7 +58,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Operator Account Information",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "v1/account/" + cfg.OperatorAddress,
+				Endpoint: cfg.LCDEndpoint + "bank/balances/" + cfg.OperatorAddress,
 				Method:   http.MethodGet,
 			},
 			Func: GetAccountInfo,

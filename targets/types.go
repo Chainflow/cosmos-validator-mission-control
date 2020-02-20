@@ -82,11 +82,11 @@ type (
 		ValidatorInfo ValidatorInfo         `json:"validator_info"`
 	}
 
-	ValidatorUptime struct {
-		Address string `json:"address"`
-		Misses  string `json:"misses"`
-		Period  string `json:"period"`
-	}
+	//ValidatorUptime struct {
+	//	Address string `json:"address"`
+	//	Misses  string `json:"misses"`
+	//	Period  string `json:"period"`
+	//}
 
 	ValidatorDescription struct {
 		Moniker  string `json:"moniker"`
@@ -95,38 +95,61 @@ type (
 		Details  string `json:"details"`
 	}
 
-	ValidatorCommission struct {
+	ValidatorCommissionRates struct {
 		Rate          string `json:"rate"`
-		MaxRate       string `json:"maxRate"`
-		MaxChangeRate string `json:"maxChangeRate"`
-		UpdateTime    string `json:"updateTime"`
+		MaxRate       string `json:"max_rate"`
+		MaxChangeRate string `json:"max_change_rate"`
 	}
 
-	ValidatorDetails struct {
-		OperatorAddress         string               `json:"operatorAddress"`
-		ConsensusPubKey         string               `json:"consensusPubkey"`
-		Jailed                  bool                 `json:"jailed"`
-		Tombstoned              bool                 `json:"tombstoned"`
-		Status                  string               `json:"status"`
-		Tokens                  string               `json:"tokens"`
-		TokensSelfBonded        string               `json:"tokensSelfBonded"`
-		DelegatorShares         string               `json:"delegatorShares"`
-		Description             ValidatorDescription `json:"description"`
-		UnbondingHeight         string               `json:"unbondingHeight"`
-		Commission              ValidatorCommission  `json:"commission"`
-		UnbondingCommissiontime string               `json:"unbondingCompletionTime"`
+	ValidatorCommission struct {
+		CommissionRates ValidatorCommissionRates `json:"commission_rates"`
+		UpdateTime      string                   `json:"update_time"`
 	}
 
-	Validator struct {
-		Address    string           `json:"address"`
-		Weight     string           `json:"weight"`
-		WeightRank int              `json:"weight_rank"`
-		Uptime     ValidatorUptime  `json:"uptime"`
-		Details    ValidatorDetails `json:"details"`
+	//ValidatorDetails struct {
+	//	OperatorAddress         string               `json:"operatorAddress"`
+	//	ConsensusPubKey         string               `json:"consensusPubkey"`
+	//	Jailed                  bool                 `json:"jailed"`
+	//	Tombstoned              bool                 `json:"tombstoned"`
+	//	Status                  string               `json:"status"`
+	//	Tokens                  string               `json:"tokens"`
+	//	TokensSelfBonded        string               `json:"tokensSelfBonded"`
+	//	DelegatorShares         string               `json:"delegatorShares"`
+	//	Description             ValidatorDescription `json:"description"`
+	//	UnbondingHeight         string               `json:"unbondingHeight"`
+	//	Commission              ValidatorCommission  `json:"commission"`
+	//	UnbondingCommissiontime string               `json:"unbondingCompletionTime"`
+	//}
+	//
+	//Validator struct {
+	//	Address    string           `json:"address"`
+	//	Weight     string           `json:"weight"`
+	//	WeightRank int              `json:"weight_rank"`
+	//	Uptime     ValidatorUptime  `json:"uptime"`
+	//	Details    ValidatorDetails `json:"details"`
+	//}
+	//
+	//ValidatorResp struct {
+	//	Validator Validator `json:"validator"`
+	//}
+
+	ValidatorResult struct {
+		OperatorAddress   string               `json:"operator_address"`
+		ConsensusPubKey   string               `json:"consensus_pubkey"`
+		Jailed            bool                 `json:"jailed"`
+		Status            int                  `json:"status"`
+		Tokens            string               `json:"tokens"`
+		DelegatorShares   string               `json:"delegator_shares"`
+		Description       ValidatorDescription `json:"description"`
+		UnbondingHeight   string               `json:"unbonding_height"`
+		UnbondingTime     string               `json:"unbonding_time"`
+		Commission        ValidatorCommission  `json:"commission"`
+		MinSelfDelegation string               `json:"min_self_delegation"`
 	}
 
 	ValidatorResp struct {
-		Validator Validator `json:"validator"`
+		Height string          `json:"height"`
+		Result ValidatorResult `json:"result"`
 	}
 
 	AccountBalance struct {
@@ -134,17 +157,22 @@ type (
 		Amount string `json:"amount"`
 	}
 
-	Account struct {
-		Address       string           `json:"address"`
-		Balance       []AccountBalance `json:"balance"`
-		PubKey        string           `json:"pubKey"`
-		AccountNumber string           `json:"accountNumber"`
-		Sequence      string           `json:"sequence"`
-		Vested        bool             `json:"vested"`
-		VestingInfo   interface{}      `json:"vestingInfo"`
-	}
+	//Account struct {
+	//	Address       string           `json:"address"`
+	//	Balance       []AccountBalance `json:"balance"`
+	//	PubKey        string           `json:"pubKey"`
+	//	AccountNumber string           `json:"accountNumber"`
+	//	Sequence      string           `json:"sequence"`
+	//	Vested        bool             `json:"vested"`
+	//	VestingInfo   interface{}      `json:"vestingInfo"`
+	//}
+
+	//AccountResp struct {
+	//	Account Account `json:"account"`
+	//}
 
 	AccountResp struct {
-		Account Account `json:"account"`
+		Height string           `json:"height"`
+		Result []AccountBalance `json:"result"`
 	}
 )
