@@ -1,0 +1,49 @@
+package targets
+
+import (
+	client "github.com/influxdata/influxdb1-client/v2"
+	"log"
+	"time"
+)
+
+func createDataPoint(name string, tags map[string]string, fields map[string]interface{}) (*client.Point, error) {
+	p, err := client.NewPoint(name, tags, fields, time.Now())
+	if err != nil {
+		log.Printf("Error creating data point: %v", err)
+		return nil, err
+	}
+	return p, nil
+}
+
+func createBatchPoints(db string) (client.BatchPoints, error) {
+	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
+		Database:  db,
+		Precision: "s",
+	})
+	if err != nil {
+		log.Printf("err creating batch points: %v", err)
+		return nil, err
+	}
+	return bp, nil
+}
+
+func writeBatchPoints(c client.Client, bp client.BatchPoints) error {
+	if err := c.Write(bp); err != nil {
+		log.Printf("err writing batch points to client: %v", err)
+		return err
+	}
+	return nil
+}
+
+func writeToInfluxDb(c client.Client, bp client.BatchPoints, name string, tags map[string]string,
+	fields map[string]interface{}) error {
+	p, err := createDataPoint(name, tags, fields)
+	if err != nil {
+		return err
+	}
+	bp.AddPoint(p)
+	if err := writeBatchPoints(c, bp); err != nil {
+		return err
+	}
+	return nil
+}

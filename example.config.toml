@@ -1,0 +1,10 @@
+node_url = "http://localhost:26657/"
+operator_addr = "cosmosvaloper14l0fp639yudfl46zauvv8rkzjgd4u0zk2aseys"
+account_addr = "cosmos14l0fp639yudfl46zauvv8rkzjgd4u0zk0fyvgr"
+lcd_endpoint = "https://sgapiv2.certus.one/"
+voting_power_threshold = 50
+num_peers_threshold = 2
+
+[telegram]
+chat_id = 580361154
+bot_token = "1029801177:AAEELp7k_JJq3cF4kuyYysdZER_L1UHd9Im8XJc"
