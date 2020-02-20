@@ -5,6 +5,20 @@ lcd_endpoint = "https://sgapiv2.certus.one/"
 voting_power_threshold = 50
 num_peers_threshold = 2
 
+[scraper]
+rate = "5s"
+port = ":8080"
+
 [telegram]
-chat_id = 580361154
-bot_token = "1029801177:AAEELp7k_JJq3cF4kuyYysdZER_L1UHd9Im8XJc"
+chat_id = 510331132
+bot_token="1234567890"
+
+[sendgrid]
+token = "1234567890"
+to_email = "xyz@domain.com"
+
+[influxdb]
+port = "8086"
+database = "vcf"
+username = "admin"
+password = "akshay"

@@ -40,7 +40,7 @@ func GetAccountInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
-	addressBalance := convertToCommaSeparated(accResp.Account.Balance[0].Amount) + accResp.Account.Balance[0].Denom
+	addressBalance := convertToCommaSeparated(accResp.Result[0].Amount) + accResp.Result[0].Denom
 	_ = writeToInfluxDb(c, bp, "vcf_account_balance", map[string]string{}, map[string]interface{}{"balance": addressBalance})
 	log.Printf("Address Balance: %s", addressBalance)
 }
