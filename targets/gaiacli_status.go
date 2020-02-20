@@ -31,38 +31,56 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
+	var p1 *client.Point
 	validatorActive := status.NodeInfo.ValidatorInfo.VotingPower != "0"
 	if !validatorActive {
 		_ = SendTelegramAlert("Validator has been jailed!", cfg)
 		_ = SendEmailAlert("Validator has been jailed!", cfg)
+		p1, err = createDataPoint("vcf_validator_status", map[string]string{}, map[string]interface{}{"status": 0})
+	} else {
+		p1, err = createDataPoint("vcf_validator_status", map[string]string{}, map[string]interface{}{"status": 1})
 	}
-	p1, err := createDataPoint("vcf_validator_status", map[string]string{}, map[string]interface{}{"status": validatorActive})
 	if err == nil {
 		pts = append(pts, p1)
 	}
 
+	var bh int
 	currentBlockHeight := status.NodeInfo.SyncInfo.LatestBlockHeight
 	if currentBlockHeight == "" {
-		currentBlockHeight = "NA"
+		bh = 0
+	} else {
+		bh, err = strconv.Atoi(currentBlockHeight)
+		if err != nil {
+			bh = 0
+		}
 	}
-	p2, err := createDataPoint("vcf_current_block_height", map[string]string{}, map[string]interface{}{"height": currentBlockHeight})
+	p2, err := createDataPoint("vcf_current_block_height", map[string]string{}, map[string]interface{}{"height": bh})
 	if err == nil {
 		pts = append(pts, p2)
 	}
 
+	var synced int
 	caughtUp := !status.NodeInfo.SyncInfo.CatchingUp
 	if caughtUp {
 		_ = SendTelegramAlert("Your node has been synced!", cfg)
 		_ = SendEmailAlert("Your node has been synced!", cfg)
+		synced = 1
+	} else {
+		synced = 0
 	}
-	p3, err := createDataPoint("vcf_node_synced", map[string]string{}, map[string]interface{}{"status": caughtUp})
+	p3, err := createDataPoint("vcf_node_synced", map[string]string{}, map[string]interface{}{"status": synced})
 	if err == nil {
 		pts = append(pts, p3)
 	}
 
-	vp, err := strconv.Atoi(status.NodeInfo.ValidatorInfo.VotingPower)
-	if err != nil {
-		log.Printf("Error while converting votingPower to int: %v", err)
+	var vp int
+	if status.NodeInfo.ValidatorInfo.VotingPower != "" {
+		vp, err = strconv.Atoi(status.NodeInfo.ValidatorInfo.VotingPower)
+		if err != nil {
+			log.Printf("Error while converting votingPower to int: %v", err)
+			vp = 0
+		}
+	} else {
 		vp = 0
 	}
 	p4, err := createDataPoint("vcf_voting_power", map[string]string{}, map[string]interface{}{"power": vp})

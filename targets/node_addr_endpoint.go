@@ -18,7 +18,7 @@ func CheckGaiad(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	if err != nil {
 		_ = SendTelegramAlert("Gaiad is not running", cfg)
 		_ = SendEmailAlert("Gaiad is not running", cfg)
-		_ = writeToInfluxDb(c, bp, "vcf_gaiad_status", map[string]string{}, map[string]interface{}{"status": "down"})
+		_ = writeToInfluxDb(c, bp, "vcf_gaiad_status", map[string]string{}, map[string]interface{}{"status": 0})
 		return
 	}
 
@@ -26,9 +26,9 @@ func CheckGaiad(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	if resp != "" {
 		_ = SendTelegramAlert(fmt.Sprintf("Gaiad is not running: \n%v", resp), cfg)
 		_ = SendEmailAlert(fmt.Sprintf("Gaiad is not running: \n%v", resp), cfg)
-		_ = writeToInfluxDb(c, bp, "vcf_gaiad_status", map[string]string{}, map[string]interface{}{"status": "down"})
+		_ = writeToInfluxDb(c, bp, "vcf_gaiad_status", map[string]string{}, map[string]interface{}{"status": 0})
 		return
 	}
 
-	_ = writeToInfluxDb(c, bp, "vcf_gaiad_status", map[string]string{}, map[string]interface{}{"status": "up"})
+	_ = writeToInfluxDb(c, bp, "vcf_gaiad_status", map[string]string{}, map[string]interface{}{"status": 1})
 }

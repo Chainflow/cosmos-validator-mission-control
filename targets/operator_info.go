@@ -47,9 +47,12 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	validatorDetails := validatorResp.Validator.Details.Description
-	p4, err := createDataPoint("vcf_validator_desc", map[string]string{}, map[string]interface{}{"desc": validatorDetails})
+	p4, err := createDataPoint("vcf_validator_desc", map[string]string{"tag": "moniker"}, map[string]interface{}{"val": validatorDetails.Moniker})
+	p7, err := createDataPoint("vcf_validator_desc", map[string]string{"tag": "website"}, map[string]interface{}{"val": validatorDetails.Website})
+	p8, err := createDataPoint("vcf_validator_desc", map[string]string{"tag": "details"}, map[string]interface{}{"val": validatorDetails.Details})
+	p9, err := createDataPoint("vcf_validator_desc", map[string]string{"tag": "identity"}, map[string]interface{}{"val": validatorDetails.Identity})
 	if err == nil {
-		pts = append(pts, p4)
+		pts = append(pts, p4, p7, p8, p9)
 	}
 
 	var maxRate float64
