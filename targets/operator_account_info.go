@@ -8,6 +8,11 @@ import (
 )
 
 func GetAccountInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
+	bp, err := createBatchPoints(cfg.InfluxDB.Database)
+	if err != nil {
+		return
+	}
+
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
 		log.Printf("Error: %v", err)
@@ -22,6 +27,6 @@ func GetAccountInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	addressBalance := accResp.Account.Balance[0].Amount + accResp.Account.Balance[0].Denom
-
+	_ = writeToInfluxDb(c, bp, "vcf_account_balance", map[string]string{}, map[string]interface{}{"balance": addressBalance})
 	log.Printf("Address Balance: %s", addressBalance)
 }
