@@ -114,8 +114,8 @@ func HitHTTPTarget(ops HTTPOptions) (*PingResp, error) {
 		return nil, err
 	}
 
-	client := http.Client{Timeout: time.Duration(5 * time.Second)}
-	resp, err := client.Do(req)
+	httpcli := http.Client{Timeout: time.Duration(5 * time.Second)}
+	resp, err := httpcli.Do(req)
 	if err != nil {
 		return nil, err
 	}
