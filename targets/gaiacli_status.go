@@ -10,6 +10,43 @@ import (
 	"strconv"
 )
 
+func GetMissedBlocks(cfg *config.Config, c client.Client, cbh int) {
+	bp, err := createBatchPoints(cfg.InfluxDB.Database)
+	if err != nil {
+		return
+	}
+
+	resp, err := HitHTTPTarget(HTTPOptions{
+		Endpoint:    cfg.NodeURL + "block",
+		QueryParams: QueryParams{"height": strconv.Itoa(cbh)},
+		Method:      "GET",
+	})
+	if err != nil {
+		log.Printf("Error getting details of current block: %v", err)
+		return
+	}
+
+	var b CurrentBlockWithHeight
+	err = json.Unmarshal(resp.Body, &b)
+	if err != nil {
+		log.Printf("Error: %v", err)
+		return
+	}
+
+	addrExists := false
+	for _, c := range b.Result.Block.LastCommit.Precommits {
+		if c.ValidatorAddress == cfg.ValidatorAddress {
+			addrExists = true
+		}
+	}
+
+	if !addrExists {
+		_ = SendTelegramAlert(fmt.Sprintf("Validator missed a block at block height %d", cbh), cfg)
+		_ = SendEmailAlert(fmt.Sprintf("Validator missed a block at block height %d", cbh), cfg)
+		_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh})
+	}
+}
+
 func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -45,17 +82,13 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 
 	var bh int
 	currentBlockHeight := status.SyncInfo.LatestBlockHeight
-	if currentBlockHeight == "" {
-		bh = 0
-	} else {
+	if currentBlockHeight != "" {
 		bh, err = strconv.Atoi(currentBlockHeight)
-		if err != nil {
-			bh = 0
+		p2, err := createDataPoint("vcf_current_block_height", map[string]string{}, map[string]interface{}{"height": bh})
+		if err == nil {
+			pts = append(pts, p2)
 		}
-	}
-	p2, err := createDataPoint("vcf_current_block_height", map[string]string{}, map[string]interface{}{"height": bh})
-	if err == nil {
-		pts = append(pts, p2)
+		go GetMissedBlocks(cfg, c, bh)
 	}
 
 	var synced int

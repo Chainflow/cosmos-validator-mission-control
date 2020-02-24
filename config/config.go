@@ -34,6 +34,7 @@ type (
 		NodeURL              string   `mapstructure:"node_url"`
 		OperatorAddress      string   `mapstructure:"operator_addr"`
 		AccountAddress       string   `mapstructure:"account_addr"`
+		ValidatorAddress     string   `mapstructure:"validator_addr"`
 		LCDEndpoint          string   `mapstructure:"lcd_endpoint"`
 		VotingPowerThreshold int64    `mapstructure:"voting_power_threshold"`
 		NumPeersThreshold    int64    `mapstructure:"num_peers_threshold"`

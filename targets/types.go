@@ -82,12 +82,6 @@ type (
 		ValidatorInfo ValidatorInfo         `json:"validator_info"`
 	}
 
-	//ValidatorUptime struct {
-	//	Address string `json:"address"`
-	//	Misses  string `json:"misses"`
-	//	Period  string `json:"period"`
-	//}
-
 	ValidatorDescription struct {
 		Moniker  string `json:"moniker"`
 		Identity string `json:"identity"`
@@ -105,33 +99,6 @@ type (
 		CommissionRates ValidatorCommissionRates `json:"commission_rates"`
 		UpdateTime      string                   `json:"update_time"`
 	}
-
-	//ValidatorDetails struct {
-	//	OperatorAddress         string               `json:"operatorAddress"`
-	//	ConsensusPubKey         string               `json:"consensusPubkey"`
-	//	Jailed                  bool                 `json:"jailed"`
-	//	Tombstoned              bool                 `json:"tombstoned"`
-	//	Status                  string               `json:"status"`
-	//	Tokens                  string               `json:"tokens"`
-	//	TokensSelfBonded        string               `json:"tokensSelfBonded"`
-	//	DelegatorShares         string               `json:"delegatorShares"`
-	//	Description             ValidatorDescription `json:"description"`
-	//	UnbondingHeight         string               `json:"unbondingHeight"`
-	//	Commission              ValidatorCommission  `json:"commission"`
-	//	UnbondingCommissiontime string               `json:"unbondingCompletionTime"`
-	//}
-	//
-	//Validator struct {
-	//	Address    string           `json:"address"`
-	//	Weight     string           `json:"weight"`
-	//	WeightRank int              `json:"weight_rank"`
-	//	Uptime     ValidatorUptime  `json:"uptime"`
-	//	Details    ValidatorDetails `json:"details"`
-	//}
-	//
-	//ValidatorResp struct {
-	//	Validator Validator `json:"validator"`
-	//}
 
 	ValidatorResult struct {
 		OperatorAddress   string               `json:"operator_address"`
@@ -157,22 +124,42 @@ type (
 		Amount string `json:"amount"`
 	}
 
-	//Account struct {
-	//	Address       string           `json:"address"`
-	//	Balance       []AccountBalance `json:"balance"`
-	//	PubKey        string           `json:"pubKey"`
-	//	AccountNumber string           `json:"accountNumber"`
-	//	Sequence      string           `json:"sequence"`
-	//	Vested        bool             `json:"vested"`
-	//	VestingInfo   interface{}      `json:"vestingInfo"`
-	//}
-
-	//AccountResp struct {
-	//	Account Account `json:"account"`
-	//}
-
 	AccountResp struct {
 		Height string           `json:"height"`
 		Result []AccountBalance `json:"result"`
+	}
+
+	CurrentBlockPrecommit struct {
+		Type             int64       `json:"type"`
+		Height           string      `json:"height"`
+		Round            string      `json:"round"`
+		BlockId          interface{} `json:"block_id"`
+		Timestamp        string      `json:"timestamp"`
+		ValidatorAddress string      `json:"validator_address"`
+		ValidatorIndex   string      `json:"validator_index"`
+		Signature        string      `json:"signature"`
+	}
+
+	CurrentBlockLastCommit struct {
+		BlockId    interface{}             `json:"block_id"`
+		Precommits []CurrentBlockPrecommit `json:"precommits"`
+	}
+
+	CurrentBlock struct {
+		Header     interface{}            `json:"header"`
+		Data       interface{}            `json:"data"`
+		Evidence   interface{}            `json:"evidence"`
+		LastCommit CurrentBlockLastCommit `json:"last_commit"`
+	}
+
+	CurrentBlockWithHeightResult struct {
+		BlockMeta interface{}  `json:"block_meta"`
+		Block     CurrentBlock `json:"block"`
+	}
+
+	CurrentBlockWithHeight struct {
+		JSONRPC string                       `json:"jsonrpc"`
+		Id      string                       `json:"id"`
+		Result  CurrentBlockWithHeightResult `json:"result"`
 	}
 )
