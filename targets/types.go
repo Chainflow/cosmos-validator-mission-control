@@ -195,4 +195,9 @@ type (
 		Height string           `json:"height"`
 		Result []ProposalResult `json:"result"`
 	}
+
+	RejectedProposal struct {
+		Height string           `json:"height"`
+		Result []ProposalResult `json:"result"`
+	}
 )

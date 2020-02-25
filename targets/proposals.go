@@ -191,7 +191,7 @@ func GetRejectedProposals(ops HTTPOptions, cfg *config.Config, c client.Client) 
 		return
 	}
 
-	var p PassedProposal
+	var p RejectedProposal
 	err = json.Unmarshal(resp.Body, &p)
 	if err != nil {
 		log.Printf("Error: %v", err)
