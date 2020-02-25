@@ -4,11 +4,10 @@ import (
 	"chainflow-vitwit/config"
 	"encoding/json"
 	"fmt"
+	client "github.com/influxdata/influxdb1-client/v2"
 	"log"
 	"os/exec"
 	"strconv"
-
-	client "github.com/influxdata/influxdb1-client/v2"
 )
 
 func GetMissedBlocks(cfg *config.Config, c client.Client, cbh int) {
