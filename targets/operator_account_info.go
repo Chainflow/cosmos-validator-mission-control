@@ -3,11 +3,12 @@ package targets
 import (
 	"chainflow-vitwit/config"
 	"encoding/json"
+	"log"
+	"strconv"
+
 	client "github.com/influxdata/influxdb1-client/v2"
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
-	"log"
-	"strconv"
 )
 
 func convertToCommaSeparated(amt string) string {
@@ -40,7 +41,9 @@ func GetAccountInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
-	addressBalance := convertToCommaSeparated(accResp.Result[0].Amount) + accResp.Result[0].Denom
-	_ = writeToInfluxDb(c, bp, "vcf_account_balance", map[string]string{}, map[string]interface{}{"balance": addressBalance})
-	log.Printf("Address Balance: %s", addressBalance)
+	if len(accResp.Result) > 0 {
+		addressBalance := convertToCommaSeparated(accResp.Result[0].Amount) + accResp.Result[0].Denom
+		_ = writeToInfluxDb(c, bp, "vcf_account_balance", map[string]string{}, map[string]interface{}{"balance": addressBalance})
+		log.Printf("Address Balance: %s", addressBalance)
+	}
 }
