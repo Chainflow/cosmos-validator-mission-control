@@ -2,6 +2,7 @@ package targets
 
 import (
 	"chainflow-vitwit/config"
+
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
@@ -161,5 +162,37 @@ type (
 		JSONRPC string                       `json:"jsonrpc"`
 		Id      string                       `json:"id"`
 		Result  CurrentBlockWithHeightResult `json:"result"`
+	}
+
+	ProposalResultContent struct {
+		Type  string      `json:"type"`
+		Value interface{} `json:"value"`
+	}
+
+	ProposalResult struct {
+		Content          ProposalResultContent `json:"content"`
+		Id               string                `json:"id"`
+		ProposalStatus   string                `json:"proposal_status"`
+		FinalTallyResult interface{}           `json:"final_tally_result"`
+		SubmitTime       string                `json:"submit_time"`
+		DepositEndTime   string                `json:"deposit_end_time"`
+		TotalDeposit     []interface{}         `json:"total_deposit"`
+		VotingStartTime  string                `json:"voting_start_time"`
+		VotingEndTime    string                `json:"voting_end_time"`
+	}
+
+	DepositPeriodProposal struct {
+		Height string           `json:"height"`
+		Result []ProposalResult `json:"result"`
+	}
+
+	VotingPeriodProposal struct {
+		Height string           `json:"height"`
+		Result []ProposalResult `json:"result"`
+	}
+
+	PassedProposal struct {
+		Height string           `json:"height"`
+		Result []ProposalResult `json:"result"`
 	}
 )
