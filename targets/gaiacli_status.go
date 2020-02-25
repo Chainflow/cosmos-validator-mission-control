@@ -4,10 +4,11 @@ import (
 	"chainflow-vitwit/config"
 	"encoding/json"
 	"fmt"
-	client "github.com/influxdata/influxdb1-client/v2"
 	"log"
 	"os/exec"
 	"strconv"
+
+	client "github.com/influxdata/influxdb1-client/v2"
 )
 
 func GetMissedBlocks(cfg *config.Config, c client.Client, cbh int) {
@@ -92,10 +93,10 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	var synced int
-	caughtUp := !status.SyncInfo.CatchingUp
+	caughtUp := status.SyncInfo.CatchingUp
 	if caughtUp {
-		_ = SendTelegramAlert("Your node has been synced!", cfg)
-		_ = SendEmailAlert("Your node has been synced!", cfg)
+		_ = SendTelegramAlert("Your node is not synced!", cfg)
+		_ = SendEmailAlert("Your node is not synced!", cfg)
 		synced = 1
 	} else {
 		synced = 0
