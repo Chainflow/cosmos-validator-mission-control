@@ -68,6 +68,46 @@ func InitTargets(cfg *config.Config) *Targets {
 			Name:          "Gaiad Version",
 			Func:          GaiadVersion,
 		},
+		{
+			ExecutionType: "http",
+			Name:          "Deposit Period Proposals",
+			HTTPOptions: HTTPOptions{
+				Endpoint: "https://api.cosmos.network/gov/proposals",
+				Method:   http.MethodGet,
+				QueryParams:QueryParams{"status": "deposit_period"},
+			},
+			Func: GetDepositPeriodProposals,
+		},
+		{
+			ExecutionType: "http",
+			Name:          "Voting Period Proposals",
+			HTTPOptions: HTTPOptions{
+				Endpoint: "https://api.cosmos.network/gov/proposals",
+				Method:   http.MethodGet,
+				QueryParams:QueryParams{"status": "voting_period"},
+			},
+			Func: GetVotingPeriodProposals,
+		},
+		{
+			ExecutionType: "http",
+			Name:          "Passed Proposals",
+			HTTPOptions: HTTPOptions{
+				Endpoint: "https://api.cosmos.network/gov/proposals",
+				Method:   http.MethodGet,
+				QueryParams:QueryParams{"status": "passed"},
+			},
+			Func: GetPassedProposals,
+		},
+		{
+			ExecutionType: "http",
+			Name:          "Rejected Proposals",
+			HTTPOptions: HTTPOptions{
+				Endpoint: "https://api.cosmos.network/gov/proposals",
+				Method:   http.MethodGet,
+				QueryParams:QueryParams{"status": "rejected"},
+			},
+			Func: GetRejectedProposals,
+		},
 	}}
 }
 
