@@ -109,7 +109,7 @@ func GetVotingPeriodProposals(ops HTTPOptions, cfg *config.Config, c client.Clie
 				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to voting period with proposal id = %s", proposal.Id), cfg)
 				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to voting period with proposal id = %s", proposal.Id), cfg)
 
-				q := client.NewQuery(fmt.Sprintf("DELETEE  FROM vcf_deposit_period_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
+				q := client.NewQuery(fmt.Sprintf("DELETE  FROM vcf_deposit_period_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
 				if response, err := c.Query(q); err == nil && response.Error() == nil {
 					log.Printf("Delete proposal %s from vcf_deposit_period_proposals", proposal.Id)
 				} else {
@@ -168,7 +168,7 @@ func GetPassedProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has passed with proposal id = %s", proposal.Id), cfg)
 				_ = SendEmailAlert(fmt.Sprintf("A new proposal has passeed with proposal id = %s", proposal.Id), cfg)
 
-				q := client.NewQuery(fmt.Sprintf("DELETEE FROM vcf_voting_period_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
+				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_voting_period_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
 				if response, err := c.Query(q); err == nil && response.Error() == nil {
 					log.Printf("Delete proposal %s from vcf_voting_period_proposals", proposal.Id)
 				} else {
@@ -227,7 +227,7 @@ func GetRejectedProposals(ops HTTPOptions, cfg *config.Config, c client.Client) 
 				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been rejected with proposal id = %s", proposal.Id), cfg)
 				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been rejected with proposal id = %s", proposal.Id), cfg)
 
-				q := client.NewQuery(fmt.Sprintf("DELETEE FROM vcf_voting_period_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
+				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_voting_period_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
 				if response, err := c.Query(q); err == nil && response.Error() == nil {
 					log.Printf("Delete proposal %s from vcf_voting_period_proposals", proposal.Id)
 				} else {
