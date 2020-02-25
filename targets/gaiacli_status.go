@@ -97,9 +97,9 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	if !caughtUp {
 		_ = SendTelegramAlert("Your node is not synced!", cfg)
 		_ = SendEmailAlert("Your node is not synced!", cfg)
-		synced = 1
-	} else {
 		synced = 0
+	} else {
+		synced = 1
 	}
 	p3, err := createDataPoint("vcf_node_synced", map[string]string{}, map[string]interface{}{"status": synced})
 	if err == nil {
