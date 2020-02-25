@@ -3,11 +3,12 @@ package targets
 import (
 	"bytes"
 	"chainflow-vitwit/config"
-	client "github.com/influxdata/influxdb1-client/v2"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"time"
+
+	client "github.com/influxdata/influxdb1-client/v2"
 )
 
 type targetRunner struct{}
@@ -58,7 +59,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Operator Account Information",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "bank/balances/" + cfg.OperatorAddress,
+				Endpoint: cfg.LCDEndpoint + "bank/balances/" + cfg.AccountAddress,
 				Method:   http.MethodGet,
 			},
 			Func: GetAccountInfo,
@@ -72,9 +73,9 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Deposit Period Proposals",
 			HTTPOptions: HTTPOptions{
-				Endpoint: "https://api.cosmos.network/gov/proposals",
-				Method:   http.MethodGet,
-				QueryParams:QueryParams{"status": "deposit_period"},
+				Endpoint:    "https://api.cosmos.network/gov/proposals",
+				Method:      http.MethodGet,
+				QueryParams: QueryParams{"status": "deposit_period"},
 			},
 			Func: GetDepositPeriodProposals,
 		},
@@ -82,9 +83,9 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Voting Period Proposals",
 			HTTPOptions: HTTPOptions{
-				Endpoint: "https://api.cosmos.network/gov/proposals",
-				Method:   http.MethodGet,
-				QueryParams:QueryParams{"status": "voting_period"},
+				Endpoint:    "https://api.cosmos.network/gov/proposals",
+				Method:      http.MethodGet,
+				QueryParams: QueryParams{"status": "voting_period"},
 			},
 			Func: GetVotingPeriodProposals,
 		},
@@ -92,9 +93,9 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Passed Proposals",
 			HTTPOptions: HTTPOptions{
-				Endpoint: "https://api.cosmos.network/gov/proposals",
-				Method:   http.MethodGet,
-				QueryParams:QueryParams{"status": "passed"},
+				Endpoint:    "https://api.cosmos.network/gov/proposals",
+				Method:      http.MethodGet,
+				QueryParams: QueryParams{"status": "passed"},
 			},
 			Func: GetPassedProposals,
 		},
@@ -102,9 +103,9 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Rejected Proposals",
 			HTTPOptions: HTTPOptions{
-				Endpoint: "https://api.cosmos.network/gov/proposals",
-				Method:   http.MethodGet,
-				QueryParams:QueryParams{"status": "rejected"},
+				Endpoint:    "https://api.cosmos.network/gov/proposals",
+				Method:      http.MethodGet,
+				QueryParams: QueryParams{"status": "rejected"},
 			},
 			Func: GetRejectedProposals,
 		},
