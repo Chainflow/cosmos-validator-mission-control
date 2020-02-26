@@ -31,15 +31,16 @@ func GetDepositPeriodProposals(ops HTTPOptions, cfg *config.Config, c client.Cli
 	for _, proposal := range p.Result {
 		tag := map[string]string{"id": proposal.Id}
 		fields := map[string]interface{}{
-			"content.type":       proposal.Content.Type,
-			"content.value":      proposal.Content.Value,
-			"proposal_status":    proposal.ProposalStatus,
-			"final_tally_result": proposal.FinalTallyResult,
-			"submit_time":        proposal.SubmitTime,
-			"deposit_end_time":   proposal.DepositEndTime,
-			"total_deposit":      proposal.TotalDeposit,
-			"voting_start_time":  proposal.VotingStartTime,
-			"voting_end_time":    proposal.VotingEndTime,
+			"content_type":              proposal.Content.Type,
+			"content_value_title":       proposal.Content.Value.Title,
+			"content_value_description": proposal.Content.Value.Description,
+			"proposal_status":           proposal.ProposalStatus,
+			"final_tally_result":        proposal.FinalTallyResult,
+			"submit_time":               proposal.SubmitTime,
+			"deposit_end_time":          proposal.DepositEndTime,
+			"total_deposit":             proposal.TotalDeposit,
+			"voting_start_time":         proposal.VotingStartTime,
+			"voting_end_time":           proposal.VotingEndTime,
 		}
 		newProposal := false
 		q := client.NewQuery(fmt.Sprintf("SELECT count(*) as count FROM vcf_deposit_period_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
@@ -83,15 +84,16 @@ func GetVotingPeriodProposals(ops HTTPOptions, cfg *config.Config, c client.Clie
 	for _, proposal := range p.Result {
 		tag := map[string]string{"id": proposal.Id}
 		fields := map[string]interface{}{
-			"content.type":       proposal.Content.Type,
-			"content.value":      proposal.Content.Value,
-			"proposal_status":    proposal.ProposalStatus,
-			"final_tally_result": proposal.FinalTallyResult,
-			"submit_time":        proposal.SubmitTime,
-			"deposit_end_time":   proposal.DepositEndTime,
-			"total_deposit":      proposal.TotalDeposit,
-			"voting_start_time":  proposal.VotingStartTime,
-			"voting_end_time":    proposal.VotingEndTime,
+			"content_type":              proposal.Content.Type,
+			"content_value_title":       proposal.Content.Value.Title,
+			"content_value_description": proposal.Content.Value.Description,
+			"proposal_status":           proposal.ProposalStatus,
+			"final_tally_result":        proposal.FinalTallyResult,
+			"submit_time":               proposal.SubmitTime,
+			"deposit_end_time":          proposal.DepositEndTime,
+			"total_deposit":             proposal.TotalDeposit,
+			"voting_start_time":         proposal.VotingStartTime,
+			"voting_end_time":           proposal.VotingEndTime,
 		}
 		newProposal := false
 		q := client.NewQuery(fmt.Sprintf("SELECT count(*) as count FROM vcf_voting_period_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
@@ -142,15 +144,16 @@ func GetPassedProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	for _, proposal := range p.Result {
 		tag := map[string]string{"id": proposal.Id}
 		fields := map[string]interface{}{
-			"content.type":       proposal.Content.Type,
-			"content.value":      proposal.Content.Value,
-			"proposal_status":    proposal.ProposalStatus,
-			"final_tally_result": proposal.FinalTallyResult,
-			"submit_time":        proposal.SubmitTime,
-			"deposit_end_time":   proposal.DepositEndTime,
-			"total_deposit":      proposal.TotalDeposit,
-			"voting_start_time":  proposal.VotingStartTime,
-			"voting_end_time":    proposal.VotingEndTime,
+			"content_type":              proposal.Content.Type,
+			"content_value_title":       proposal.Content.Value.Title,
+			"content_value_description": proposal.Content.Value.Description,
+			"proposal_status":           proposal.ProposalStatus,
+			"final_tally_result":        proposal.FinalTallyResult,
+			"submit_time":               proposal.SubmitTime,
+			"deposit_end_time":          proposal.DepositEndTime,
+			"total_deposit":             proposal.TotalDeposit,
+			"voting_start_time":         proposal.VotingStartTime,
+			"voting_end_time":           proposal.VotingEndTime,
 		}
 		newProposal := false
 		q := client.NewQuery(fmt.Sprintf("SELECT count(*) as count FROM vcf_passed_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
@@ -201,15 +204,16 @@ func GetRejectedProposals(ops HTTPOptions, cfg *config.Config, c client.Client) 
 	for _, proposal := range p.Result {
 		tag := map[string]string{"id": proposal.Id}
 		fields := map[string]interface{}{
-			"content.type":       proposal.Content.Type,
-			"content.value":      proposal.Content.Value,
-			"proposal_status":    proposal.ProposalStatus,
-			"final_tally_result": proposal.FinalTallyResult,
-			"submit_time":        proposal.SubmitTime,
-			"deposit_end_time":   proposal.DepositEndTime,
-			"total_deposit":      proposal.TotalDeposit,
-			"voting_start_time":  proposal.VotingStartTime,
-			"voting_end_time":    proposal.VotingEndTime,
+			"content_type":              proposal.Content.Type,
+			"content_value_title":       proposal.Content.Value.Title,
+			"content_value_description": proposal.Content.Value.Description,
+			"proposal_status":           proposal.ProposalStatus,
+			"final_tally_result":        proposal.FinalTallyResult,
+			"submit_time":               proposal.SubmitTime,
+			"deposit_end_time":          proposal.DepositEndTime,
+			"total_deposit":             proposal.TotalDeposit,
+			"voting_start_time":         proposal.VotingStartTime,
+			"voting_end_time":           proposal.VotingEndTime,
 		}
 		newProposal := false
 		q := client.NewQuery(fmt.Sprintf("SELECT count(*) as count FROM vcf_rejected_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")

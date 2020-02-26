@@ -165,8 +165,11 @@ type (
 	}
 
 	ProposalResultContent struct {
-		Type  string      `json:"type"`
-		Value interface{} `json:"value"`
+		Type  string `json:"type"`
+		Value struct {
+			Title       string `json:"title"`
+			Description string `json:"description"`
+		} `json:"value"`
 	}
 
 	ProposalResult struct {
