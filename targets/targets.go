@@ -119,6 +119,15 @@ func InitTargets(cfg *config.Config) *Targets {
 			},
 			Func: GetSelfDelegation,
 		},
+		{
+			ExecutionType: "http",
+			Name:          "Current Rewards Amount",
+			HTTPOptions: HTTPOptions{
+				Endpoint: cfg.LCDEndpoint + "distribution/validators/" + cfg.OperatorAddress + "/rewards",
+				Method:   http.MethodGet,
+			},
+			Func: GetCurrentRewardsAmount,
+		},
 	}}
 }
 

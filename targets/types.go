@@ -212,4 +212,9 @@ type (
 		Height string                `json:"height"`
 		Result SelfDelegationBalance `json:"result"`
 	}
+
+	CurrentRewardsAmount struct {
+		Height string           `json:"height"`
+		Result []AccountBalance `json:"result"`
+	}
 )
