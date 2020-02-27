@@ -73,7 +73,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Deposit Period Proposals",
 			HTTPOptions: HTTPOptions{
-				Endpoint:    "https://api.cosmos.network/gov/proposals",
+				Endpoint:    cfg.LCDEndpoint + "gov/proposals",
 				Method:      http.MethodGet,
 				QueryParams: QueryParams{"status": "deposit_period"},
 			},
@@ -83,7 +83,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Voting Period Proposals",
 			HTTPOptions: HTTPOptions{
-				Endpoint:    "https://api.cosmos.network/gov/proposals",
+				Endpoint:    cfg.LCDEndpoint + "gov/proposals",
 				Method:      http.MethodGet,
 				QueryParams: QueryParams{"status": "voting_period"},
 			},
@@ -93,7 +93,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Passed Proposals",
 			HTTPOptions: HTTPOptions{
-				Endpoint:    "https://api.cosmos.network/gov/proposals",
+				Endpoint:    cfg.LCDEndpoint + "gov/proposals",
 				Method:      http.MethodGet,
 				QueryParams: QueryParams{"status": "passed"},
 			},
@@ -103,11 +103,21 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Rejected Proposals",
 			HTTPOptions: HTTPOptions{
-				Endpoint:    "https://api.cosmos.network/gov/proposals",
+				Endpoint:    cfg.LCDEndpoint + "gov/proposals",
 				Method:      http.MethodGet,
 				QueryParams: QueryParams{"status": "rejected"},
 			},
 			Func: GetRejectedProposals,
+		},
+		{
+			ExecutionType: "http",
+			Name:          "Self Delegation",
+			HTTPOptions: HTTPOptions{
+				Endpoint: cfg.LCDEndpoint + cfg.AccountAddress +
+					"/delegations/" + cfg.OperatorAddress,
+				Method: http.MethodGet,
+			},
+			Func: GetSelfDelegation,
 		},
 	}}
 }

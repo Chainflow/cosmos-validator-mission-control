@@ -203,4 +203,13 @@ type (
 		Height string           `json:"height"`
 		Result []ProposalResult `json:"result"`
 	}
+
+	SelfDelegationBalance struct {
+		Balance string `json:"balance"`
+	}
+
+	SelfDelegation struct {
+		Height string                `json:"height"`
+		Result SelfDelegationBalance `json:"result"`
+	}
 )
