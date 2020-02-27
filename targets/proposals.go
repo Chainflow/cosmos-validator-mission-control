@@ -31,6 +31,7 @@ func GetDepositPeriodProposals(ops HTTPOptions, cfg *config.Config, c client.Cli
 	for _, proposal := range p.Result {
 		tag := map[string]string{"id": proposal.Id}
 		fields := map[string]interface{}{
+			"id":                        proposal.Id,
 			"content_type":              proposal.Content.Type,
 			"content_value_title":       proposal.Content.Value.Title,
 			"content_value_description": proposal.Content.Value.Description,
@@ -84,6 +85,7 @@ func GetVotingPeriodProposals(ops HTTPOptions, cfg *config.Config, c client.Clie
 	for _, proposal := range p.Result {
 		tag := map[string]string{"id": proposal.Id}
 		fields := map[string]interface{}{
+			"id":                        proposal.Id,
 			"content_type":              proposal.Content.Type,
 			"content_value_title":       proposal.Content.Value.Title,
 			"content_value_description": proposal.Content.Value.Description,
@@ -144,6 +146,7 @@ func GetPassedProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	for _, proposal := range p.Result {
 		tag := map[string]string{"id": proposal.Id}
 		fields := map[string]interface{}{
+			"id":                        proposal.Id,
 			"content_type":              proposal.Content.Type,
 			"content_value_title":       proposal.Content.Value.Title,
 			"content_value_description": proposal.Content.Value.Description,
@@ -204,6 +207,7 @@ func GetRejectedProposals(ops HTTPOptions, cfg *config.Config, c client.Client) 
 	for _, proposal := range p.Result {
 		tag := map[string]string{"id": proposal.Id}
 		fields := map[string]interface{}{
+			"id":                        proposal.Id,
 			"content_type":              proposal.Content.Type,
 			"content_value_title":       proposal.Content.Value.Title,
 			"content_value_description": proposal.Content.Value.Description,
