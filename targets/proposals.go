@@ -33,7 +33,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	for _, proposal := range p.Result {
 
 		// Get proposal voters
-		proposalURL := "http://http://134.209.142.233:1317/" + "gov/proposals/" + proposal.Id + "/votes"
+		proposalURL := cfg.LCDEndpoint + "gov/proposals/" + proposal.Id + "/votes"
 		res, err := http.Get(proposalURL)
 		if err != nil {
 			log.Printf("Error: %v", err)
