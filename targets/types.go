@@ -217,4 +217,20 @@ type (
 		Height string           `json:"height"`
 		Result []AccountBalance `json:"result"`
 	}
+
+	LastProposedBlockAndTime struct {
+		Blocks []struct {
+			Height string `json:"height"`
+			Time   string `json:"time"`
+		} `json:"blocks"`
+	}
+
+	ProposalVoters struct {
+		Height string `json:"height"`
+		Result []struct {
+			ProposalID string `json:"proposal_id"`
+			Voter      string `json:"voter"`
+			Option     string `json:"option"`
+		} `json:"result"`
+	}
 )

@@ -4,6 +4,7 @@ import (
 	"chainflow-vitwit/config"
 	"encoding/json"
 	"log"
+	"strconv"
 
 	client "github.com/influxdata/influxdb1-client/v2"
 )
@@ -30,7 +31,10 @@ func GetCurrentRewardsAmount(ops HTTPOptions, cfg *config.Config, c client.Clien
 	}
 
 	if len(rewardsResp.Result) > 0 {
-		addressBalance := convertToCommaSeparated(rewardsResp.Result[0].Amount) + rewardsResp.Result[0].Denom
+		f, _ := strconv.ParseFloat(rewardsResp.Result[0].Amount, 64)
+		num := int(f)
+		amount := strconv.Itoa(num)
+		addressBalance := convertToCommaSeparated(amount) + rewardsResp.Result[0].Denom
 		_ = writeToInfluxDb(c, bp, "vcf_current_rewards_amount", map[string]string{}, map[string]interface{}{"amount": addressBalance})
 		log.Printf("Address Balance: %s", addressBalance)
 	}
