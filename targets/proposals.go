@@ -4,12 +4,14 @@ import (
 	"chainflow-vitwit/config"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
+	"net/http"
 
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-func GetDepositPeriodProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
+func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
 		return
@@ -29,6 +31,31 @@ func GetDepositPeriodProposals(ops HTTPOptions, cfg *config.Config, c client.Cli
 	}
 
 	for _, proposal := range p.Result {
+
+		// Get proposal voters
+		proposalURL := cfg.LCDEndpoint + "gov/proposals/" + proposal.Id + "/votes"
+		res, err := http.Get(proposalURL)
+		if err != nil {
+			log.Printf("Error: %v", err)
+			return
+		}
+
+		var voters ProposalVoters
+		if res != nil {
+			body, err := ioutil.ReadAll(res.Body)
+			if err != nil {
+				fmt.Println("Error while reading resp body ", err)
+			}
+			_ = json.Unmarshal(body, &voters)
+		}
+
+		validatorVoted := "no"
+		for _, value := range voters.Result {
+			if value.Voter == cfg.AccountAddress {
+				validatorVoted = "yes"
+			}
+		}
+
 		tag := map[string]string{"id": proposal.Id}
 		fields := map[string]interface{}{
 			"id":                        proposal.Id,
@@ -42,9 +69,10 @@ func GetDepositPeriodProposals(ops HTTPOptions, cfg *config.Config, c client.Cli
 			"total_deposit":             proposal.TotalDeposit,
 			"voting_start_time":         proposal.VotingStartTime,
 			"voting_end_time":           proposal.VotingEndTime,
+			"validator_voted":           validatorVoted,
 		}
 		newProposal := false
-		q := client.NewQuery(fmt.Sprintf("SELECT count(*) as count FROM vcf_deposit_period_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
+		q := client.NewQuery(fmt.Sprintf("SELECT * FROM vcf_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
 		if response, err := c.Query(q); err == nil && response.Error() == nil {
 			for _, r := range response.Results {
 				if len(r.Series) == 0 {
@@ -55,192 +83,18 @@ func GetDepositPeriodProposals(ops HTTPOptions, cfg *config.Config, c client.Cli
 
 			if newProposal {
 				log.Printf("New Proposal Came In Deposit Period: %s", proposal.Id)
-				_ = writeToInfluxDb(c, bp, "vcf_deposit_period_proposals", tag, fields)
-				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to deposit period with proposal id = %s", proposal.Id), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to deposit period with proposal id = %s", proposal.Id), cfg)
-			}
-		}
-	}
-}
-
-func GetVotingPeriodProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
-	bp, err := createBatchPoints(cfg.InfluxDB.Database)
-	if err != nil {
-		return
-	}
-
-	resp, err := HitHTTPTarget(ops)
-	if err != nil {
-		log.Printf("Error: %v", err)
-		return
-	}
-
-	var p VotingPeriodProposal
-	err = json.Unmarshal(resp.Body, &p)
-	if err != nil {
-		log.Printf("Error: %v", err)
-		return
-	}
-
-	for _, proposal := range p.Result {
-		tag := map[string]string{"id": proposal.Id}
-		fields := map[string]interface{}{
-			"id":                        proposal.Id,
-			"content_type":              proposal.Content.Type,
-			"content_value_title":       proposal.Content.Value.Title,
-			"content_value_description": proposal.Content.Value.Description,
-			"proposal_status":           proposal.ProposalStatus,
-			"final_tally_result":        proposal.FinalTallyResult,
-			"submit_time":               proposal.SubmitTime,
-			"deposit_end_time":          proposal.DepositEndTime,
-			"total_deposit":             proposal.TotalDeposit,
-			"voting_start_time":         proposal.VotingStartTime,
-			"voting_end_time":           proposal.VotingEndTime,
-		}
-		newProposal := false
-		q := client.NewQuery(fmt.Sprintf("SELECT count(*) as count FROM vcf_voting_period_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
-		if response, err := c.Query(q); err == nil && response.Error() == nil {
-			for _, r := range response.Results {
-				if len(r.Series) == 0 {
-					newProposal = true
-					break
+				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
+				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
+				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
+			} else {
+				q := client.NewQuery(fmt.Sprintf("UPDATE vcf_proposals SET proposal_status=%s, validator_voted=%s,voting_start_time=%s,voting_end_time=%s WHERE id = '%s'", proposal.ProposalStatus, validatorVoted, proposal.VotingStartTime, proposal.VotingEndTime, proposal.Id), cfg.InfluxDB.Database, "")
+				_, err := c.Query(q)
+				if err != nil {
+					log.Print("Error while updating proposal ", err)
+					return
 				}
-			}
-
-			if newProposal {
-				log.Printf("New Proposal Came In Voting Period: %s", proposal.Id)
-				_ = writeToInfluxDb(c, bp, "vcf_voting_period_proposals", tag, fields)
-				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to voting period with proposal id = %s", proposal.Id), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to voting period with proposal id = %s", proposal.Id), cfg)
-
-				q := client.NewQuery(fmt.Sprintf("DELETE  FROM vcf_deposit_period_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
-				if response, err := c.Query(q); err == nil && response.Error() == nil {
-					log.Printf("Delete proposal %s from vcf_deposit_period_proposals", proposal.Id)
-				} else {
-					log.Printf("Failed to delete proposal %s from vcf_deposit_period_proposals", proposal.Id)
-				}
-			}
-		}
-	}
-}
-
-func GetPassedProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
-	bp, err := createBatchPoints(cfg.InfluxDB.Database)
-	if err != nil {
-		return
-	}
-
-	resp, err := HitHTTPTarget(ops)
-	if err != nil {
-		log.Printf("Error: %v", err)
-		return
-	}
-
-	var p PassedProposal
-	err = json.Unmarshal(resp.Body, &p)
-	if err != nil {
-		log.Printf("Error: %v", err)
-		return
-	}
-
-	for _, proposal := range p.Result {
-		tag := map[string]string{"id": proposal.Id}
-		fields := map[string]interface{}{
-			"id":                        proposal.Id,
-			"content_type":              proposal.Content.Type,
-			"content_value_title":       proposal.Content.Value.Title,
-			"content_value_description": proposal.Content.Value.Description,
-			"proposal_status":           proposal.ProposalStatus,
-			"final_tally_result":        proposal.FinalTallyResult,
-			"submit_time":               proposal.SubmitTime,
-			"deposit_end_time":          proposal.DepositEndTime,
-			"total_deposit":             proposal.TotalDeposit,
-			"voting_start_time":         proposal.VotingStartTime,
-			"voting_end_time":           proposal.VotingEndTime,
-		}
-		newProposal := false
-		q := client.NewQuery(fmt.Sprintf("SELECT count(*) as count FROM vcf_passed_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
-		if response, err := c.Query(q); err == nil && response.Error() == nil {
-			for _, r := range response.Results {
-				if len(r.Series) == 0 {
-					newProposal = true
-					break
-				}
-			}
-
-			if newProposal {
-				log.Printf("New Proposal Passed with Proposal ID: %s", proposal.Id)
-				_ = writeToInfluxDb(c, bp, "vcf_passed_proposals", tag, fields)
-				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has passed with proposal id = %s", proposal.Id), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("A new proposal has passeed with proposal id = %s", proposal.Id), cfg)
-
-				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_voting_period_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
-				if response, err := c.Query(q); err == nil && response.Error() == nil {
-					log.Printf("Delete proposal %s from vcf_voting_period_proposals", proposal.Id)
-				} else {
-					log.Printf("Failed to delete proposal %s from vcf_voting_period_proposals", proposal.Id)
-				}
-			}
-		}
-	}
-}
-
-func GetRejectedProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
-	bp, err := createBatchPoints(cfg.InfluxDB.Database)
-	if err != nil {
-		return
-	}
-
-	resp, err := HitHTTPTarget(ops)
-	if err != nil {
-		log.Printf("Error: %v", err)
-		return
-	}
-
-	var p RejectedProposal
-	err = json.Unmarshal(resp.Body, &p)
-	if err != nil {
-		log.Printf("Error: %v", err)
-		return
-	}
-
-	for _, proposal := range p.Result {
-		tag := map[string]string{"id": proposal.Id}
-		fields := map[string]interface{}{
-			"id":                        proposal.Id,
-			"content_type":              proposal.Content.Type,
-			"content_value_title":       proposal.Content.Value.Title,
-			"content_value_description": proposal.Content.Value.Description,
-			"proposal_status":           proposal.ProposalStatus,
-			"final_tally_result":        proposal.FinalTallyResult,
-			"submit_time":               proposal.SubmitTime,
-			"deposit_end_time":          proposal.DepositEndTime,
-			"total_deposit":             proposal.TotalDeposit,
-			"voting_start_time":         proposal.VotingStartTime,
-			"voting_end_time":           proposal.VotingEndTime,
-		}
-		newProposal := false
-		q := client.NewQuery(fmt.Sprintf("SELECT count(*) as count FROM vcf_rejected_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
-		if response, err := c.Query(q); err == nil && response.Error() == nil {
-			for _, r := range response.Results {
-				if len(r.Series) == 0 {
-					newProposal = true
-					break
-				}
-			}
-
-			if newProposal {
-				log.Printf("Proposal Rejected with Proposal ID: %s", proposal.Id)
-				_ = writeToInfluxDb(c, bp, "vcf_rejected_proposals", tag, fields)
-				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been rejected with proposal id = %s", proposal.Id), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been rejected with proposal id = %s", proposal.Id), cfg)
-
-				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_voting_period_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
-				if response, err := c.Query(q); err == nil && response.Error() == nil {
-					log.Printf("Delete proposal %s from vcf_voting_period_proposals", proposal.Id)
-				} else {
-					log.Printf("Failed to delete proposal %s from vcf_voting_period_proposals", proposal.Id)
-				}
+				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
+				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
 			}
 		}
 	}

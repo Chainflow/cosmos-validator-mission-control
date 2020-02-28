@@ -1,10 +1,11 @@
 package config
 
 import (
+	"os"
+
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"gopkg.in/go-playground/validator.v9"
-	"os"
 )
 
 type (
@@ -42,6 +43,7 @@ type (
 		Telegram             Telegram `mapstructure:"telegram"`
 		SendGrid             SendGrid `mapstructure:"sendgrid"`
 		InfluxDB             InfluxDB `mapstructure:"influxdb"`
+		RPCEndpoint          string   `mapstructure:"rpc_endpoint"`
 	}
 )
 

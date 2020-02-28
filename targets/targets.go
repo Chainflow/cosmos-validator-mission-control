@@ -71,43 +71,12 @@ func InitTargets(cfg *config.Config) *Targets {
 		},
 		{
 			ExecutionType: "http",
-			Name:          "Deposit Period Proposals",
+			Name:          "Proposals",
 			HTTPOptions: HTTPOptions{
-				Endpoint:    cfg.LCDEndpoint + "gov/proposals",
-				Method:      http.MethodGet,
-				QueryParams: QueryParams{"status": "deposit_period"},
+				Endpoint: cfg.LCDEndpoint + "gov/proposals",
+				Method:   http.MethodGet,
 			},
-			Func: GetDepositPeriodProposals,
-		},
-		{
-			ExecutionType: "http",
-			Name:          "Voting Period Proposals",
-			HTTPOptions: HTTPOptions{
-				Endpoint:    cfg.LCDEndpoint + "gov/proposals",
-				Method:      http.MethodGet,
-				QueryParams: QueryParams{"status": "voting_period"},
-			},
-			Func: GetVotingPeriodProposals,
-		},
-		{
-			ExecutionType: "http",
-			Name:          "Passed Proposals",
-			HTTPOptions: HTTPOptions{
-				Endpoint:    cfg.LCDEndpoint + "gov/proposals",
-				Method:      http.MethodGet,
-				QueryParams: QueryParams{"status": "passed"},
-			},
-			Func: GetPassedProposals,
-		},
-		{
-			ExecutionType: "http",
-			Name:          "Rejected Proposals",
-			HTTPOptions: HTTPOptions{
-				Endpoint:    cfg.LCDEndpoint + "gov/proposals",
-				Method:      http.MethodGet,
-				QueryParams: QueryParams{"status": "rejected"},
-			},
-			Func: GetRejectedProposals,
+			Func: GetProposals,
 		},
 		{
 			ExecutionType: "http",
@@ -118,6 +87,24 @@ func InitTargets(cfg *config.Config) *Targets {
 				Method: http.MethodGet,
 			},
 			Func: GetSelfDelegation,
+		},
+		{
+			ExecutionType: "http",
+			Name:          "Current Rewards Amount",
+			HTTPOptions: HTTPOptions{
+				Endpoint: cfg.LCDEndpoint + "distribution/validators/" + cfg.OperatorAddress + "/rewards",
+				Method:   http.MethodGet,
+			},
+			Func: GetCurrentRewardsAmount,
+		},
+		{
+			ExecutionType: "http",
+			Name:          "Last proposed block and time",
+			HTTPOptions: HTTPOptions{
+				Endpoint: cfg.RPCEndpoint + "/blocks?limit=1&proposer=" + cfg.OperatorAddress,
+				Method:   http.MethodGet,
+			},
+			Func: GetLatProposedBlockAndTime,
 		},
 	}}
 }
