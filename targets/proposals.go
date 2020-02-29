@@ -97,6 +97,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 					log.Printf("Delete proposal %s from vcf_proposals", proposal.Id)
 				} else {
 					log.Printf("Failed to delete proposal %s from vcf_proposals", proposal.Id)
+					log.Printf("Reason for proposal deletion failure ", err)
 				}
 				log.Printf("Writing the proposal: %s", proposal.Id)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
