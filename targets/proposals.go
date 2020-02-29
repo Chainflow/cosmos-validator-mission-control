@@ -11,6 +11,33 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
+// Check validator voted for the proposal or not
+func GetValidatorVoted(LCDEndpoint string, proposalID string, accountAddress string) string {
+
+	proposalURL := LCDEndpoint + "gov/proposals/" + proposalID + "/votes"
+	res, err := http.Get(proposalURL)
+	if err != nil {
+		log.Printf("Error: %v", err)
+	}
+
+	var voters ProposalVoters
+	if res != nil {
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			fmt.Println("Error while reading resp body ", err)
+		}
+		_ = json.Unmarshal(body, &voters)
+	}
+
+	validatorVoted := "no"
+	for _, value := range voters.Result {
+		if value.Voter == accountAddress {
+			validatorVoted = "yes"
+		}
+	}
+	return validatorVoted
+}
+
 func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -32,28 +59,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	for _, proposal := range p.Result {
 
-		// Get proposal voters
-		proposalURL := cfg.LCDEndpoint + "gov/proposals/" + proposal.Id + "/votes"
-		res, err := http.Get(proposalURL)
-		if err != nil {
-			log.Printf("Error: %v", err)
-		}
-
-		var voters ProposalVoters
-		if res != nil {
-			body, err := ioutil.ReadAll(res.Body)
-			if err != nil {
-				fmt.Println("Error while reading resp body ", err)
-			}
-			_ = json.Unmarshal(body, &voters)
-		}
-
-		validatorVoted := "no"
-		for _, value := range voters.Result {
-			if value.Voter == cfg.AccountAddress {
-				validatorVoted = "yes"
-			}
-		}
+		validatorVoted := GetValidatorVoted(cfg.LCDEndpoint, proposal.Id, cfg.AccountAddress)
 
 		tag := map[string]string{"id": proposal.Id}
 		fields := map[string]interface{}{
@@ -86,13 +92,13 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
 				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
 			} else {
-				q := client.NewQuery(fmt.Sprintf("DELETE  FROM vcf_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
+				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
 				if response, err := c.Query(q); err == nil && response.Error() == nil {
 					log.Printf("Delete proposal %s from vcf_proposals", proposal.Id)
 				} else {
 					log.Printf("Failed to delete proposal %s from vcf_proposals", proposal.Id)
 				}
-				log.Printf("Updating the proposal: %s", proposal.Id)
+				log.Printf("Writing the proposal: %s", proposal.Id)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
 				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
 				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
