@@ -82,7 +82,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Self Delegation",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "/staking/delegators/"+cfg.AccountAddress +
+				Endpoint: cfg.LCDEndpoint + "/staking/delegators/" + cfg.AccountAddress +
 					"/delegations/" + cfg.OperatorAddress,
 				Method: http.MethodGet,
 			},

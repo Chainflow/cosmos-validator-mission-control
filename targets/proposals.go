@@ -37,7 +37,6 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		res, err := http.Get(proposalURL)
 		if err != nil {
 			log.Printf("Error: %v", err)
-			return
 		}
 
 		var voters ProposalVoters
@@ -82,17 +81,19 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			}
 
 			if newProposal {
-				log.Printf("New Proposal Came In Deposit Period: %s", proposal.Id)
+				log.Printf("New Proposal Came: %s", proposal.Id)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
 				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
 				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
 			} else {
-				q := client.NewQuery(fmt.Sprintf("UPDATE vcf_proposals SET proposal_status=%s, validator_voted=%s,voting_start_time=%s,voting_end_time=%s WHERE id = '%s'", proposal.ProposalStatus, validatorVoted, proposal.VotingStartTime, proposal.VotingEndTime, proposal.Id), cfg.InfluxDB.Database, "")
-				_, err := c.Query(q)
-				if err != nil {
-					log.Print("Error while updating proposal ", err)
-					return
+				q := client.NewQuery(fmt.Sprintf("DELETE  FROM vcf_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
+				if response, err := c.Query(q); err == nil && response.Error() == nil {
+					log.Printf("Delete proposal %s from vcf_proposals", proposal.Id)
+				} else {
+					log.Printf("Failed to delete proposal %s from vcf_proposals", proposal.Id)
 				}
+				log.Printf("Updating the proposal: %s", proposal.Id)
+				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
 				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
 				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
 			}
