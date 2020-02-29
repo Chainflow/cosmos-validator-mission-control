@@ -28,10 +28,10 @@ func GetLatProposedBlockAndTime(ops HTTPOptions, cfg *config.Config, c client.Cl
 		return
 	}
 
-	for _, block := range blockResp.Blocks {
+	if cfg.ValidatorAddress == blockResp.BlockMeta.Header.ProposerAddress {
 		fields := map[string]interface{}{
-			"height":     block.Height,
-			"block_time": block.Time,
+			"height":     blockResp.BlockMeta.Header.Height,
+			"block_time": blockResp.BlockMeta.Header.Time,
 		}
 
 		_ = writeToInfluxDb(c, bp, "vcf_last_proposed_block", map[string]string{}, fields)

@@ -92,13 +92,13 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
 				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
 			} else {
-				q := client.NewQuery(fmt.Sprintf("DELETE  FROM vcf_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
+				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
 				if response, err := c.Query(q); err == nil && response.Error() == nil {
 					log.Printf("Delete proposal %s from vcf_proposals", proposal.Id)
 				} else {
 					log.Printf("Failed to delete proposal %s from vcf_proposals", proposal.Id)
 				}
-				log.Printf("Updating the proposal: %s", proposal.Id)
+				log.Printf("Writing the proposal: %s", proposal.Id)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
 				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
 				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)

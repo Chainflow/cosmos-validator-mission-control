@@ -219,10 +219,31 @@ type (
 	}
 
 	LastProposedBlockAndTime struct {
-		Blocks []struct {
-			Height string `json:"height"`
-			Time   string `json:"time"`
-		} `json:"blocks"`
+			BlockMeta struct {
+				BlockID interface{} `json:"block_id"`
+				Header struct {
+					Version struct {
+						Block string `json:"block"`
+						App   string `json:"app"`
+					} `json:"version"`
+					ChainID     string    `json:"chain_id"`
+					Height      string    `json:"height"`
+					Time        string 	  `json:"time"`
+					NumTxs      string    `json:"num_txs"`
+					TotalTxs    string    `json:"total_txs"`
+					LastBlockID interface{} `json:"last_block_id"`
+					LastCommitHash     string `json:"last_commit_hash"`
+					DataHash           string `json:"data_hash"`
+					ValidatorsHash     string `json:"validators_hash"`
+					NextValidatorsHash string `json:"next_validators_hash"`
+					ConsensusHash      string `json:"consensus_hash"`
+					AppHash            string `json:"app_hash"`
+					LastResultsHash    string `json:"last_results_hash"`
+					EvidenceHash       string `json:"evidence_hash"`
+					ProposerAddress    string `json:"proposer_address"`
+				} `json:"header"`
+			} `json:"block_meta"`
+			Block interface{}  `json:"block"`
 	}
 
 	ProposalVoters struct {

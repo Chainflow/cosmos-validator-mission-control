@@ -101,7 +101,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Last proposed block and time",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.RPCEndpoint + "/blocks?limit=1&proposer=" + cfg.OperatorAddress,
+				Endpoint: cfg.LCDEndpoint + "blocks/latest",
 				Method:   http.MethodGet,
 			},
 			Func: GetLatProposedBlockAndTime,
