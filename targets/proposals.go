@@ -63,7 +63,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 		tag := map[string]string{"id": proposal.Id}
 		fields := map[string]interface{}{
-			"id":                        proposal.Id,
+			"proposal_id":               proposal.Id,
 			"content_type":              proposal.Content.Type,
 			"content_value_title":       proposal.Content.Value.Title,
 			"content_value_description": proposal.Content.Value.Description,
@@ -77,7 +77,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			"validator_voted":           validatorVoted,
 		}
 		newProposal := false
-		q := client.NewQuery(fmt.Sprintf("SELECT * FROM vcf_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
+		q := client.NewQuery(fmt.Sprintf("SELECT * FROM vcf_proposals WHERE proposal_id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
 		if response, err := c.Query(q); err == nil && response.Error() == nil {
 			for _, r := range response.Results {
 				if len(r.Series) == 0 {
@@ -97,7 +97,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 					log.Printf("Delete proposal %s from vcf_proposals", proposal.Id)
 				} else {
 					log.Printf("Failed to delete proposal %s from vcf_proposals", proposal.Id)
-					log.Printf("Reason for proposal deletion failure ", err)
+					log.Printf("Reason for proposal deletion failure %v", response)
 				}
 				log.Printf("Writing the proposal: %s", proposal.Id)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
