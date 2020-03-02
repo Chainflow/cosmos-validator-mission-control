@@ -77,12 +77,20 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			"validator_voted":           validatorVoted,
 		}
 		newProposal := false
+		proposalStatus := ""
 		q := client.NewQuery(fmt.Sprintf("SELECT * FROM vcf_proposals WHERE proposal_id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
 		if response, err := c.Query(q); err == nil && response.Error() == nil {
 			for _, r := range response.Results {
 				if len(r.Series) == 0 {
 					newProposal = true
 					break
+				} else {
+					for idx, col := range r.Series[0].Columns {
+						if col == "proposal_status" {
+							v := r.Series[0].Values[0][idx]
+							proposalStatus = fmt.Sprintf("%v", v)
+						}
+					}
 				}
 			}
 
@@ -101,8 +109,10 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 				}
 				log.Printf("Writing the proposal: %s", proposal.Id)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
-				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
+				if proposal.ProposalStatus != proposalStatus {
+					_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
+					_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
+				}
 			}
 		}
 	}
