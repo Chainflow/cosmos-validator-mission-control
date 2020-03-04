@@ -44,6 +44,7 @@ type (
 		SendGrid             SendGrid `mapstructure:"sendgrid"`
 		InfluxDB             InfluxDB `mapstructure:"influxdb"`
 		RPCEndpoint          string   `mapstructure:"rpc_endpoint"`
+		ExternalRPC          string   `mapstructure:"external_rpc"`
 	}
 )
 
@@ -53,6 +54,7 @@ func ReadFromEnv() *Config {
 		OperatorAddress: getEnv("OPERATOR_ADDR", ""),
 		AccountAddress:  getEnv("ACCOUNT_ADDR", ""),
 		LCDEndpoint:     getEnv("LCD_ENDPOINT", ""),
+		RPCEndpoint:     getEnv("EXTERNAL_RPC", ""),
 	}
 }
 
