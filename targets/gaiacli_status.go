@@ -4,10 +4,11 @@ import (
 	"chainflow-vitwit/config"
 	"encoding/json"
 	"fmt"
-	client "github.com/influxdata/influxdb1-client/v2"
 	"log"
 	"os/exec"
 	"strconv"
+
+	client "github.com/influxdata/influxdb1-client/v2"
 )
 
 func GetMissedBlocks(cfg *config.Config, c client.Client, cbh int) {
@@ -105,22 +106,26 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 		pts = append(pts, p3)
 	}
 
-	var vp int
+	var vp string
 	fmt.Printf("VOTING POWER: %s\n", status.ValidatorInfo.VotingPower)
 	if status.ValidatorInfo.VotingPower != "" {
-		vp, err = strconv.Atoi(status.ValidatorInfo.VotingPower)
-		if err != nil {
-			log.Printf("Error while converting votingPower to int: %v", err)
-			vp = 0
-		}
+		// vp, err = strconv.Atoi(status.ValidatorInfo.VotingPower)
+		vp = status.ValidatorInfo.VotingPower
+
 	} else {
-		vp = 0
+		vp = "0"
 	}
-	p4, err := createDataPoint("vcf_voting_power", map[string]string{}, map[string]interface{}{"power": vp})
+	p4, err := createDataPoint("vcf_voting_power", map[string]string{}, map[string]interface{}{"power": vp + "muon"})
 	if err == nil {
 		pts = append(pts, p4)
 	}
-	if int64(vp) <= cfg.VotingPowerThreshold {
+
+	votingPower, err := strconv.Atoi(vp)
+	if err != nil {
+		log.Println("Error wile converting string to int of voting power %v", err)
+	}
+
+	if int64(votingPower) <= cfg.VotingPowerThreshold {
 		_ = SendTelegramAlert(fmt.Sprintf("Your voting power has dropped below %d", cfg.VotingPowerThreshold), cfg)
 		_ = SendEmailAlert(fmt.Sprintf("Your voting power has dropped below %d", cfg.VotingPowerThreshold), cfg)
 	}

@@ -9,6 +9,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
+// Gets the current rewards for an operator address
 func GetCurrentRewardsAmount(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)

@@ -4,10 +4,11 @@ import (
 	"chainflow-vitwit/config"
 	"encoding/json"
 	"fmt"
-	client "github.com/influxdata/influxdb1-client/v2"
 	"log"
 	"strconv"
 	"strings"
+
+	client "github.com/influxdata/influxdb1-client/v2"
 )
 
 func GetNetInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
@@ -44,8 +45,9 @@ func GetNetInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	peerAddrs := make([]string, len(ni.Result.Peers))
 	for i, peer := range ni.Result.Peers {
-		peerAddrs[i] = peer.RemoteIP
+		peerAddrs[i] = peer.RemoteIP + " - " + peer.NodeInfo.Moniker
 	}
+
 	addrs := strings.Join(peerAddrs[:], ",  ")
 	p2, err := createDataPoint("vcf_peer_addresses", map[string]string{"addresses_count": strconv.Itoa(numPeers)}, map[string]interface{}{"addresses": addrs})
 	if err == nil {

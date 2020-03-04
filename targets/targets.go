@@ -106,6 +106,11 @@ func InitTargets(cfg *config.Config) *Targets {
 			},
 			Func: GetLatProposedBlockAndTime,
 		},
+		{
+			ExecutionType: "cmd",
+			Name:          "Latency",
+			Func:          GetLatency,
+		},
 	}}
 }
 
