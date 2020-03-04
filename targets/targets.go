@@ -111,6 +111,15 @@ func InitTargets(cfg *config.Config) *Targets {
 			Name:          "Latency",
 			Func:          GetLatency,
 		},
+		{
+			ExecutionType: "http",
+			Name:          "Network Latest Block",
+			HTTPOptions: HTTPOptions{
+				Endpoint: cfg.ExternalRPC + "status?",
+				Method:   http.MethodGet,
+			},
+			Func: GetNetworkLatestBlock,
+		},
 	}}
 }
 

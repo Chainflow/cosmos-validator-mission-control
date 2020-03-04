@@ -257,4 +257,12 @@ type (
 			Option     string `json:"option"`
 		} `json:"result"`
 	}
+
+	NetworkLatestBlock struct {
+		Result struct {
+			SyncInfo struct {
+				LatestBlockHeight string `json:"latest_block_height"`
+			} `json:"sync_info"`
+		} `json:"result"`
+	}
 )
