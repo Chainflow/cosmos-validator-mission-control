@@ -120,6 +120,15 @@ func InitTargets(cfg *config.Config) *Targets {
 			},
 			Func: GetNetworkLatestBlock,
 		},
+		{
+			ExecutionType: "http",
+			Name:          "Validator Voting Power",
+			HTTPOptions: HTTPOptions{
+				Endpoint: cfg.NodeURL + "validators",
+				Method:   http.MethodGet,
+			},
+			Func: GetValidatorVotingPower,
+		},
 	}}
 }
 

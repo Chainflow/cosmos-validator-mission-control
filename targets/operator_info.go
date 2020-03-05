@@ -3,9 +3,10 @@ package targets
 import (
 	"chainflow-vitwit/config"
 	"encoding/json"
-	client "github.com/influxdata/influxdb1-client/v2"
 	"log"
 	"strconv"
+
+	client "github.com/influxdata/influxdb1-client/v2"
 )
 
 func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
@@ -26,6 +27,17 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	if err != nil {
 		log.Printf("Error: %v", err)
 		return
+	}
+
+	var p0 *client.Point
+	validatorStatus := validatorResp.Result.Jailed
+	if validatorStatus == false {
+		p0, err = createDataPoint("vcf_validator_status", map[string]string{}, map[string]interface{}{"status": 1})
+	} else {
+		p0, err = createDataPoint("vcf_validator_status", map[string]string{}, map[string]interface{}{"status": 0})
+	}
+	if err == nil {
+		pts = append(pts, p0)
 	}
 
 	operatorAddress := validatorResp.Result.OperatorAddress
@@ -88,6 +100,6 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	bp.AddPoints(pts)
 	_ = writeBatchPoints(c, bp)
-	log.Printf("Ooperator Addr: %s \nAddress: %s \nFee: %s \nValidator Details: %v \nMax Rate: %f \nMax Change Rate: %f \n",
-		operatorAddress, address, fee, validatorDetails, maxRate, maxChangeRate)
+	log.Printf("Ooperator Addr: %s \nAddress: %s \nFee: %s \nValidator Details: %v \nMax Rate: %f \nMax Change Rate: %f \nValidator Status: %t \n",
+		operatorAddress, address, fee, validatorDetails, maxRate, maxChangeRate, validatorStatus)
 }

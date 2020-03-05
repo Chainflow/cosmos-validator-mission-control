@@ -68,19 +68,6 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
-	var p1 *client.Point
-	validatorActive := status.ValidatorInfo.VotingPower != "0"
-	if !validatorActive {
-		_ = SendTelegramAlert("Validator has been jailed!", cfg)
-		_ = SendEmailAlert("Validator has been jailed!", cfg)
-		p1, err = createDataPoint("vcf_validator_status", map[string]string{}, map[string]interface{}{"status": 0})
-	} else {
-		p1, err = createDataPoint("vcf_validator_status", map[string]string{}, map[string]interface{}{"status": 1})
-	}
-	if err == nil {
-		pts = append(pts, p1)
-	}
-
 	var bh int
 	currentBlockHeight := status.SyncInfo.LatestBlockHeight
 	if currentBlockHeight != "" {
@@ -106,32 +93,8 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 		pts = append(pts, p3)
 	}
 
-	var vp string
-	fmt.Printf("VOTING POWER: %s\n", status.ValidatorInfo.VotingPower)
-	if status.ValidatorInfo.VotingPower != "" {
-		// vp, err = strconv.Atoi(status.ValidatorInfo.VotingPower)
-		vp = status.ValidatorInfo.VotingPower
-
-	} else {
-		vp = "0"
-	}
-	p4, err := createDataPoint("vcf_voting_power", map[string]string{}, map[string]interface{}{"power": vp + "muon"})
-	if err == nil {
-		pts = append(pts, p4)
-	}
-
-	votingPower, err := strconv.Atoi(vp)
-	if err != nil {
-		log.Println("Error wile converting string to int of voting power %v", err)
-	}
-
-	if int64(votingPower) <= cfg.VotingPowerThreshold {
-		_ = SendTelegramAlert(fmt.Sprintf("Your voting power has dropped below %d", cfg.VotingPowerThreshold), cfg)
-		_ = SendEmailAlert(fmt.Sprintf("Your voting power has dropped below %d", cfg.VotingPowerThreshold), cfg)
-	}
-
 	bp.AddPoints(pts)
 	_ = writeBatchPoints(c, bp)
-	log.Printf("Validator Active: %t \nCurrent Block Height: %s \nCaught Up? %t \nVoting Power: %d \n",
-		validatorActive, currentBlockHeight, caughtUp, vp)
+	log.Printf("\nCurrent Block Height: %s \nCaught Up? %t \n",
+		currentBlockHeight, caughtUp)
 }
