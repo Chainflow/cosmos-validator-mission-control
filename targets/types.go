@@ -265,4 +265,21 @@ type (
 			} `json:"sync_info"`
 		} `json:"result"`
 	}
+
+	ValidatorsHeight struct {
+		Jsonrpc string `json:"jsonrpc"`
+		ID      string `json:"id"`
+		Result  struct {
+			BlockHeight string `json:"block_height"`
+			Validators  []struct {
+				Address string `json:"address"`
+				PubKey  struct {
+					Type  string `json:"type"`
+					Value string `json:"value"`
+				} `json:"pub_key"`
+				VotingPower      string `json:"voting_power"`
+				ProposerPriority string `json:"proposer_priority"`
+			} `json:"validators"`
+		} `json:"result"`
+	}
 )
