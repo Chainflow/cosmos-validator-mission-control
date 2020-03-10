@@ -129,6 +129,15 @@ func InitTargets(cfg *config.Config) *Targets {
 			},
 			Func: GetValidatorVotingPower,
 		},
+		{
+			ExecutionType: "http",
+			Name:          "Block Time Difference",
+			HTTPOptions: HTTPOptions{
+				Endpoint: cfg.NodeURL + "block",
+				Method:   http.MethodGet,
+			},
+			Func: GetBlockTimeDifference,
+		},
 	}}
 }
 

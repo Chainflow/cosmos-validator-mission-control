@@ -150,7 +150,10 @@ type (
 	}
 
 	CurrentBlock struct {
-		Header     interface{}            `json:"header"`
+		Header struct {
+			Height string `json:"height"`
+			Time   string `json:"time`
+		} `json:"header"`
 		Data       interface{}            `json:"data"`
 		Evidence   interface{}            `json:"evidence"`
 		LastCommit CurrentBlockLastCommit `json:"last_commit"`
