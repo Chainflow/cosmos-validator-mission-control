@@ -55,8 +55,8 @@ func GetBlockTimeDifference(ops HTTPOptions, cfg *config.Config, c client.Client
 	}
 
 	prevBlockTime := prevBlockResp.Result.Block.Header.Time
-	convertedCurrentTime, err := time.Parse(time.RFC3339, currentBlockTime)
-	conevrtedPrevBlockTime, err := time.Parse(time.RFC3339, prevBlockTime)
+	convertedCurrentTime, _ := time.Parse(time.RFC3339, currentBlockTime)
+	conevrtedPrevBlockTime, _ := time.Parse(time.RFC3339, prevBlockTime)
 	timeDiff := convertedCurrentTime.Sub(conevrtedPrevBlockTime)
 	diffSeconds := fmt.Sprintf("%.2f", timeDiff.Seconds())
 
