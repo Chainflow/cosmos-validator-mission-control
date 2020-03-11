@@ -87,12 +87,12 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	for _, proposal := range p.Result {
 
-		validatorVoted := GetValidatorVoted(cfg.LCDEndpoint, proposal.Id, cfg.AccountAddress)
-		validatorDeposited := GetValidatorDeposited(cfg.LCDEndpoint, proposal.Id, cfg.AccountAddress)
+		validatorVoted := GetValidatorVoted(cfg.LCDEndpoint, proposal.ID, cfg.AccountAddress)
+		validatorDeposited := GetValidatorDeposited(cfg.LCDEndpoint, proposal.ID, cfg.AccountAddress)
 
-		tag := map[string]string{"id": proposal.Id}
+		tag := map[string]string{"id": proposal.ID}
 		fields := map[string]interface{}{
-			"proposal_id":               proposal.Id,
+			"proposal_id":               proposal.ID,
 			"content_type":              proposal.Content.Type,
 			"content_value_title":       proposal.Content.Value.Title,
 			"content_value_description": proposal.Content.Value.Description,
@@ -108,7 +108,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		}
 		newProposal := false
 		proposalStatus := ""
-		q := client.NewQuery(fmt.Sprintf("SELECT * FROM vcf_proposals WHERE proposal_id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
+		q := client.NewQuery(fmt.Sprintf("SELECT * FROM vcf_proposals WHERE proposal_id = '%s'", proposal.ID), cfg.InfluxDB.Database, "")
 		if response, err := c.Query(q); err == nil && response.Error() == nil {
 			for _, r := range response.Results {
 				if len(r.Series) == 0 {
@@ -125,23 +125,23 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			}
 
 			if newProposal {
-				log.Printf("New Proposal Came: %s", proposal.Id)
+				log.Printf("New Proposal Came: %s", proposal.ID)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
-				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
+				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
+				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
 			} else {
-				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
+				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", proposal.ID), cfg.InfluxDB.Database, "")
 				if response, err := c.Query(q); err == nil && response.Error() == nil {
-					log.Printf("Delete proposal %s from vcf_proposals", proposal.Id)
+					log.Printf("Delete proposal %s from vcf_proposals", proposal.ID)
 				} else {
-					log.Printf("Failed to delete proposal %s from vcf_proposals", proposal.Id)
+					log.Printf("Failed to delete proposal %s from vcf_proposals", proposal.ID)
 					log.Printf("Reason for proposal deletion failure %v", response)
 				}
-				log.Printf("Writing the proposal: %s", proposal.Id)
+				log.Printf("Writing the proposal: %s", proposal.ID)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
 				if proposal.ProposalStatus != proposalStatus {
-					_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
-					_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
+					_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
+					_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
 				}
 			}
 		}
@@ -168,7 +168,7 @@ func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p Proposals) 
 					ID = fmt.Sprintf("%v", proposalID)
 
 					for _, proposal := range p.Result {
-						if proposal.Id == ID {
+						if proposal.ID == ID {
 							found = true
 							break
 						} else {

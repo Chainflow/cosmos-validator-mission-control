@@ -59,7 +59,7 @@ type (
 	// Net info response
 	NetInfo struct {
 		JSONRpc string        `json:"jsonrpc"`
-		Id      string        `json:"id"`
+		ID      string        `json:"id"`
 		Result  NetInfoResult `json:"result"`
 	}
 
@@ -82,7 +82,7 @@ type (
 	// Node info
 	GaiaCliStatusNodeInfo struct {
 		ProtocolVersion interface{} `json:"protocol_version"`
-		Id              string      `json:"id"`
+		ID              string      `json:"id"`
 		ListenAddr      string      `json:"listen_addr"`
 		Network         string      `json:"network"`
 		Version         string      `json:"version"`
@@ -157,7 +157,7 @@ type (
 		Type             int64       `json:"type"`
 		Height           string      `json:"height"`
 		Round            string      `json:"round"`
-		BlockId          interface{} `json:"block_id"`
+		BlockID          interface{} `json:"block_id"`
 		Timestamp        string      `json:"timestamp"`
 		ValidatorAddress string      `json:"validator_address"`
 		ValidatorIndex   string      `json:"validator_index"`
@@ -166,7 +166,7 @@ type (
 
 	// Last commit of current block
 	CurrentBlockLastCommit struct {
-		BlockId    interface{}             `json:"block_id"`
+		BlockID    interface{}             `json:"block_id"`
 		Precommits []CurrentBlockPrecommit `json:"precommits"`
 	}
 
@@ -190,7 +190,7 @@ type (
 	// Current block height response
 	CurrentBlockWithHeight struct {
 		JSONRPC string                       `json:"jsonrpc"`
-		Id      string                       `json:"id"`
+		ID      string                       `json:"id"`
 		Result  CurrentBlockWithHeightResult `json:"result"`
 	}
 
@@ -206,7 +206,7 @@ type (
 	// Proposal result
 	ProposalResult struct {
 		Content          ProposalResultContent `json:"content"`
-		Id               string                `json:"id"`
+		ID               string                `json:"id"`
 		ProposalStatus   string                `json:"proposal_status"`
 		FinalTallyResult interface{}           `json:"final_tally_result"`
 		SubmitTime       string                `json:"submit_time"`

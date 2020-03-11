@@ -1,9 +1,10 @@
 package targets
 
 import (
-	client "github.com/influxdata/influxdb1-client/v2"
 	"log"
 	"time"
+
+	client "github.com/influxdata/influxdb1-client/v2"
 )
 
 func createDataPoint(name string, tags map[string]string, fields map[string]interface{}) (*client.Point, error) {
@@ -42,7 +43,8 @@ func writeToInfluxDb(c client.Client, bp client.BatchPoints, name string, tags m
 		return err
 	}
 	bp.AddPoint(p)
-	if err := writeBatchPoints(c, bp); err != nil {
+	err = writeBatchPoints(c, bp)
+	if err != nil {
 		return err
 	}
 	return nil
