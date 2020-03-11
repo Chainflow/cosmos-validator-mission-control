@@ -148,51 +148,45 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	// Calling fucntion to delete deposit proposals
 	// which are ended
-	depositProposalID, found := DeleteDepoitEndProposals(cfg, c, p)
-	if !found {
-		q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", depositProposalID), cfg.InfluxDB.Database, "")
-		if response, err := c.Query(q); err == nil && response.Error() == nil {
-			log.Printf("Delete proposal %s from vcf_proposals", depositProposalID)
-		} else {
-			log.Printf("Failed to delete proposal %s from vcf_proposals", depositProposalID)
-			log.Printf("Reason for proposal deletion failure %v", response)
-		}
+	err = DeleteDepoitEndProposals(cfg, c, p)
+	if err != nil {
+		log.Printf("Error while deleting proposals")
 	}
 }
 
-func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p DepositPeriodProposal) (string, bool) {
+func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p DepositPeriodProposal) error {
 
-	var status, ID string
+	var ID string
 	found := false
 	q := client.NewQuery("SELECT * FROM vcf_proposals where proposal_status='DepositPeriod'", cfg.InfluxDB.Database, "")
 	if response, err := c.Query(q); err == nil && response.Error() == nil {
 		for _, r := range response.Results {
-
-			// log.Fatalf("results...", len(r.Series))
 			if len(r.Series) != 0 {
-				for idx, col := range r.Series[0].Columns {
-					if col == "proposal_status" {
-						proposalStatus := r.Series[0].Values[0][idx]
-						proposalID := r.Series[0].Values[0][7]
-						status = fmt.Sprintf("%v", proposalStatus)
-						ID = fmt.Sprintf("%v", proposalID)
-						break
-					}
-				}
-			}
+				for idx := range r.Series[0].Values {
+					proposalID := r.Series[0].Values[idx][7]
+					ID = fmt.Sprintf("%v", proposalID)
 
-			if status == "DepositPeriod" {
-				for _, proposal := range p.Result {
-					if proposal.Id == ID {
-						found = true
-						break
-					} else {
-						found = false
+					for _, proposal := range p.Result {
+						if proposal.Id == ID {
+							found = true
+							break
+						} else {
+							found = false
+						}
+					}
+					if !found {
+						q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", ID), cfg.InfluxDB.Database, "")
+						if response, err := c.Query(q); err == nil && response.Error() == nil {
+							log.Printf("Delete proposal %s from vcf_proposals", ID)
+							return err
+						} else {
+							log.Printf("Failed to delete proposal %s from vcf_proposals", ID)
+							log.Printf("Reason for proposal deletion failure %v", response)
+						}
 					}
 				}
 			}
 		}
 	}
-
-	return ID, found
+	return nil
 }
