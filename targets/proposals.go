@@ -29,13 +29,40 @@ func GetValidatorVoted(LCDEndpoint string, proposalID string, accountAddress str
 		_ = json.Unmarshal(body, &voters)
 	}
 
-	validatorVoted := "no"
+	validatorVoted := "not voted"
 	for _, value := range voters.Result {
 		if value.Voter == accountAddress {
-			validatorVoted = "yes"
+			validatorVoted = value.Option
 		}
 	}
 	return validatorVoted
+}
+
+// Check validator deposited for the proposal or not
+func GetValidatorDeposited(LCDEndpoint string, proposalID string, accountAddress string) string {
+
+	proposalURL := LCDEndpoint + "gov/proposals/" + proposalID + "/deposits"
+	res, err := http.Get(proposalURL)
+	if err != nil {
+		log.Printf("Error: %v", err)
+	}
+
+	var depositors Depositors
+	if res != nil {
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			fmt.Println("Error while reading resp body ", err)
+		}
+		_ = json.Unmarshal(body, &depositors)
+	}
+
+	validateDeposit := "no"
+	for _, value := range depositors.Result {
+		if value.Depositor == accountAddress && len(value.Amount) != 0 {
+			validateDeposit = "yes"
+		}
+	}
+	return validateDeposit
 }
 
 func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
@@ -60,6 +87,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	for _, proposal := range p.Result {
 
 		validatorVoted := GetValidatorVoted(cfg.LCDEndpoint, proposal.Id, cfg.AccountAddress)
+		validatorDeposited := GetValidatorDeposited(cfg.LCDEndpoint, proposal.Id, cfg.AccountAddress)
 
 		tag := map[string]string{"id": proposal.Id}
 		fields := map[string]interface{}{
@@ -75,6 +103,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			"voting_start_time":         proposal.VotingStartTime,
 			"voting_end_time":           proposal.VotingEndTime,
 			"validator_voted":           validatorVoted,
+			"validator_deposited":       validatorDeposited,
 		}
 		newProposal := false
 		proposalStatus := ""
@@ -120,7 +149,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	// Calling fucntion to delete deposit proposals
 	// which are ended
 	depositProposalID, found := DeleteDepoitEndProposals(cfg, c, p)
-	if found {
+	if !found {
 		q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", depositProposalID), cfg.InfluxDB.Database, "")
 		if response, err := c.Query(q); err == nil && response.Error() == nil {
 			log.Printf("Delete proposal %s from vcf_proposals", depositProposalID)

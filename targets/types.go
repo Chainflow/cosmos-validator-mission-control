@@ -285,4 +285,16 @@ type (
 			} `json:"validators"`
 		} `json:"result"`
 	}
+
+	Depositors struct {
+		Height string `json:"height"`
+		Result []struct {
+			ProposalID string `json:"proposal_id"`
+			Depositor  string `json:"depositor"`
+			Amount     []struct {
+				Denom  string `json:"denom"`
+				Amount string `json:"amount"`
+			} `json:"amount"`
+		} `json:"result"`
+	}
 )
