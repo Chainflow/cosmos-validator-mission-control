@@ -58,7 +58,7 @@ func GetValidatorDeposited(LCDEndpoint string, proposalID string, accountAddress
 
 	validateDeposit := "no"
 	for _, value := range depositors.Result {
-		if value.Depositor == accountAddress {
+		if value.Depositor == accountAddress && len(value.Amount) != 0 {
 			validateDeposit = "yes"
 		}
 	}
@@ -149,7 +149,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	// Calling fucntion to delete deposit proposals
 	// which are ended
 	depositProposalID, found := DeleteDepoitEndProposals(cfg, c, p)
-	if found {
+	if !found {
 		q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", depositProposalID), cfg.InfluxDB.Database, "")
 		if response, err := c.Query(q); err == nil && response.Error() == nil {
 			log.Printf("Delete proposal %s from vcf_proposals", depositProposalID)
