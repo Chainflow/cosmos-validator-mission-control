@@ -65,6 +65,7 @@ func GetValidatorDeposited(LCDEndpoint string, proposalID string, accountAddress
 	return validateDeposit
 }
 
+// Function to store all the proposals and send alerts accordingly
 func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -77,7 +78,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
-	var p DepositPeriodProposal
+	var p Proposals
 	err = json.Unmarshal(resp.Body, &p)
 	if err != nil {
 		log.Printf("Error: %v", err)
@@ -154,8 +155,8 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 }
 
-func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p DepositPeriodProposal) error {
-
+// Delete deposit proposals which are not present in lcd resposne
+func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p Proposals) error {
 	var ID string
 	found := false
 	q := client.NewQuery("SELECT * FROM vcf_proposals where proposal_status='DepositPeriod'", cfg.InfluxDB.Database, "")
@@ -179,10 +180,9 @@ func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p DepositPeri
 						if response, err := c.Query(q); err == nil && response.Error() == nil {
 							log.Printf("Delete proposal %s from vcf_proposals", ID)
 							return err
-						} else {
-							log.Printf("Failed to delete proposal %s from vcf_proposals", ID)
-							log.Printf("Reason for proposal deletion failure %v", response)
 						}
+						log.Printf("Failed to delete proposal %s from vcf_proposals", ID)
+						log.Printf("Reason for proposal deletion failure %v", response)
 					}
 				}
 			}

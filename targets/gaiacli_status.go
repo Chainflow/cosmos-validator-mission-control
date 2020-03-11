@@ -11,6 +11,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
+// Function to get get missed block and send alert
 func GetMissedBlocks(cfg *config.Config, c client.Client, cbh int) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -48,6 +49,7 @@ func GetMissedBlocks(cfg *config.Config, c client.Client, cbh int) {
 	}
 }
 
+// Run command gaiacli status and handle the reponse of it
 func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {

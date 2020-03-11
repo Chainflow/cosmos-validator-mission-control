@@ -10,6 +10,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
+// Get voting power of a validator
 func GetValidatorVotingPower(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -18,9 +19,9 @@ func GetValidatorVotingPower(ops HTTPOptions, cfg *config.Config, c client.Clien
 	}
 
 	// Calling function to get current block height
-	current_height := GetValidatorBlock(cfg, c)
+	currentHeight := GetValidatorBlock(cfg, c)
 
-	ops.Endpoint = ops.Endpoint + "?height=" + current_height
+	ops.Endpoint = ops.Endpoint + "?height=" + currentHeight
 
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
