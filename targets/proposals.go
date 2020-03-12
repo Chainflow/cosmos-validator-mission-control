@@ -65,6 +65,7 @@ func GetValidatorDeposited(LCDEndpoint string, proposalID string, accountAddress
 	return validateDeposit
 }
 
+// Function to store all the proposals and send alerts accordingly
 func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -77,7 +78,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
-	var p DepositPeriodProposal
+	var p Proposals
 	err = json.Unmarshal(resp.Body, &p)
 	if err != nil {
 		log.Printf("Error: %v", err)
@@ -86,12 +87,12 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	for _, proposal := range p.Result {
 
-		validatorVoted := GetValidatorVoted(cfg.LCDEndpoint, proposal.Id, cfg.AccountAddress)
-		validatorDeposited := GetValidatorDeposited(cfg.LCDEndpoint, proposal.Id, cfg.AccountAddress)
+		validatorVoted := GetValidatorVoted(cfg.LCDEndpoint, proposal.ID, cfg.AccountAddress)
+		validatorDeposited := GetValidatorDeposited(cfg.LCDEndpoint, proposal.ID, cfg.AccountAddress)
 
-		tag := map[string]string{"id": proposal.Id}
+		tag := map[string]string{"id": proposal.ID}
 		fields := map[string]interface{}{
-			"proposal_id":               proposal.Id,
+			"proposal_id":               proposal.ID,
 			"content_type":              proposal.Content.Type,
 			"content_value_title":       proposal.Content.Value.Title,
 			"content_value_description": proposal.Content.Value.Description,
@@ -107,7 +108,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		}
 		newProposal := false
 		proposalStatus := ""
-		q := client.NewQuery(fmt.Sprintf("SELECT * FROM vcf_proposals WHERE proposal_id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
+		q := client.NewQuery(fmt.Sprintf("SELECT * FROM vcf_proposals WHERE proposal_id = '%s'", proposal.ID), cfg.InfluxDB.Database, "")
 		if response, err := c.Query(q); err == nil && response.Error() == nil {
 			for _, r := range response.Results {
 				if len(r.Series) == 0 {
@@ -124,23 +125,23 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			}
 
 			if newProposal {
-				log.Printf("New Proposal Came: %s", proposal.Id)
+				log.Printf("New Proposal Came: %s", proposal.ID)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
-				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
+				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
+				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
 			} else {
-				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", proposal.Id), cfg.InfluxDB.Database, "")
+				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", proposal.ID), cfg.InfluxDB.Database, "")
 				if response, err := c.Query(q); err == nil && response.Error() == nil {
-					log.Printf("Delete proposal %s from vcf_proposals", proposal.Id)
+					log.Printf("Delete proposal %s from vcf_proposals", proposal.ID)
 				} else {
-					log.Printf("Failed to delete proposal %s from vcf_proposals", proposal.Id)
+					log.Printf("Failed to delete proposal %s from vcf_proposals", proposal.ID)
 					log.Printf("Reason for proposal deletion failure %v", response)
 				}
-				log.Printf("Writing the proposal: %s", proposal.Id)
+				log.Printf("Writing the proposal: %s", proposal.ID)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
 				if proposal.ProposalStatus != proposalStatus {
-					_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
-					_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.Id), cfg)
+					_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
+					_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
 				}
 			}
 		}
@@ -148,51 +149,44 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	// Calling fucntion to delete deposit proposals
 	// which are ended
-	depositProposalID, found := DeleteDepoitEndProposals(cfg, c, p)
-	if !found {
-		q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", depositProposalID), cfg.InfluxDB.Database, "")
-		if response, err := c.Query(q); err == nil && response.Error() == nil {
-			log.Printf("Delete proposal %s from vcf_proposals", depositProposalID)
-		} else {
-			log.Printf("Failed to delete proposal %s from vcf_proposals", depositProposalID)
-			log.Printf("Reason for proposal deletion failure %v", response)
-		}
+	err = DeleteDepoitEndProposals(cfg, c, p)
+	if err != nil {
+		log.Printf("Error while deleting proposals")
 	}
 }
 
-func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p DepositPeriodProposal) (string, bool) {
-
-	var status, ID string
+// Delete deposit proposals which are not present in lcd resposne
+func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p Proposals) error {
+	var ID string
 	found := false
 	q := client.NewQuery("SELECT * FROM vcf_proposals where proposal_status='DepositPeriod'", cfg.InfluxDB.Database, "")
 	if response, err := c.Query(q); err == nil && response.Error() == nil {
 		for _, r := range response.Results {
-
-			// log.Fatalf("results...", len(r.Series))
 			if len(r.Series) != 0 {
-				for idx, col := range r.Series[0].Columns {
-					if col == "proposal_status" {
-						proposalStatus := r.Series[0].Values[0][idx]
-						proposalID := r.Series[0].Values[0][7]
-						status = fmt.Sprintf("%v", proposalStatus)
-						ID = fmt.Sprintf("%v", proposalID)
-						break
-					}
-				}
-			}
+				for idx := range r.Series[0].Values {
+					proposalID := r.Series[0].Values[idx][7]
+					ID = fmt.Sprintf("%v", proposalID)
 
-			if status == "DepositPeriod" {
-				for _, proposal := range p.Result {
-					if proposal.Id == ID {
-						found = true
-						break
-					} else {
-						found = false
+					for _, proposal := range p.Result {
+						if proposal.ID == ID {
+							found = true
+							break
+						} else {
+							found = false
+						}
+					}
+					if !found {
+						q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", ID), cfg.InfluxDB.Database, "")
+						if response, err := c.Query(q); err == nil && response.Error() == nil {
+							log.Printf("Delete proposal %s from vcf_proposals", ID)
+							return err
+						}
+						log.Printf("Failed to delete proposal %s from vcf_proposals", ID)
+						log.Printf("Reason for proposal deletion failure %v", response)
 					}
 				}
 			}
 		}
 	}
-
-	return ID, found
+	return nil
 }

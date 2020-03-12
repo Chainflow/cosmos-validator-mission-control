@@ -11,6 +11,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
+// Function to get block time difference
 func GetBlockTimeDifference(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {

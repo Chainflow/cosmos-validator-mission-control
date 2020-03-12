@@ -9,6 +9,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
+// Get validator information
 func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {

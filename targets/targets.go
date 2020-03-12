@@ -13,14 +13,18 @@ import (
 
 type targetRunner struct{}
 
+// Returns targetRunner
 func NewRunner() *targetRunner {
 	return &targetRunner{}
 }
 
+// Function to run the request
 func (m targetRunner) Run(function func(ops HTTPOptions, cfg *config.Config, c client.Client), ops HTTPOptions, cfg *config.Config, c client.Client) {
 	function(ops, cfg, c)
 }
 
+// Which returns the targets
+// can write all the endpoints here
 func InitTargets(cfg *config.Config) *Targets {
 	return &Targets{List: []Target{
 		{
@@ -104,7 +108,7 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.LCDEndpoint + "blocks/latest",
 				Method:   http.MethodGet,
 			},
-			Func: GetLatProposedBlockAndTime,
+			Func: GetLatestProposedBlockAndTime,
 		},
 		{
 			ExecutionType: "cmd",
@@ -149,6 +153,7 @@ func addQueryParameters(req *http.Request, queryParams QueryParams) {
 	req.URL.RawQuery = params.Encode()
 }
 
+// Make a new http request
 func newHttpRequest(ops HTTPOptions) (*http.Request, error) {
 	// make new request
 	req, err := http.NewRequest(ops.Method, ops.Endpoint, bytes.NewBuffer(ops.Body))
@@ -178,6 +183,7 @@ func makeResponse(res *http.Response) (*PingResp, error) {
 	return response, nil
 }
 
+// Function to hit the target and get response
 func HitHTTPTarget(ops HTTPOptions) (*PingResp, error) {
 	req, err := newHttpRequest(ops)
 	if err != nil {
