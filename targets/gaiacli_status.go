@@ -44,8 +44,8 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	var synced int
 	caughtUp := !status.SyncInfo.CatchingUp
 	if !caughtUp {
-		_ = SendTelegramAlert("Your node is not synced!", cfg)
-		_ = SendEmailAlert("Your node is not synced!", cfg)
+		_ = SendTelegramAlert("Your validator node is not synced!", cfg)
+		_ = SendEmailAlert("Your validator node is not synced!", cfg)
 		synced = 0
 	} else {
 		synced = 1

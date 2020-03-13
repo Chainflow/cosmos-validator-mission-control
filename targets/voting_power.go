@@ -54,8 +54,8 @@ func GetValidatorVotingPower(ops HTTPOptions, cfg *config.Config, c client.Clien
 			}
 
 			if int64(votingPower) <= cfg.VotingPowerThreshold {
-				_ = SendTelegramAlert(fmt.Sprintf("Your voting power has dropped below %d", cfg.VotingPowerThreshold), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("Your voting power has dropped below %d", cfg.VotingPowerThreshold), cfg)
+				_ = SendTelegramAlert(fmt.Sprintf("Your validator's voting power has dropped below %d", cfg.VotingPowerThreshold), cfg)
+				_ = SendEmailAlert(fmt.Sprintf("Your validator's voting power has dropped below %d", cfg.VotingPowerThreshold), cfg)
 			}
 		}
 	}
