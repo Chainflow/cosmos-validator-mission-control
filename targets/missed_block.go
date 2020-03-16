@@ -56,7 +56,7 @@ func SendSingleMissedBlockAlert(ops HTTPOptions, cfg *config.Config, c client.Cl
 		}
 	}
 
-	if addrExists {
+	if !addrExists {
 		_ = SendTelegramAlert(fmt.Sprintf("Validator missed a block at block height %s", cbh), cfg)
 		_ = SendEmailAlert(fmt.Sprintf("Validator missed a block at block height %s", cbh), cfg)
 		_ = writeToInfluxDb(c, bp, "vcf_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": cbh, "range": cbh})
@@ -111,7 +111,7 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		}
 	}
 
-	if addrExists {
+	if !addrExists {
 		blocks := GetContinuousMissedBlock(cfg, c)
 		currentHeightFromDb := GetlstestCurrentHeightFromDB(cfg, c)
 		blocksArray := strings.Split(blocks, ",")
