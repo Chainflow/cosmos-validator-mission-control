@@ -57,10 +57,16 @@ func SendSingleMissedBlockAlert(ops HTTPOptions, cfg *config.Config, c client.Cl
 	}
 
 	if !addrExists {
-		_ = SendTelegramAlert(fmt.Sprintf("Validator missed a block at block height %s", cbh), cfg)
-		_ = SendEmailAlert(fmt.Sprintf("Validator missed a block at block height %s", cbh), cfg)
-		_ = writeToInfluxDb(c, bp, "vcf_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": cbh, "range": cbh})
-		_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
+		if cfg.MissedBlocksThreshold == 1 {
+			_ = SendTelegramAlert(fmt.Sprintf("Validator missed a block at block height %s", cbh), cfg)
+			_ = SendEmailAlert(fmt.Sprintf("Validator missed a block at block height %s", cbh), cfg)
+			_ = writeToInfluxDb(c, bp, "vcf_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": cbh, "range": cbh})
+			_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
+			_ = writeToInfluxDb(c, bp, "vcf_total_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
+		} else {
+			_ = writeToInfluxDb(c, bp, "vcf_total_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
+		}
+
 	}
 	return nil
 }
@@ -116,38 +122,36 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		currentHeightFromDb := GetlstestCurrentHeightFromDB(cfg, c)
 		blocksArray := strings.Split(blocks, ",")
 		fmt.Println("blocks length ", int64(len(blocksArray)), currentHeightFromDb)
+		// calling function to store single blocks
+		err := SendSingleMissedBlockAlert(ops, cfg, c)
+		if err != nil {
+			log.Printf("Error while sending missed block alert: %v", err)
 
-		if cfg.MissedBlocksThreshold == 1 {
-			err := SendSingleMissedBlockAlert(ops, cfg, c)
-			if err != nil {
-				log.Printf("Error while sending missed block alert: %v", err)
-				return
-			}
-		} else {
-			if int64(len(blocksArray))-1 >= cfg.MissedBlocksThreshold {
-				missedBlocks := strings.Split(blocks, ",")
-				_ = SendTelegramAlert(fmt.Sprintf("Validator missed blocks from height %s to %s", missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("Validator missed blocks from height %s to %s", missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
-				_ = writeToInfluxDb(c, bp, "vcf_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": blocks, "range": missedBlocks[0] + " - " + missedBlocks[len(missedBlocks)-2]})
-				_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": "", "current_height": cbh})
-				return
-			} else {
-				if len(blocksArray) == 1 {
-					blocks = cbh + ","
-				} else {
-					rpcBlockHeight, _ := strconv.Atoi(cbh)
-					dbBlockHeight, _ := strconv.Atoi(currentHeightFromDb)
-					diff := rpcBlockHeight - dbBlockHeight
-					if diff == 1 {
-						blocks = blocks + cbh + ","
-					} else if diff > 1 {
-						blocks = ""
-					}
-				}
-				_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": blocks, "current_height": cbh})
-				return
-			}
 		}
+		if int64(len(blocksArray))-1 >= cfg.MissedBlocksThreshold {
+			missedBlocks := strings.Split(blocks, ",")
+			_ = SendTelegramAlert(fmt.Sprintf("Validator missed blocks from height %s to %s", missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
+			_ = SendEmailAlert(fmt.Sprintf("Validator missed blocks from height %s to %s", missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
+			_ = writeToInfluxDb(c, bp, "vcf_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": blocks, "range": missedBlocks[0] + " - " + missedBlocks[len(missedBlocks)-2]})
+			_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": "", "current_height": cbh})
+			return
+		} else {
+			if len(blocksArray) == 1 {
+				blocks = cbh + ","
+			} else {
+				rpcBlockHeight, _ := strconv.Atoi(cbh)
+				dbBlockHeight, _ := strconv.Atoi(currentHeightFromDb)
+				diff := rpcBlockHeight - dbBlockHeight
+				if diff == 1 {
+					blocks = blocks + cbh + ","
+				} else if diff > 1 {
+					blocks = ""
+				}
+			}
+			_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": blocks, "current_height": cbh})
+			return
+		}
+
 	}
 	return
 }
