@@ -36,8 +36,8 @@ func GetNetInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		log.Printf("Error converting num_peers to int: %v", err)
 		numPeers = 0
 	} else if int64(numPeers) < cfg.NumPeersThreshold {
-		_ = SendTelegramAlert(fmt.Sprintf("Number of peers has fallen below %d", cfg.NumPeersThreshold), cfg)
-		_ = SendEmailAlert(fmt.Sprintf("Number of peers has fallen below %d", cfg.NumPeersThreshold), cfg)
+		_ = SendTelegramAlert(fmt.Sprintf("Number of peers connected to your validator has fallen below %d", cfg.NumPeersThreshold), cfg)
+		_ = SendEmailAlert(fmt.Sprintf("Number of peers connected to your validator has fallen below %d", cfg.NumPeersThreshold), cfg)
 	}
 	p1, err := createDataPoint("vcf_num_peers", map[string]string{}, map[string]interface{}{"count": numPeers})
 	if err == nil {

@@ -127,8 +127,8 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			if newProposal {
 				log.Printf("New Proposal Came: %s", proposal.ID)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
-				_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
+				_ = SendTelegramAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
+				_ = SendEmailAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
 			} else {
 				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", proposal.ID), cfg.InfluxDB.Database, "")
 				if response, err := c.Query(q); err == nil && response.Error() == nil {
@@ -140,8 +140,8 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 				log.Printf("Writing the proposal: %s", proposal.ID)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
 				if proposal.ProposalStatus != proposalStatus {
-					_ = SendTelegramAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
-					_ = SendEmailAlert(fmt.Sprintf("A new proposal has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
+					_ = SendTelegramAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
+					_ = SendEmailAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
 				}
 			}
 		}

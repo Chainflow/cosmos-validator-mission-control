@@ -32,19 +32,20 @@ type (
 	}
 
 	Config struct {
-		NodeURL              string   `mapstructure:"node_url"`
-		OperatorAddress      string   `mapstructure:"operator_addr"`
-		AccountAddress       string   `mapstructure:"account_addr"`
-		ValidatorAddress     string   `mapstructure:"validator_addr"`
-		LCDEndpoint          string   `mapstructure:"lcd_endpoint"`
-		VotingPowerThreshold int64    `mapstructure:"voting_power_threshold"`
-		NumPeersThreshold    int64    `mapstructure:"num_peers_threshold"`
-		Scraper              Scraper  `mapstructure:"scraper"`
-		Telegram             Telegram `mapstructure:"telegram"`
-		SendGrid             SendGrid `mapstructure:"sendgrid"`
-		InfluxDB             InfluxDB `mapstructure:"influxdb"`
-		RPCEndpoint          string   `mapstructure:"rpc_endpoint"`
-		ExternalRPC          string   `mapstructure:"external_rpc"`
+		NodeURL               string   `mapstructure:"node_url"`
+		OperatorAddress       string   `mapstructure:"operator_addr"`
+		AccountAddress        string   `mapstructure:"account_addr"`
+		ValidatorAddress      string   `mapstructure:"validator_addr"`
+		LCDEndpoint           string   `mapstructure:"lcd_endpoint"`
+		VotingPowerThreshold  int64    `mapstructure:"voting_power_threshold"`
+		NumPeersThreshold     int64    `mapstructure:"num_peers_threshold"`
+		Scraper               Scraper  `mapstructure:"scraper"`
+		Telegram              Telegram `mapstructure:"telegram"`
+		SendGrid              SendGrid `mapstructure:"sendgrid"`
+		InfluxDB              InfluxDB `mapstructure:"influxdb"`
+		RPCEndpoint           string   `mapstructure:"rpc_endpoint"`
+		ExternalRPC           string   `mapstructure:"external_rpc"`
+		MissedBlocksThreshold int64    `mapstructure:"missed_blocks_threshold"`
 	}
 )
 

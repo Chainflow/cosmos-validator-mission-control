@@ -142,6 +142,15 @@ func InitTargets(cfg *config.Config) *Targets {
 			},
 			Func: GetBlockTimeDifference,
 		},
+		{
+			ExecutionType: "http",
+			Name:          "Get Current Block Height",
+			HTTPOptions: HTTPOptions{
+				Endpoint: cfg.ExternalRPC + "status",
+				Method:   http.MethodGet,
+			},
+			Func: GetMissedBlocks,
+		},
 	}}
 }
 
