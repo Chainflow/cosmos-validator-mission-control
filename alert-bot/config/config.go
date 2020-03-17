@@ -7,16 +7,19 @@ import (
 )
 
 type (
+	// Telegram bot details struct
 	Telegram struct {
 		BotToken string `mapstructure:"bot_token"`
 		ChatId   int64  `mapstructure:"chat_id"`
 	}
 
+	// SendGrid tokens
 	SendGrid struct {
 		Token   string `mapstructure:"token"`
 		ToEmail string `mapstructure:"to_email"`
 	}
 
+	// config
 	Config struct {
 		OperatorAddress  string   `mapstructure:"operator_addr"`
 		AccountAddress   string   `mapstructure:"account_addr"`
@@ -29,6 +32,7 @@ type (
 	}
 )
 
+// Function to read config details using viper
 func ReadFromFile() (*Config, error) {
 	v := viper.New()
 	v.AddConfigPath(".")
@@ -50,6 +54,7 @@ func ReadFromFile() (*Config, error) {
 	return &cfg, nil
 }
 
+// Validate config struct
 func (c *Config) Validate(e ...string) error {
 	v := validator.New()
 	if len(e) == 0 {

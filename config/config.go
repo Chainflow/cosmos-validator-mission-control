@@ -35,7 +35,7 @@ type (
 		Password string `mapstructure:"password"`
 	}
 
-	//
+	// config
 	Config struct {
 		NodeURL               string   `mapstructure:"node_url"`
 		OperatorAddress       string   `mapstructure:"operator_addr"`
