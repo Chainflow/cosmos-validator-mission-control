@@ -11,7 +11,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-// Check validator voted for the proposal or not
+//GetValidatorVoted to check validator voted for the proposal or not
 func GetValidatorVoted(LCDEndpoint string, proposalID string, accountAddress string) string {
 
 	proposalURL := LCDEndpoint + "gov/proposals/" + proposalID + "/votes"
@@ -38,7 +38,7 @@ func GetValidatorVoted(LCDEndpoint string, proposalID string, accountAddress str
 	return validatorVoted
 }
 
-// Check validator deposited for the proposal or not
+//GetValidatorDeposited to check validator deposited for the proposal or not
 func GetValidatorDeposited(LCDEndpoint string, proposalID string, accountAddress string) string {
 
 	proposalURL := LCDEndpoint + "gov/proposals/" + proposalID + "/deposits"
@@ -65,7 +65,7 @@ func GetValidatorDeposited(LCDEndpoint string, proposalID string, accountAddress
 	return validateDeposit
 }
 
-// Function to store all the proposals and send alerts accordingly
+//GetProposals to get all the proposals and send alerts accordingly
 func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -154,7 +154,8 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 }
 
-// Delete deposit proposals which are not present in lcd resposne
+//DeleteDepoitEndProposals to delete proposals from db
+// which are not present in lcd resposne
 func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p Proposals) error {
 	var ID string
 	found := false

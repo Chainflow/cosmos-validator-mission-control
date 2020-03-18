@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-// Send transaction alert to telegram and mail
+//JailedAlerting to send transaction alert to telegram and mail
 func JailedAlerting(cfg *config.Config) error {
 	log.Println("Coming inside jailed alerting")
 	ops := HTTPOptions{

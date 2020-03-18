@@ -7,10 +7,10 @@ import (
 )
 
 type (
-	// map of strings for query params
+	//QueryParams map of strings
 	QueryParams map[string]string
 
-	// struct for http options
+	//HTTPOptions for http options
 	HTTPOptions struct {
 		Endpoint    string
 		QueryParams QueryParams
@@ -18,7 +18,7 @@ type (
 		Method      string
 	}
 
-	// struct for the target
+	//Target struct
 	Target struct {
 		ExecutionType string
 		HTTPOptions   HTTPOptions
@@ -26,18 +26,18 @@ type (
 		Func          func(m HTTPOptions, cfg *config.Config, c client.Client)
 	}
 
-	// Array of targets
+	//Targets list of targets
 	Targets struct {
 		List []Target
 	}
 
-	// Ping response
+	//PingResp struct
 	PingResp struct {
 		StatusCode int
 		Body       []byte
 	}
 
-	// Peer response
+	//Peer response
 	Peer struct {
 		RemoteIP         string      `json:"remote_ip"`
 		ConnectionStatus interface{} `json:"connection_status"`
@@ -48,7 +48,7 @@ type (
 		} `json:"node_info"`
 	}
 
-	// Net info result
+	//NetInfoResult struct
 	NetInfoResult struct {
 		Listening bool          `json:"listening"`
 		Listeners []interface{} `json:"listeners"`
@@ -56,14 +56,14 @@ type (
 		Peers     []Peer        `json:"peers"`
 	}
 
-	// Net info response
+	//NetInfo response
 	NetInfo struct {
 		JSONRpc string        `json:"jsonrpc"`
 		ID      string        `json:"id"`
 		Result  NetInfoResult `json:"result"`
 	}
 
-	// Sync info response
+	//SyncInfo response
 	SyncInfo struct {
 		LatestBlockHash   string `json:"latest_block_hash"`
 		LatestAppHash     string `json:"latest_app_hash"`
@@ -72,14 +72,14 @@ type (
 		CatchingUp        bool   `json:"catching_up"`
 	}
 
-	// Validator info response
+	//ValidatorInfo response
 	ValidatorInfo struct {
 		Address     string      `json:"address"`
 		PubKey      interface{} `json:"pub_key"`
 		VotingPower string      `json:"voting_power"`
 	}
 
-	// Node info
+	//GaiaCliStatusNodeInfo struct
 	GaiaCliStatusNodeInfo struct {
 		ProtocolVersion interface{} `json:"protocol_version"`
 		ID              string      `json:"id"`
@@ -91,14 +91,14 @@ type (
 		Other           interface{} `json:"other"`
 	}
 
-	// gaia cli status
+	//GaiaCliStatus struct
 	GaiaCliStatus struct {
 		NodeInfo      GaiaCliStatusNodeInfo `json:"node_info"`
 		SyncInfo      SyncInfo              `json:"sync_info"`
 		ValidatorInfo ValidatorInfo         `json:"validator_info"`
 	}
 
-	// Validator description
+	//ValidatorDescription struct
 	ValidatorDescription struct {
 		Moniker  string `json:"moniker"`
 		Identity string `json:"identity"`
@@ -106,20 +106,20 @@ type (
 		Details  string `json:"details"`
 	}
 
-	// Validator commission rates
+	//ValidatorCommissionRates struct
 	ValidatorCommissionRates struct {
 		Rate          string `json:"rate"`
 		MaxRate       string `json:"max_rate"`
 		MaxChangeRate string `json:"max_change_rate"`
 	}
 
-	// Validator commission
+	//ValidatorCommission strcut
 	ValidatorCommission struct {
 		CommissionRates ValidatorCommissionRates `json:"commission_rates"`
 		UpdateTime      string                   `json:"update_time"`
 	}
 
-	// Validator result
+	//ValidatorResult struct
 	ValidatorResult struct {
 		OperatorAddress   string               `json:"operator_address"`
 		ConsensusPubKey   string               `json:"consensus_pubkey"`
@@ -134,25 +134,25 @@ type (
 		MinSelfDelegation string               `json:"min_self_delegation"`
 	}
 
-	// Validator response
+	//ValidatorResp struct
 	ValidatorResp struct {
 		Height string          `json:"height"`
 		Result ValidatorResult `json:"result"`
 	}
 
-	// Account Balance
+	//AccountBalance structs
 	AccountBalance struct {
 		Denom  string `json:"denom"`
 		Amount string `json:"amount"`
 	}
 
-	// Account response
+	//AccountResp struct
 	AccountResp struct {
 		Height string           `json:"height"`
 		Result []AccountBalance `json:"result"`
 	}
 
-	// Precommits of current block
+	//CurrentBlockPrecommit struct
 	CurrentBlockPrecommit struct {
 		Type             int64       `json:"type"`
 		Height           string      `json:"height"`
@@ -164,13 +164,13 @@ type (
 		Signature        string      `json:"signature"`
 	}
 
-	// Last commit of current block
+	//CurrentBlockLastCommit struct
 	CurrentBlockLastCommit struct {
 		BlockID    interface{}             `json:"block_id"`
 		Precommits []CurrentBlockPrecommit `json:"precommits"`
 	}
 
-	// Current block
+	//CurrentBlock struct
 	CurrentBlock struct {
 		Header struct {
 			Height string `json:"height"`
@@ -181,20 +181,20 @@ type (
 		LastCommit CurrentBlockLastCommit `json:"last_commit"`
 	}
 
-	// Current block details
+	//CurrentBlockWithHeightResult struct
 	CurrentBlockWithHeightResult struct {
 		BlockMeta interface{}  `json:"block_meta"`
 		Block     CurrentBlock `json:"block"`
 	}
 
-	// Current block height response
+	//CurrentBlockWithHeight struct
 	CurrentBlockWithHeight struct {
 		JSONRPC string                       `json:"jsonrpc"`
 		ID      string                       `json:"id"`
 		Result  CurrentBlockWithHeightResult `json:"result"`
 	}
 
-	// Proposal result
+	//ProposalResultContent struct
 	ProposalResultContent struct {
 		Type  string `json:"type"`
 		Value struct {
@@ -203,7 +203,7 @@ type (
 		} `json:"value"`
 	}
 
-	// Proposal result
+	//ProposalResult struct
 	ProposalResult struct {
 		Content          ProposalResultContent `json:"content"`
 		ID               string                `json:"id"`
@@ -216,30 +216,30 @@ type (
 		VotingEndTime    string                `json:"voting_end_time"`
 	}
 
-	// Proposal response
+	//Proposals struct
 	Proposals struct {
 		Height string           `json:"height"`
 		Result []ProposalResult `json:"result"`
 	}
 
-	// Self delegation balance
+	//SelfDelegationBalance struct
 	SelfDelegationBalance struct {
 		Balance string `json:"balance"`
 	}
 
-	// Self delegation response
+	//SelfDelegation struct
 	SelfDelegation struct {
 		Height string                `json:"height"`
 		Result SelfDelegationBalance `json:"result"`
 	}
 
-	// Current rewards amount response
+	//CurrentRewardsAmount struct
 	CurrentRewardsAmount struct {
 		Height string           `json:"height"`
 		Result []AccountBalance `json:"result"`
 	}
 
-	// Last proposed block response
+	//LastProposedBlockAndTime struct
 	LastProposedBlockAndTime struct {
 		BlockMeta struct {
 			BlockID interface{} `json:"block_id"`
@@ -268,7 +268,7 @@ type (
 		Block interface{} `json:"block"`
 	}
 
-	// Voters of a proposal
+	//ProposalVoters struct
 	ProposalVoters struct {
 		Height string `json:"height"`
 		Result []struct {
@@ -278,7 +278,7 @@ type (
 		} `json:"result"`
 	}
 
-	// Latest block of a network
+	//NetworkLatestBlock struct
 	NetworkLatestBlock struct {
 		Result struct {
 			SyncInfo struct {
@@ -287,7 +287,7 @@ type (
 		} `json:"result"`
 	}
 
-	// Validator block response
+	//ValidatorsHeight struct
 	ValidatorsHeight struct {
 		Jsonrpc string `json:"jsonrpc"`
 		ID      string `json:"id"`
@@ -305,8 +305,7 @@ type (
 		} `json:"result"`
 	}
 
-	// Response of
-	// proposal depositors
+	//Depositors struct
 	Depositors struct {
 		Height string `json:"height"`
 		Result []struct {
