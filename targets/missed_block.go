@@ -11,7 +11,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-// Send missed block alert to telegram bot and mail
+//SendSingleMissedBlockAlert Send missed block alert to telegram bot and mail
 func SendSingleMissedBlockAlert(ops HTTPOptions, cfg *config.Config, c client.Client) error {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -72,7 +72,7 @@ func SendSingleMissedBlockAlert(ops HTTPOptions, cfg *config.Config, c client.Cl
 	return nil
 }
 
-// Function to get get missed block and send alert
+//GetMissedBlocks to get missed block and send alert
 func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -120,7 +120,7 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	if !addrExists {
 		blocks := GetContinuousMissedBlock(cfg, c)
-		currentHeightFromDb := GetlstestCurrentHeightFromDB(cfg, c)
+		currentHeightFromDb := GetlatestCurrentHeightFromDB(cfg, c)
 		blocksArray := strings.Split(blocks, ",")
 		fmt.Println("blocks length ", int64(len(blocksArray)), currentHeightFromDb)
 		// calling function to store single blocks
@@ -158,7 +158,7 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	return
 }
 
-// Get continuous missed blocks
+//GetContinuousMissedBlock returns the latest missed block
 func GetContinuousMissedBlock(cfg *config.Config, c client.Client) string {
 	var blocks string
 	q := client.NewQuery("SELECT last(block_height) FROM vcf_missed_blocks", cfg.InfluxDB.Database, "")
@@ -178,8 +178,8 @@ func GetContinuousMissedBlock(cfg *config.Config, c client.Client) string {
 	return blocks
 }
 
-// Get latest current height from db
-func GetlstestCurrentHeightFromDB(cfg *config.Config, c client.Client) string {
+//GetlatestCurrentHeightFromDB returns latest current height from db
+func GetlatestCurrentHeightFromDB(cfg *config.Config, c client.Client) string {
 	var currentHeight string
 	q := client.NewQuery("SELECT last(current_height) FROM vcf_missed_blocks", cfg.InfluxDB.Database, "")
 	if response, err := c.Query(q); err == nil && response.Error() == nil {

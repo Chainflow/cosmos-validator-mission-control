@@ -10,7 +10,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-// Run command gaiacli status and handle the reponse of it
+//GetGaiaCliStatus to run command gaiacli status and handle the reponse of it
 func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {

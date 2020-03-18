@@ -7,6 +7,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
+//createDataPoint to create a data point
 func createDataPoint(name string, tags map[string]string, fields map[string]interface{}) (*client.Point, error) {
 	p, err := client.NewPoint(name, tags, fields, time.Now())
 	if err != nil {
@@ -16,6 +17,7 @@ func createDataPoint(name string, tags map[string]string, fields map[string]inte
 	return p, nil
 }
 
+//createBatchPoints to get batch points
 func createBatchPoints(db string) (client.BatchPoints, error) {
 	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
 		Database:  db,
@@ -36,6 +38,7 @@ func writeBatchPoints(c client.Client, bp client.BatchPoints) error {
 	return nil
 }
 
+//writeToInfluxDb to write points into db
 func writeToInfluxDb(c client.Client, bp client.BatchPoints, name string, tags map[string]string,
 	fields map[string]interface{}) error {
 	p, err := createDataPoint(name, tags, fields)
