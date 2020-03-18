@@ -1,18 +1,18 @@
 package alerting
 
-//Telegram alert interface
+// Telegram alert interface
 type Telegram interface {
 	Send(msgText, botToken string, alerthnatID int64) error
 }
 
 type telegramAlert struct{}
 
-//Telegram alerter
+// NewTelegramAlerter returns an instance of telegramAlert
 func NewTelegramAlerter() *telegramAlert {
 	return &telegramAlert{}
 }
 
-//Email to send mail alert
+// Email to send mail alert
 type Email interface {
 	Send(msg, token, toEmail string) error
 }
@@ -20,7 +20,7 @@ type Email interface {
 type emailAlert struct {
 }
 
-//NewEmailAlerter returns emailAlert
+// NewEmailAlerter returns an instance for emailAlert
 func NewEmailAlerter() *emailAlert {
 	return &emailAlert{}
 }

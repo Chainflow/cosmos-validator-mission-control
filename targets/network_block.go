@@ -10,7 +10,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-//GetNetworkLatestBlock to get latest block height of a network
+// GetNetworkLatestBlock to get latest block height of a network
 func GetNetworkLatestBlock(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -49,7 +49,7 @@ func GetNetworkLatestBlock(ops HTTPOptions, cfg *config.Config, c client.Client)
 	log.Printf("Network height: %d", networkBlockHeight)
 }
 
-// Get validator current block height
+// GetValidatorBlock returns validator current block height
 func GetValidatorBlock(cfg *config.Config, c client.Client) string {
 	var validatorHeight string
 	q := client.NewQuery("SELECT last(height) FROM vcf_current_block_height", cfg.InfluxDB.Database, "")

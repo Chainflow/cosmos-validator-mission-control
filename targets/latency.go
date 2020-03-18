@@ -10,7 +10,7 @@ import (
 	ping "github.com/sparrc/go-ping"
 )
 
-//GetLatency to calculate latency
+// GetLatency to calculate latency
 func GetLatency(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {

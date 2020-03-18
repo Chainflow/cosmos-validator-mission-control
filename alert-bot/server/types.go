@@ -1,10 +1,10 @@
 package server
 
 type (
-	//QueryParams map of strings
+	// QueryParams map of strings
 	QueryParams map[string]string
 
-	//HTTPOptions struct
+	// HTTPOptions struct
 	HTTPOptions struct {
 		Endpoint    string
 		QueryParams QueryParams
@@ -12,13 +12,13 @@ type (
 		Method      string
 	}
 
-	//PingResp struct
+	// PingResp struct
 	PingResp struct {
 		StatusCode int
 		Body       []byte
 	}
 
-	//ValidatorDescription struct
+	// ValidatorDescription struct
 	ValidatorDescription struct {
 		Moniker  string `json:"moniker"`
 		Identity string `json:"identity"`
@@ -26,20 +26,20 @@ type (
 		Details  string `json:"details"`
 	}
 
-	//ValidatorCommissionRates struct
+	// ValidatorCommissionRates struct
 	ValidatorCommissionRates struct {
 		Rate          string `json:"rate"`
 		MaxRate       string `json:"max_rate"`
 		MaxChangeRate string `json:"max_change_rate"`
 	}
 
-	//ValidatorCommission struct
+	// ValidatorCommission struct
 	ValidatorCommission struct {
 		CommissionRates ValidatorCommissionRates `json:"commission_rates"`
 		UpdateTime      string                   `json:"update_time"`
 	}
 
-	//ValidatorResult struct
+	// ValidatorResult struct
 	ValidatorResult struct {
 		OperatorAddress   string               `json:"operator_address"`
 		ConsensusPubKey   string               `json:"consensus_pubkey"`
@@ -54,13 +54,13 @@ type (
 		MinSelfDelegation string               `json:"min_self_delegation"`
 	}
 
-	//ValidatorResp struct
+	// ValidatorResp struct
 	ValidatorResp struct {
 		Height string          `json:"height"`
 		Result ValidatorResult `json:"result"`
 	}
 
-	//CurrentBlockPrecommit struct
+	// CurrentBlockPrecommit struct
 	CurrentBlockPrecommit struct {
 		Type             int64       `json:"type"`
 		Height           string      `json:"height"`
@@ -72,13 +72,13 @@ type (
 		Signature        string      `json:"signature"`
 	}
 
-	//CurrentBlockLastCommit struct
+	// CurrentBlockLastCommit struct
 	CurrentBlockLastCommit struct {
 		BlockID    interface{}             `json:"block_id"`
 		Precommits []CurrentBlockPrecommit `json:"precommits"`
 	}
 
-	//CurrentBlock struct
+	// CurrentBlock struct
 	CurrentBlock struct {
 		Header struct {
 			Height string `json:"height"`
@@ -89,20 +89,20 @@ type (
 		LastCommit CurrentBlockLastCommit `json:"last_commit"`
 	}
 
-	//CurrentBlockWithHeightResult struct
+	// CurrentBlockWithHeightResult struct
 	CurrentBlockWithHeightResult struct {
 		BlockMeta interface{}  `json:"block_meta"`
 		Block     CurrentBlock `json:"block"`
 	}
 
-	//CurrentBlockWithHeight struct
+	// CurrentBlockWithHeight struct
 	CurrentBlockWithHeight struct {
 		JSONRPC string                       `json:"jsonrpc"`
 		ID      string                       `json:"id"`
 		Result  CurrentBlockWithHeightResult `json:"result"`
 	}
 
-	//NetworkLatestBlock struct
+	// NetworkLatestBlock struct
 	NetworkLatestBlock struct {
 		Result struct {
 			SyncInfo struct {
