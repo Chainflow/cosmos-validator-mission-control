@@ -11,6 +11,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
+// Send missed block alert to telegram bot and mail
 func SendSingleMissedBlockAlert(ops HTTPOptions, cfg *config.Config, c client.Client) error {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -136,22 +137,22 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 				_ = writeToInfluxDb(c, bp, "vcf_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": blocks, "range": missedBlocks[0] + " - " + missedBlocks[len(missedBlocks)-2]})
 				_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": "", "current_height": cbh})
 				return
-			} else {
-				if len(blocksArray) == 1 {
-					blocks = cbh + ","
-				} else {
-					rpcBlockHeight, _ := strconv.Atoi(cbh)
-					dbBlockHeight, _ := strconv.Atoi(currentHeightFromDb)
-					diff := rpcBlockHeight - dbBlockHeight
-					if diff == 1 {
-						blocks = blocks + cbh + ","
-					} else if diff > 1 {
-						blocks = ""
-					}
-				}
-				_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": blocks, "current_height": cbh})
-				return
 			}
+			if len(blocksArray) == 1 {
+				blocks = cbh + ","
+			} else {
+				rpcBlockHeight, _ := strconv.Atoi(cbh)
+				dbBlockHeight, _ := strconv.Atoi(currentHeightFromDb)
+				diff := rpcBlockHeight - dbBlockHeight
+				if diff == 1 {
+					blocks = blocks + cbh + ","
+				} else if diff > 1 {
+					blocks = ""
+				}
+			}
+			_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": blocks, "current_height": cbh})
+			return
+
 		}
 	}
 	return

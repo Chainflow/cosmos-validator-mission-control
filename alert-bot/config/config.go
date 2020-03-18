@@ -10,7 +10,7 @@ type (
 	// Telegram bot details struct
 	Telegram struct {
 		BotToken string `mapstructure:"bot_token"`
-		ChatId   int64  `mapstructure:"chat_id"`
+		ChatID   int64  `mapstructure:"chat_id"`
 	}
 
 	// SendGrid tokens

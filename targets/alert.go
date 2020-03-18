@@ -8,7 +8,7 @@ import (
 
 // SendTelegramAlert sends the alert to telegram chat
 func SendTelegramAlert(msg string, cfg *config.Config) error {
-	if err := alerting.NewTelegramAlerter().Send(msg, cfg.Telegram.BotToken, cfg.Telegram.ChatId); err != nil {
+	if err := alerting.NewTelegramAlerter().Send(msg, cfg.Telegram.BotToken, cfg.Telegram.ChatID); err != nil {
 		log.Printf("failed to send tg alert: %v", err)
 		return err
 	}

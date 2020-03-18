@@ -163,7 +163,7 @@ func addQueryParameters(req *http.Request, queryParams QueryParams) {
 }
 
 // Make a new http request
-func newHttpRequest(ops HTTPOptions) (*http.Request, error) {
+func newHTTPRequest(ops HTTPOptions) (*http.Request, error) {
 	// make new request
 	req, err := http.NewRequest(ops.Method, ops.Endpoint, bytes.NewBuffer(ops.Body))
 	if err != nil {
@@ -194,7 +194,7 @@ func makeResponse(res *http.Response) (*PingResp, error) {
 
 // Function to hit the target and get response
 func HitHTTPTarget(ops HTTPOptions) (*PingResp, error) {
-	req, err := newHttpRequest(ops)
+	req, err := newHTTPRequest(ops)
 	if err != nil {
 		return nil, err
 	}
