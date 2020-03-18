@@ -2,13 +2,14 @@ package alerting
 
 import tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 
-func (t telegramAlert) Send(msgText, botToken string, chatId int64) error {
+// Send alert to telegram bot
+func (t telegramAlert) Send(msgText, botToken string, chatID int64) error {
 	bot, err := tgbotapi.NewBotAPI(botToken)
 	if err != nil {
 		return err
 	}
 	bot.Debug = true
-	msg := tgbotapi.NewMessage(chatId, "")
+	msg := tgbotapi.NewMessage(chatID, "")
 	msg.Text = msgText
 	_, err = bot.Send(msg)
 	if err != nil {

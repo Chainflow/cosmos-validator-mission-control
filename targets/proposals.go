@@ -86,7 +86,6 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	for _, proposal := range p.Result {
-
 		validatorVoted := GetValidatorVoted(cfg.LCDEndpoint, proposal.ID, cfg.AccountAddress)
 		validatorDeposited := GetValidatorDeposited(cfg.LCDEndpoint, proposal.ID, cfg.AccountAddress)
 
