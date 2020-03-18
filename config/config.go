@@ -9,21 +9,25 @@ import (
 )
 
 type (
+	// Telegram bot details struct
 	Telegram struct {
 		BotToken string `mapstructure:"bot_token"`
 		ChatId   int64  `mapstructure:"chat_id"`
 	}
 
+	// SendGrid tokens
 	SendGrid struct {
 		Token   string `mapstructure:"token"`
 		ToEmail string `mapstructure:"to_email"`
 	}
 
+	// Time interval
 	Scraper struct {
 		Rate string `mapstructure:"rate"`
 		Port string `mapstructure:"port"`
 	}
 
+	// InfluxDB details
 	InfluxDB struct {
 		Port     string `mapstructure:"port"`
 		Database string `mapstructure:"database"`
@@ -31,6 +35,7 @@ type (
 		Password string `mapstructure:"password"`
 	}
 
+	// config
 	Config struct {
 		NodeURL               string   `mapstructure:"node_url"`
 		OperatorAddress       string   `mapstructure:"operator_addr"`
@@ -49,6 +54,7 @@ type (
 	}
 )
 
+// Function to read env details
 func ReadFromEnv() *Config {
 	return &Config{
 		NodeURL:         getEnv("NODE_URL", ""),
@@ -59,6 +65,7 @@ func ReadFromEnv() *Config {
 	}
 }
 
+// Function to read config details using viper
 func ReadFromFile() (*Config, error) {
 	v := viper.New()
 	v.AddConfigPath(".")
@@ -89,6 +96,7 @@ func getEnv(key string, defaultVal string) string {
 	return defaultVal
 }
 
+// Validate config struct
 func (c *Config) Validate(e ...string) error {
 	v := validator.New()
 	if len(e) == 0 {
