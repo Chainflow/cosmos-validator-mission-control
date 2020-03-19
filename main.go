@@ -4,10 +4,11 @@ import (
 	"chainflow-vitwit/config"
 	"chainflow-vitwit/targets"
 	"fmt"
-	"github.com/influxdata/influxdb1-client/v2"
 	"log"
 	"sync"
 	"time"
+
+	client "github.com/influxdata/influxdb1-client/v2"
 )
 
 func main() {
@@ -24,7 +25,7 @@ func main() {
 	}
 
 	c, err := client.NewHTTPClient(client.HTTPConfig{
-		Addr:     fmt.Sprintf("http:// localhost:%s", cfg.InfluxDB.Port),
+		Addr:     fmt.Sprintf("http://localhost:%s", cfg.InfluxDB.Port),
 		Username: cfg.InfluxDB.Username,
 		Password: cfg.InfluxDB.Password,
 	})

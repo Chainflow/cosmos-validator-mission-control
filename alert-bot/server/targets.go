@@ -16,7 +16,7 @@ func addQueryParameters(req *http.Request, queryParams QueryParams) {
 	req.URL.RawQuery = params.Encode()
 }
 
-// newHTTPRequest to make a new http request
+//newHTTPRequest to make a new http request
 func newHTTPRequest(ops HTTPOptions) (*http.Request, error) {
 	// make new request
 	req, err := http.NewRequest(ops.Method, ops.Endpoint, bytes.NewBuffer(ops.Body))
@@ -46,7 +46,7 @@ func makeResponse(res *http.Response) (*PingResp, error) {
 	return response, nil
 }
 
-// HitHTTPTarget to hit the target and get response
+//HitHTTPTarget to hit the target and get response
 func HitHTTPTarget(ops HTTPOptions) (*PingResp, error) {
 	req, err := newHTTPRequest(ops)
 	if err != nil {

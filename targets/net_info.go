@@ -11,7 +11,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-// GetNetInfo to get no.of peers and those addresses
+//GetNetInfo to get no.of peers and those addresses
 func GetNetInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {

@@ -9,7 +9,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-// GetOperatorInfo to get validator information
+//GetOperatorInfo to get validator information
 func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -32,7 +32,7 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	var p0 *client.Point
 	validatorStatus := validatorResp.Result.Jailed
-	if validatorStatus == false {
+	if !validatorStatus {
 		p0, err = createDataPoint("vcf_validator_status", map[string]string{}, map[string]interface{}{"status": 1})
 	} else {
 		p0, err = createDataPoint("vcf_validator_status", map[string]string{}, map[string]interface{}{"status": 0})
@@ -67,11 +67,20 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	validatorDetails := validatorResp.Result.Description
 	p4, err := createDataPoint("vcf_validator_desc", map[string]string{"tag": "moniker"}, map[string]interface{}{"val": validatorDetails.Moniker})
+	if err == nil {
+		pts = append(pts, p4)
+	}
 	p7, err := createDataPoint("vcf_validator_desc", map[string]string{"tag": "website"}, map[string]interface{}{"val": validatorDetails.Website})
+	if err == nil {
+		pts = append(pts, p7)
+	}
 	p8, err := createDataPoint("vcf_validator_desc", map[string]string{"tag": "details"}, map[string]interface{}{"val": validatorDetails.Details})
+	if err == nil {
+		pts = append(pts, p8)
+	}
 	p9, err := createDataPoint("vcf_validator_desc", map[string]string{"tag": "identity"}, map[string]interface{}{"val": validatorDetails.Identity})
 	if err == nil {
-		pts = append(pts, p4, p7, p8, p9)
+		pts = append(pts, p9)
 	}
 
 	var maxRate float64

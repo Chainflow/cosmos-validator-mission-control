@@ -8,7 +8,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-// CheckGaiad function to run the command get gaiad status and send alerts
+//CheckGaiad function to run the command get gaiad status and send alerts
 func CheckGaiad(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
