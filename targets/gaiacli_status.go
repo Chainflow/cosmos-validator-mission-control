@@ -34,7 +34,7 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	var bh int
 	currentBlockHeight := status.SyncInfo.LatestBlockHeight
 	if currentBlockHeight != "" {
-		bh, err = strconv.Atoi(currentBlockHeight)
+		bh, _ = strconv.Atoi(currentBlockHeight)
 		p2, err := createDataPoint("vcf_current_block_height", map[string]string{}, map[string]interface{}{"height": bh})
 		if err == nil {
 			pts = append(pts, p2)

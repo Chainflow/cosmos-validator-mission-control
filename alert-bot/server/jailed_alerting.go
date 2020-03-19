@@ -30,7 +30,7 @@ func JailedAlerting(cfg *config.Config) error {
 	}
 
 	validatorStatus := validatorResp.Result.Jailed
-	if validatorStatus == false {
+	if !validatorStatus {
 		_ = SendTelegramAlert(fmt.Sprintf("Your validator is in active status"), cfg)
 		_ = SendEmailAlert(fmt.Sprintf("Your validator is in active status"), cfg)
 		log.Println("Sent validator status alert")

@@ -155,7 +155,6 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 		}
 	}
-	return
 }
 
 //GetContinuousMissedBlock returns the latest missed block
