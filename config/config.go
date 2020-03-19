@@ -21,7 +21,7 @@ type (
 		ToEmail string `mapstructure:"to_email"`
 	}
 
-	//Time interval
+	//Scraper time interval
 	Scraper struct {
 		Rate string `mapstructure:"rate"`
 		Port string `mapstructure:"port"`

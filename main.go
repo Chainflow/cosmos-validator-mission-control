@@ -4,10 +4,11 @@ import (
 	"chainflow-vitwit/config"
 	"chainflow-vitwit/targets"
 	"fmt"
-	"github.com/influxdata/influxdb1-client/v2"
 	"log"
 	"sync"
 	"time"
+
+	client "github.com/influxdata/influxdb1-client/v2"
 )
 
 func main() {
