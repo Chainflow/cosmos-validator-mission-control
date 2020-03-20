@@ -4,10 +4,10 @@ import (
 	"chainflow-vitwit/config"
 	"fmt"
 	"log"
+	"os/exec"
 	"strings"
 
 	client "github.com/influxdata/influxdb1-client/v2"
-	ping "github.com/sparrc/go-ping"
 )
 
 //GetLatency to calculate latency
@@ -32,23 +32,19 @@ func GetLatency(_ HTTPOptions, cfg *config.Config, c client.Client) {
 		}
 		for _, addr := range addresses {
 			log.Printf("peer address %s", addr)
-			pinger, err := ping.NewPinger(addr)
+			cmd := exec.Command("ping", "-c", "5", addr)
+			out, err := cmd.CombinedOutput()
 			if err != nil {
-				log.Printf("Error while getting ping response of %s", addr)
+				log.Printf("Error while running ping command %v", err)
 				return
 			}
-			pinger.Count = 10
-			pinger.Run() // blocks until finished
-			stats := pinger.Statistics()
+			pingResp := string(out)
+			rtt := pingResp[len(pingResp)-35 : len(pingResp)-1]
+			splitString := strings.Split(rtt, "/")
+			avgRtt := splitString[1]
 
-			fields := map[string]interface{}{
-				"Address":    stats.Addr,
-				"PacketLoss": stats.PacketLoss,
-				"PacketSent": stats.PacketsSent,
-			}
-
-			log.Printf("Writing address latency in db %s", addr)
-			_ = writeToInfluxDb(c, bp, "vcf_validator_latency", map[string]string{}, fields)
+			log.Println("Writing address latency in db ", addr, avgRtt)
+			_ = writeToInfluxDb(c, bp, "vcf_validator_latency", map[string]string{}, map[string]interface{}{"peer_address": addr, "avg_rtt": avgRtt})
 		}
 	}
 }
