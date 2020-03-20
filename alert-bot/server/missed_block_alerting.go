@@ -60,5 +60,13 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 		_ = SendEmailAlert(fmt.Sprintf("Validator missed a block at block height %s", cbh), cfg)
 		log.Println("Sent missed block alerting")
 	}
+
+	// Calling function to check validator jailed status
+	err = JailedTxAlerting(cfg)
+	if err != nil {
+		log.Printf("Error while sending jailed alerting: %v", err)
+		return err
+	}
+
 	return nil
 }

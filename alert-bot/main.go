@@ -28,7 +28,7 @@ func main() {
 
 	go func() {
 		for {
-			if err := server.JailedAlerting(cfg); err != nil {
+			if err := server.ValidatorStatusAlert(cfg); err != nil {
 				fmt.Println("Error while sending jailed alerts", err)
 			}
 			time.Sleep(43200 * time.Second)
