@@ -32,6 +32,7 @@ func GetLatency(_ HTTPOptions, cfg *config.Config, c client.Client) {
 		}
 		for _, addr := range addresses {
 			log.Printf("peer address %s", addr)
+			// addr = "www.google.com"
 			cmd := exec.Command("ping", "-c", "5", addr)
 			out, err := cmd.CombinedOutput()
 			if err != nil {
@@ -44,7 +45,8 @@ func GetLatency(_ HTTPOptions, cfg *config.Config, c client.Client) {
 			avgRtt := splitString[1]
 
 			log.Println("Writing address latency in db ", addr, avgRtt)
-			_ = writeToInfluxDb(c, bp, "vcf_validator_latency", map[string]string{}, map[string]interface{}{"peer_address": addr, "avg_rtt": avgRtt})
+			_ = writeToInfluxDb(c, bp, "vcf_validator_latency", map[string]string{"peer_address": addr}, map[string]interface{}{"peer_address": addr, "avg_rtt": avgRtt})
+			_ = writeToInfluxDb(c, bp, "vcf_validator_latency_test", map[string]string{"peer_address": addr}, map[string]interface{}{"address": addr, "avg_rtt": avgRtt})
 		}
 	}
 }
