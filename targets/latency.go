@@ -41,6 +41,7 @@ func GetLatency(_ HTTPOptions, cfg *config.Config, c client.Client) {
 			}
 			pingResp := string(out)
 			rtt := pingResp[len(pingResp)-35 : len(pingResp)-1]
+			log.Fatalf("rtt response...", rtt)
 			splitString := strings.Split(rtt, "/")
 			avgRtt := splitString[1]
 
