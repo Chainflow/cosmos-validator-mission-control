@@ -151,6 +151,15 @@ func InitTargets(cfg *config.Config) *Targets {
 			},
 			Func: GetMissedBlocks,
 		},
+		{
+			ExecutionType: "http",
+			Name:          "Get no of unconfirmed txns",
+			HTTPOptions: HTTPOptions{
+				Endpoint: cfg.NodeURL + "num_unconfirmed_txs?",
+				Method:   http.MethodGet,
+			},
+			Func: GetUnconfimedTxns,
+		},
 	}}
 }
 

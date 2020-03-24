@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 
 	client "github.com/influxdata/influxdb1-client/v2"
 )
@@ -36,6 +37,67 @@ func GetValidatorVoted(LCDEndpoint string, proposalID string, accountAddress str
 		}
 	}
 	return validatorVoted
+}
+
+//SendVotingPeriodProposalAlerts which send alerts of voting period proposals
+func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, cfg *config.Config) error {
+	proposalURL := LCDEndpoint + "gov/proposals?status=voting_period"
+	res, err := http.Get(proposalURL)
+	if err != nil {
+		log.Printf("Error: %v", err)
+		return err
+	}
+
+	var p Proposals
+	if res != nil {
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			fmt.Println("Error while reading resp body ", err)
+			return err
+		}
+		_ = json.Unmarshal(body, &p)
+	}
+
+	for _, proposal := range p.Result {
+		proposalVotesURL := LCDEndpoint + "gov/proposals/" + proposal.ID + "/votes"
+		res, err := http.Get(proposalVotesURL)
+		if err != nil {
+			log.Printf("Error: %v", err)
+			return err
+		}
+
+		var voters ProposalVoters
+		if res != nil {
+			body, err := ioutil.ReadAll(res.Body)
+			if err != nil {
+				fmt.Println("Error while reading resp body ", err)
+				return err
+			}
+			_ = json.Unmarshal(body, &voters)
+		}
+
+		var validatorVoted string
+		for _, value := range voters.Result {
+			if value.Voter == accountAddress {
+				validatorVoted = value.Option
+			}
+		}
+
+		if validatorVoted == "No" {
+			now := time.Now().UTC()
+			votingEndTime, _ := time.Parse(time.RFC3339, proposal.VotingEndTime)
+			timeDiff := now.Sub(votingEndTime)
+			log.Println("timeDiff...", timeDiff.Hours())
+
+			if timeDiff.Hours() <= 24 {
+				_ = SendTelegramAlert(fmt.Sprintf("Validator has not voted on proposal = %s", proposal.ID), cfg)
+				_ = SendEmailAlert(fmt.Sprintf("Validator has not voted on proposal = %s", proposal.ID), cfg)
+
+				log.Println("Sent alert of voting period proposals")
+			}
+		}
+	}
+	return nil
 }
 
 //GetValidatorDeposited to check validator deposited for the proposal or not
@@ -88,6 +150,10 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	for _, proposal := range p.Result {
 		validatorVoted := GetValidatorVoted(cfg.LCDEndpoint, proposal.ID, cfg.AccountAddress)
 		validatorDeposited := GetValidatorDeposited(cfg.LCDEndpoint, proposal.ID, cfg.AccountAddress)
+		err = SendVotingPeriodProposalAlerts(cfg.LCDEndpoint, cfg.AccountAddress, cfg)
+		if err != nil {
+			log.Printf("Error while sending voting period alert: %v", err)
+		}
 
 		tag := map[string]string{"id": proposal.ID}
 		fields := map[string]interface{}{
