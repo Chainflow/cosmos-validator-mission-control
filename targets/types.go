@@ -317,4 +317,16 @@ type (
 			} `json:"amount"`
 		} `json:"result"`
 	}
+
+	//UnconfirmedTxns struct
+	UnconfirmedTxns struct {
+		Jsonrpc string `json:"jsonrpc"`
+		ID      string `json:"id"`
+		Result  struct {
+			NTxs       string      `json:"n_txs"`
+			Total      string      `json:"total"`
+			TotalBytes string      `json:"total_bytes"`
+			Txs        interface{} `json:"txs"`
+		} `json:"result"`
+	}
 )
