@@ -31,7 +31,7 @@ func main() {
 			if err := server.ValidatorStatusAlert(cfg); err != nil {
 				fmt.Println("Error while sending jailed alerts", err)
 			}
-			time.Sleep(1 * time.Second)
+			time.Sleep(60 * time.Second)
 		}
 	}()
 
