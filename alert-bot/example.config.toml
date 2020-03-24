@@ -1,0 +1,17 @@
+operator_addr = "cosmosvaloper14l0fp639yudfl46zauvv8rkzjgd4u0zk2aseys"
+account_addr = "cosmos14l0fp639yudfl46zauvv8rkzjgd4u0zk0fyvgr"
+validator_addr = "8F2927C1D0180B19087BB35DE19BABA4E0DE9238"
+lcd_endpoint = "http:// localhost:26657/"
+external_rpc = "http:// localhost:26657/"
+
+[consider UTC time]
+alert_time1 = "07:23PM"
+alert_time2 = "08:15AM"
+
+[telegram]
+chat_id = 510331001
+bot_token="1234567890"
+
+[sendgrid]
+token = "1234567890"
+to_email = "xyz@domain.com"
