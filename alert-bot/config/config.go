@@ -56,7 +56,7 @@ func ReadFromFile() (*Config, error) {
 	return &cfg, nil
 }
 
-//Validate config struct
+// Validate config struct
 func (c *Config) Validate(e ...string) error {
 	v := validator.New()
 	if len(e) == 0 {

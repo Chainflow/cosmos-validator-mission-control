@@ -7,9 +7,9 @@ import (
 
 //Send to send mail alert
 func (e emailAlert) Send(msg, token, toEmail string) error {
-	from := mail.NewEmail("ICF Tool", "icf@vitwit.com")
+	from := mail.NewEmail("The Validator Voting Bot", "emailbot@chainflow.io")
 	subject := msg
-	to := mail.NewEmail("IFC Tool", toEmail)
+	to := mail.NewEmail("to", toEmail)
 	plainTextContent := msg
 	htmlContent := msg
 	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
