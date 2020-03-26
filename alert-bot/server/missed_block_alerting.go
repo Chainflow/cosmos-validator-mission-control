@@ -7,7 +7,7 @@ import (
 	"log"
 )
 
-//SendSingleMissedBlockAlert to send missed block alerting
+// SendSingleMissedBlockAlert to send missed block alerting
 func SendSingleMissedBlockAlert(cfg *config.Config) error {
 	log.Println("Calling missed block alerting")
 	ops := HTTPOptions{

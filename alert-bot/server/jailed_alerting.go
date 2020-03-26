@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-//JailedAlerting to send transaction alert to telegram and mail
+// JailedAlerting to send transaction alert to telegram and mail
 func ValidatorStatusAlert(cfg *config.Config) error {
 	log.Println("Coming inside validator status alerting")
 	ops := HTTPOptions{
@@ -59,7 +59,7 @@ func ValidatorStatusAlert(cfg *config.Config) error {
 	return nil
 }
 
-//JailedTxAlerting to send transaction alert to telegram and mail
+// JailedTxAlerting to send transaction alert to telegram and mail
 // when the validator will be jailed
 func JailedTxAlerting(cfg *config.Config) error {
 	log.Println("Coming inside jailed alerting")
