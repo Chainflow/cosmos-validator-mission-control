@@ -34,7 +34,8 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.NodeURL,
 				Method:   http.MethodGet,
 			},
-			Func: CheckGaiad,
+			Func:        CheckGaiad,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",
@@ -43,12 +44,14 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.NodeURL + "net_info?",
 				Method:   http.MethodGet,
 			},
-			Func: GetNetInfo,
+			Func:        GetNetInfo,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "cmd",
 			Name:          "Gaiacli status cmd",
 			Func:          GetGaiaCliStatus,
+			ScraperRate:   cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",
@@ -57,7 +60,8 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.LCDEndpoint + "staking/validators/" + cfg.OperatorAddress,
 				Method:   http.MethodGet,
 			},
-			Func: GetOperatorInfo,
+			Func:        GetOperatorInfo,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",
@@ -66,12 +70,14 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.LCDEndpoint + "bank/balances/" + cfg.AccountAddress,
 				Method:   http.MethodGet,
 			},
-			Func: GetAccountInfo,
+			Func:        GetAccountInfo,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "cmd",
 			Name:          "Gaiad Version",
 			Func:          GaiadVersion,
+			ScraperRate:   cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",
@@ -80,7 +86,8 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.LCDEndpoint + "gov/proposals",
 				Method:   http.MethodGet,
 			},
-			Func: GetProposals,
+			Func:        GetProposals,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",
@@ -90,7 +97,8 @@ func InitTargets(cfg *config.Config) *Targets {
 					"/delegations/" + cfg.OperatorAddress,
 				Method: http.MethodGet,
 			},
-			Func: GetSelfDelegation,
+			Func:        GetSelfDelegation,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",
@@ -99,7 +107,8 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.LCDEndpoint + "distribution/validators/" + cfg.OperatorAddress + "/rewards",
 				Method:   http.MethodGet,
 			},
-			Func: GetCurrentRewardsAmount,
+			Func:        GetCurrentRewardsAmount,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",
@@ -108,12 +117,14 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.LCDEndpoint + "blocks/latest",
 				Method:   http.MethodGet,
 			},
-			Func: GetLatestProposedBlockAndTime,
+			Func:        GetLatestProposedBlockAndTime,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "cmd",
 			Name:          "Latency",
 			Func:          GetLatency,
+			ScraperRate:   cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",
@@ -122,7 +133,8 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.ExternalRPC + "status?",
 				Method:   http.MethodGet,
 			},
-			Func: GetNetworkLatestBlock,
+			Func:        GetNetworkLatestBlock,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",
@@ -131,7 +143,8 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.NodeURL + "validators",
 				Method:   http.MethodGet,
 			},
-			Func: GetValidatorVotingPower,
+			Func:        GetValidatorVotingPower,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",
@@ -140,7 +153,8 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.NodeURL + "block",
 				Method:   http.MethodGet,
 			},
-			Func: GetBlockTimeDifference,
+			Func:        GetBlockTimeDifference,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",
@@ -149,7 +163,8 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.ExternalRPC + "status",
 				Method:   http.MethodGet,
 			},
-			Func: GetMissedBlocks,
+			Func:        GetMissedBlocks,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",
@@ -158,7 +173,18 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.NodeURL + "num_unconfirmed_txs?",
 				Method:   http.MethodGet,
 			},
-			Func: GetUnconfimedTxns,
+			Func:        GetUnconfimedTxns,
+			ScraperRate: cfg.Scraper.Rate,
+		},
+		{
+			ExecutionType: "http",
+			Name:          "Get Validator status alerting",
+			HTTPOptions: HTTPOptions{
+				Endpoint: cfg.LCDEndpoint + "staking/validators/",
+				Method:   http.MethodGet,
+			},
+			Func:        ValidatorStatusAlert,
+			ScraperRate: cfg.Scraper.ValidatorRate,
 		},
 	}}
 }

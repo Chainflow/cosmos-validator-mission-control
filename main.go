@@ -19,10 +19,6 @@ func main() {
 
 	m := targets.InitTargets(cfg)
 	runner := targets.NewRunner()
-	scrapeRate, err := time.ParseDuration(cfg.Scraper.Rate)
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	c, err := client.NewHTTPClient(client.HTTPConfig{
 		Addr:     fmt.Sprintf("http://localhost:%s", cfg.InfluxDB.Port),
@@ -38,6 +34,10 @@ func main() {
 	for _, tg := range m.List {
 		wg.Add(1)
 		go func(target targets.Target) {
+			scrapeRate, err := time.ParseDuration(target.ScraperRate)
+			if err != nil {
+				log.Fatal(err)
+			}
 			for {
 				runner.Run(target.Func, target.HTTPOptions, cfg, c)
 				time.Sleep(scrapeRate)

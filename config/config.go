@@ -23,8 +23,9 @@ type (
 
 	//Scraper time interval
 	Scraper struct {
-		Rate string `mapstructure:"rate"`
-		Port string `mapstructure:"port"`
+		Rate          string `mapstructure:"rate"`
+		Port          string `mapstructure:"port"`
+		ValidatorRate string `mapstructure:"validator_rate"`
 	}
 
 	//InfluxDB details
@@ -51,6 +52,8 @@ type (
 		RPCEndpoint           string   `mapstructure:"rpc_endpoint"`
 		ExternalRPC           string   `mapstructure:"external_rpc"`
 		MissedBlocksThreshold int64    `mapstructure:"missed_blocks_threshold"`
+		AlertTime1            string   `mapstructure:"alert_time1"`
+		AlertTime2            string   `mapstructure:"alert_time2"`
 	}
 )
 
