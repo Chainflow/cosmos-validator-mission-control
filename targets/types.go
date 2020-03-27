@@ -24,6 +24,7 @@ type (
 		HTTPOptions   HTTPOptions
 		Name          string
 		Func          func(m HTTPOptions, cfg *config.Config, c client.Client)
+		ScraperRate   string
 	}
 
 	//Targets list of targets
