@@ -59,9 +59,9 @@ func ValidatorStatusAlert(cfg *config.Config) error {
 	return nil
 }
 
-// JailedTxAlerting to send transaction alert to telegram and mail
+// CheckValidatorJailed to send transaction alert to telegram and mail
 // when the validator will be jailed
-func JailedTxAlerting(cfg *config.Config) error {
+func CheckValidatorJailed(cfg *config.Config) error {
 	log.Println("Coming inside jailed alerting")
 	ops := HTTPOptions{
 		Endpoint: cfg.LCDEndpoint + "staking/validators/" + cfg.ValOperatorAddress,

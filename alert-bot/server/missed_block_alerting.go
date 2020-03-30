@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-
 	"chainflow-vitwit/alert-bot/config"
 )
 
@@ -63,7 +62,7 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 	}
 
 	// Calling function to check validator jailed status
-	err = JailedTxAlerting(cfg)
+	err = CheckValidatorJailed(cfg)
 	if err != nil {
 		log.Printf("Error while sending jailed alerting: %v", err)
 		return err

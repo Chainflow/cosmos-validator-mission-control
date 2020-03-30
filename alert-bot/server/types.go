@@ -1,10 +1,10 @@
 package server
 
 type (
-	// QueryParams map of strings
+	// QueryParams to map the query params of an url
 	QueryParams map[string]string
 
-	// HTTPOptions struct
+	// HTTPOptions of a target
 	HTTPOptions struct {
 		Endpoint    string
 		QueryParams QueryParams
@@ -19,7 +19,7 @@ type (
 	}
 
 	// ValidatorDescription struct
-	ValidatorDescription struct {
+	ValidatorMetaInfo struct {
 		Moniker  string `json:"moniker"`
 		Identity string `json:"identity"`
 		Website  string `json:"website"`
@@ -40,24 +40,24 @@ type (
 	}
 
 	// ValidatorResult struct
-	ValidatorResult struct {
-		OperatorAddress   string               `json:"operator_address"`
-		ConsensusPubKey   string               `json:"consensus_pubkey"`
-		Jailed            bool                 `json:"jailed"`
-		Status            int                  `json:"status"`
-		Tokens            string               `json:"tokens"`
-		DelegatorShares   string               `json:"delegator_shares"`
-		Description       ValidatorDescription `json:"description"`
-		UnbondingHeight   string               `json:"unbonding_height"`
-		UnbondingTime     string               `json:"unbonding_time"`
-		Commission        ValidatorCommission  `json:"commission"`
-		MinSelfDelegation string               `json:"min_self_delegation"`
+	ValidatorDetails struct {
+		OperatorAddress   string              `json:"operator_address"`
+		ConsensusPubKey   string              `json:"consensus_pubkey"`
+		Jailed            bool                `json:"jailed"`
+		Status            int                 `json:"status"`
+		Tokens            string              `json:"tokens"`
+		DelegatorShares   string              `json:"delegator_shares"`
+		Description       ValidatorMetaInfo   `json:"description"`
+		UnbondingHeight   string              `json:"unbonding_height"`
+		UnbondingTime     string              `json:"unbonding_time"`
+		Commission        ValidatorCommission `json:"commission"`
+		MinSelfDelegation string              `json:"min_self_delegation"`
 	}
 
 	// ValidatorResp defines validator result on a particular height
 	ValidatorResp struct {
-		Height string          `json:"height"`
-		Result ValidatorResult `json:"result"`
+		Height string           `json:"height"`
+		Result ValidatorDetails `json:"result"`
 	}
 
 	// CurrentBlockPrecommit struct
