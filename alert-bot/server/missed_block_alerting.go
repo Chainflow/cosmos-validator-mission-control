@@ -1,10 +1,10 @@
 package server
 
 import (
+	"chainflow-vitwit/alert-bot/config"
 	"encoding/json"
 	"fmt"
 	"log"
-	"chainflow-vitwit/alert-bot/config"
 )
 
 // SendSingleMissedBlockAlert to send missed block alerting
@@ -40,7 +40,7 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 		return err
 	}
 
-	var b CurrentBlockWithHeight
+	var b BlockResponse
 	err = json.Unmarshal(resp.Body, &b)
 	if err != nil {
 		log.Printf("Error: %v", err)
