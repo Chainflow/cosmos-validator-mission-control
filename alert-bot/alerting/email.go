@@ -5,7 +5,7 @@ import (
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
-//Send to send mail alert
+// Send email alert
 func (e emailAlert) Send(msg, token, toEmail string) error {
 	from := mail.NewEmail("The Validator Voting Bot", "emailbot@chainflow.io")
 	subject := msg

@@ -7,30 +7,30 @@ import (
 )
 
 type (
-	//Telegram bot details struct
-	Telegram struct {
+	// Telegram bot config details
+	TelegramBotConfig struct {
 		BotToken string `mapstructure:"bot_token"`
 		ChatID   int64  `mapstructure:"chat_id"`
 	}
 
-	//SendGrid tokens
-	SendGrid struct {
-		Token   string `mapstructure:"token"`
-		ToEmail string `mapstructure:"to_email"`
+	// EmailConfig
+	EmailConfig struct {
+		SendGridAPIToken    string `mapstructure:"token"`
+		ReceiverMailAddress string `mapstructure:"to_email"`
 	}
 
-	//Config
+	// Config defines all the app configurations
 	Config struct {
-		OperatorAddress  string   `mapstructure:"operator_addr"`
-		AccountAddress   string   `mapstructure:"account_addr"`
-		ValidatorAddress string   `mapstructure:"validator_addr"`
-		LCDEndpoint      string   `mapstructure:"lcd_endpoint"`
-		Telegram         Telegram `mapstructure:"telegram"`
-		SendGrid         SendGrid `mapstructure:"sendgrid"`
-		RPCEndpoint      string   `mapstructure:"rpc_endpoint"`
-		ExternalRPC      string   `mapstructure:"external_rpc"`
-		AlertTime1       string   `mapstructure:"alert_time1"`
-		AlertTime2       string   `mapstructure:"alert_time2"`
+		OperatorAddress  string            `mapstructure:"operator_addr"`
+		AccountAddress   string            `mapstructure:"account_addr"`
+		ValidatorAddress string            `mapstructure:"validator_addr"`
+		LCDEndpoint      string            `mapstructure:"lcd_endpoint"`
+		Telegram         TelegramBotConfig `mapstructure:"telegram"`
+		SendGrid         EmailConfig       `mapstructure:"sendgrid"`
+		RPCEndpoint      string            `mapstructure:"rpc_endpoint"`
+		ExternalRPC      string            `mapstructure:"external_rpc"`
+		AlertTime1       string            `mapstructure:"alert_time1"`
+		AlertTime2       string            `mapstructure:"alert_time2"`
 	}
 )
 
