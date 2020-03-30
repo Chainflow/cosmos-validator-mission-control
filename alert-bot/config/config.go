@@ -21,21 +21,21 @@ type (
 
 	// Config defines all the app configurations
 	Config struct {
-		OperatorAddress  string            `mapstructure:"operator_addr"`
-		AccountAddress   string            `mapstructure:"account_addr"`
-		ValidatorAddress string            `mapstructure:"validator_addr"`
-		LCDEndpoint      string            `mapstructure:"lcd_endpoint"`
-		Telegram         TelegramBotConfig `mapstructure:"telegram"`
-		SendGrid         EmailConfig       `mapstructure:"sendgrid"`
-		RPCEndpoint      string            `mapstructure:"rpc_endpoint"`
-		ExternalRPC      string            `mapstructure:"external_rpc"`
-		AlertTime1       string            `mapstructure:"alert_time1"`
-		AlertTime2       string            `mapstructure:"alert_time2"`
+		ValOperatorAddress  string            `mapstructure:"val_operator_addr"`
+		AccountAddress      string            `mapstructure:"account_addr"`
+		ValidatorHexAddress string            `mapstructure:"validator_hex_addr"`
+		LCDEndpoint         string            `mapstructure:"lcd_endpoint"`
+		Telegram            TelegramBotConfig `mapstructure:"telegram"`
+		SendGrid            EmailConfig       `mapstructure:"sendgrid"`
+		RPCEndpoint         string            `mapstructure:"rpc_endpoint"`
+		ExternalRPC         string            `mapstructure:"external_rpc"`
+		AlertTime1          string            `mapstructure:"alert_time1"`
+		AlertTime2          string            `mapstructure:"alert_time2"`
 	}
 )
 
-//ReadFromFile to read config details using viper
-func ReadFromFile() (*Config, error) {
+// ReadConfigFromFile to read config details using viper
+func ReadConfigFromFile() (*Config, error) {
 	v := viper.New()
 	v.AddConfigPath(".")
 	v.AddConfigPath("./config/")

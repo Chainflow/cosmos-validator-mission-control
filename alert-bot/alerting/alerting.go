@@ -1,8 +1,8 @@
 package alerting
 
-// Telegram is an interface definition for telegram related actions
+// TelegramAlerter is an interface definition for telegram related actions
 // like Send telegram alert
-type Telegram interface {
+type TelegramAlerter interface {
 	Send(msgText, botToken string, alerthnatID int64) error
 }
 
@@ -13,13 +13,13 @@ func NewTelegramAlerter() *telegramAlert {
 	return &telegramAlert{}
 }
 
-// Email is an interface definition for email actions
+// EmailAlert is an interface definition for email actions
 // like Send email alert
-type Email interface {
+type EmailAlert interface {
 	Send(msg, token, toEmail string) error
 }
 
-type emailAlert struct {}
+type emailAlert struct{}
 
 //NewEmailAlerter returns emailAlert
 func NewEmailAlerter() *emailAlert {
