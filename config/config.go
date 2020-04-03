@@ -39,9 +39,9 @@ type (
 	//Config
 	Config struct {
 		NodeURL               string   `mapstructure:"node_url"`
-		OperatorAddress       string   `mapstructure:"operator_addr"`
+		ValOperatorAddress    string   `mapstructure:"val_operator_addr"`
 		AccountAddress        string   `mapstructure:"account_addr"`
-		ValidatorAddress      string   `mapstructure:"validator_addr"`
+		ValidatorHexAddress   string   `mapstructure:"validator_hex_addr"`
 		LCDEndpoint           string   `mapstructure:"lcd_endpoint"`
 		VotingPowerThreshold  int64    `mapstructure:"voting_power_threshold"`
 		NumPeersThreshold     int64    `mapstructure:"num_peers_threshold"`
@@ -60,11 +60,11 @@ type (
 //ReadFromEnv to read env details
 func ReadFromEnv() *Config {
 	return &Config{
-		NodeURL:         getEnv("NODE_URL", ""),
-		OperatorAddress: getEnv("OPERATOR_ADDR", ""),
-		AccountAddress:  getEnv("ACCOUNT_ADDR", ""),
-		LCDEndpoint:     getEnv("LCD_ENDPOINT", ""),
-		RPCEndpoint:     getEnv("EXTERNAL_RPC", ""),
+		NodeURL:            getEnv("NODE_URL", ""),
+		ValOperatorAddress: getEnv("VAL_OPERATOR_ADDR", ""),
+		AccountAddress:     getEnv("ACCOUNT_ADDR", ""),
+		LCDEndpoint:        getEnv("LCD_ENDPOINT", ""),
+		RPCEndpoint:        getEnv("EXTERNAL_RPC", ""),
 	}
 }
 

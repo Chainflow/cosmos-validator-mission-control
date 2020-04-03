@@ -14,7 +14,7 @@ import (
 func ValidatorStatusAlert(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	log.Println("Coming inside validator status alerting")
 
-	ops.Endpoint = ops.Endpoint + cfg.OperatorAddress
+	ops.Endpoint = ops.Endpoint + cfg.ValOperatorAddress
 
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
