@@ -10,7 +10,7 @@ external_rpc = ""
 missed_blocks_threshold = 2
 alert_time1 = "04:44PM"
 alert_time2 = "04:48PM"
-
+block_diff_threshold = 1
 
 [scraper]
 rate = "5s"
