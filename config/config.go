@@ -54,6 +54,7 @@ type (
 		MissedBlocksThreshold int64    `mapstructure:"missed_blocks_threshold"`
 		AlertTime1            string   `mapstructure:"alert_time1"`
 		AlertTime2            string   `mapstructure:"alert_time2"`
+		BlockDiffThreshold    int64    `mapstructure:"block_diff_threshold"`
 	}
 )
 
