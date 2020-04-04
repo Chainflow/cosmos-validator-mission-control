@@ -10,13 +10,15 @@ import (
 )
 
 func main() {
-	cfg, err := config.ReadFromFile()
+	cfg, err := config.ReadConfigFromFile()
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	var wg sync.WaitGroup
 	wg.Add(1)
+
+	// Calling go routine to send alerts for missed blocks
 	go func() {
 		for {
 			if err := server.SendSingleMissedBlockAlert(cfg); err != nil {
@@ -26,6 +28,7 @@ func main() {
 		}
 	}()
 
+	// Calling go routine to send alert about validator status
 	go func() {
 		for {
 			if err := server.ValidatorStatusAlert(cfg); err != nil {

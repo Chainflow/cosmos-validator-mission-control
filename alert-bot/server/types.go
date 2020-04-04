@@ -1,10 +1,10 @@
 package server
 
 type (
-	// QueryParams map of strings
+	// QueryParams to map the query params of an url
 	QueryParams map[string]string
 
-	// HTTPOptions struct
+	// HTTPOptions of a target
 	HTTPOptions struct {
 		Endpoint    string
 		QueryParams QueryParams
@@ -19,7 +19,7 @@ type (
 	}
 
 	// ValidatorDescription struct
-	ValidatorDescription struct {
+	ValidatorMetaInfo struct {
 		Moniker  string `json:"moniker"`
 		Identity string `json:"identity"`
 		Website  string `json:"website"`
@@ -40,28 +40,28 @@ type (
 	}
 
 	// ValidatorResult struct
-	ValidatorResult struct {
-		OperatorAddress   string               `json:"operator_address"`
-		ConsensusPubKey   string               `json:"consensus_pubkey"`
-		Jailed            bool                 `json:"jailed"`
-		Status            int                  `json:"status"`
-		Tokens            string               `json:"tokens"`
-		DelegatorShares   string               `json:"delegator_shares"`
-		Description       ValidatorDescription `json:"description"`
-		UnbondingHeight   string               `json:"unbonding_height"`
-		UnbondingTime     string               `json:"unbonding_time"`
-		Commission        ValidatorCommission  `json:"commission"`
-		MinSelfDelegation string               `json:"min_self_delegation"`
+	ValidatorDetails struct {
+		OperatorAddress   string              `json:"operator_address"`
+		ConsensusPubKey   string              `json:"consensus_pubkey"`
+		Jailed            bool                `json:"jailed"`
+		Status            int                 `json:"status"`
+		Tokens            string              `json:"tokens"`
+		DelegatorShares   string              `json:"delegator_shares"`
+		Description       ValidatorMetaInfo   `json:"description"`
+		UnbondingHeight   string              `json:"unbonding_height"`
+		UnbondingTime     string              `json:"unbonding_time"`
+		Commission        ValidatorCommission `json:"commission"`
+		MinSelfDelegation string              `json:"min_self_delegation"`
 	}
 
 	// ValidatorResp defines validator result on a particular height
 	ValidatorResp struct {
-		Height string          `json:"height"`
-		Result ValidatorResult `json:"result"`
+		Height string           `json:"height"`
+		Result ValidatorDetails `json:"result"`
 	}
 
-	// CurrentBlockPrecommit struct
-	CurrentBlockPrecommit struct {
+	// CommitInfo struct
+	CommitInfo struct {
 		Type             int64       `json:"type"`
 		Height           string      `json:"height"`
 		Round            string      `json:"round"`
@@ -72,34 +72,34 @@ type (
 		Signature        string      `json:"signature"`
 	}
 
-	// CurrentBlockLastCommit stores block precommits
-	CurrentBlockLastCommit struct {
-		BlockID    interface{}             `json:"block_id"`
-		Precommits []CurrentBlockPrecommit `json:"precommits"`
+	// LastCommitInfo stores block precommits
+	LastCommitInfo struct {
+		BlockID    interface{}  `json:"block_id"`
+		Precommits []CommitInfo `json:"precommits"`
 	}
 
-	// CurrentBlock stores latest block details
-	CurrentBlock struct {
+	// BlockInfo stores latest block details
+	BlockInfo struct {
 		Header struct {
 			Height string `json:"height"`
 			Time   string `json:"time`
 		} `json:"header"`
-		Data       interface{}            `json:"data"`
-		Evidence   interface{}            `json:"evidence"`
-		LastCommit CurrentBlockLastCommit `json:"last_commit"`
+		Data       interface{}    `json:"data"`
+		Evidence   interface{}    `json:"evidence"`
+		LastCommit LastCommitInfo `json:"last_commit"`
 	}
 
-	// CurrentBlockWithHeightResult stores block meta information
-	CurrentBlockWithHeightResult struct {
-		BlockMeta interface{}  `json:"block_meta"`
-		Block     CurrentBlock `json:"block"`
+	// BlockResult stores block meta information
+	BlockResult struct {
+		BlockMeta interface{} `json:"block_meta"`
+		Block     BlockInfo   `json:"block"`
 	}
 
-	// CurrentBlockWithHeight stores current block information
-	CurrentBlockWithHeight struct {
-		JSONRPC string                       `json:"jsonrpc"`
-		ID      string                       `json:"id"`
-		Result  CurrentBlockWithHeightResult `json:"result"`
+	// BlockResponse response of a block information
+	BlockResponse struct {
+		JSONRPC string      `json:"jsonrpc"`
+		ID      string      `json:"id"`
+		Result  BlockResult `json:"result"`
 	}
 
 	// NetworkLatestBlock stores latest block height info

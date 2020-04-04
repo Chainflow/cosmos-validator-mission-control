@@ -57,7 +57,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Operator Information",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "staking/validators/" + cfg.OperatorAddress,
+				Endpoint: cfg.LCDEndpoint + "staking/validators/" + cfg.ValOperatorAddress,
 				Method:   http.MethodGet,
 			},
 			Func:        GetOperatorInfo,
@@ -94,7 +94,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			Name:          "Self Delegation",
 			HTTPOptions: HTTPOptions{
 				Endpoint: cfg.LCDEndpoint + "/staking/delegators/" + cfg.AccountAddress +
-					"/delegations/" + cfg.OperatorAddress,
+					"/delegations/" + cfg.ValOperatorAddress,
 				Method: http.MethodGet,
 			},
 			Func:        GetSelfDelegation,
@@ -104,7 +104,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Current Rewards Amount",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "distribution/validators/" + cfg.OperatorAddress + "/rewards",
+				Endpoint: cfg.LCDEndpoint + "distribution/validators/" + cfg.ValOperatorAddress + "/rewards",
 				Method:   http.MethodGet,
 			},
 			Func:        GetCurrentRewardsAmount,

@@ -40,7 +40,7 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 		return err
 	}
 
-	var b CurrentBlockWithHeight
+	var b BlockResponse
 	err = json.Unmarshal(resp.Body, &b)
 	if err != nil {
 		log.Printf("Error: %v", err)
@@ -50,7 +50,7 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 	addrExists := false
 
 	for _, c := range b.Result.Block.LastCommit.Precommits {
-		if c.ValidatorAddress == cfg.ValidatorAddress {
+		if c.ValidatorAddress == cfg.ValidatorHexAddress {
 			addrExists = true
 		}
 	}
@@ -62,7 +62,7 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 	}
 
 	// Calling function to check validator jailed status
-	err = JailedTxAlerting(cfg)
+	err = CheckValidatorJailed(cfg)
 	if err != nil {
 		log.Printf("Error while sending jailed alerting: %v", err)
 		return err

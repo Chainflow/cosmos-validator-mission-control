@@ -46,7 +46,15 @@ func GetNetworkLatestBlock(ops HTTPOptions, cfg *config.Config, c client.Client)
 	heightDiff := networkBlockHeight - vaidatorBlockHeight
 
 	_ = writeToInfluxDb(c, bp, "vcf_height_difference", map[string]string{}, map[string]interface{}{"difference": heightDiff})
-	log.Printf("Network height: %d", networkBlockHeight)
+	log.Printf("Network height: %d and Validator Height: %d", networkBlockHeight, vaidatorBlockHeight)
+
+	// Send alert
+	if int64(heightDiff) >= cfg.BlockDiffThreshold {
+		_ = SendTelegramAlert(fmt.Sprintf("Block difference between network and validator has exceeded %d", cfg.BlockDiffThreshold), cfg)
+		_ = SendEmailAlert(fmt.Sprintf("Block difference between network and validator has exceeded %d", cfg.BlockDiffThreshold), cfg)
+
+		log.Println("Sent alert of block height difference")
+	}
 }
 
 // GetValidatorBlock returns validator current block height
