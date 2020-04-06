@@ -7,10 +7,10 @@ import (
 )
 
 type (
-	//QueryParams map of strings
+	// QueryParams map of strings
 	QueryParams map[string]string
 
-	//HTTPOptions for http options
+	// HTTPOptions for http options
 	HTTPOptions struct {
 		Endpoint    string
 		QueryParams QueryParams
@@ -18,7 +18,7 @@ type (
 		Method      string
 	}
 
-	//Target struct
+	// Target struct
 	Target struct {
 		ExecutionType string
 		HTTPOptions   HTTPOptions
@@ -27,18 +27,18 @@ type (
 		ScraperRate   string
 	}
 
-	//Targets list of targets
+	// Targets list of targets
 	Targets struct {
 		List []Target
 	}
 
-	//PingResp struct
+	// PingResp struct
 	PingResp struct {
 		StatusCode int
 		Body       []byte
 	}
 
-	//Peer response
+	// Peer response
 	Peer struct {
 		RemoteIP         string      `json:"remote_ip"`
 		ConnectionStatus interface{} `json:"connection_status"`

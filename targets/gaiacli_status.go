@@ -10,7 +10,8 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-//GetGaiaCliStatus to run command gaiacli status and handle the reponse of it
+// GetGaiaCliStatus to run command gaiacli status and handle the reponse of it like
+//current block height and node status
 func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {

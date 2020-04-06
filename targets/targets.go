@@ -13,18 +13,18 @@ import (
 
 type targetRunner struct{}
 
-//NewRunner returns targetRunner
+// NewRunner returns targetRunner
 func NewRunner() *targetRunner {
 	return &targetRunner{}
 }
 
-//Run to run the request
+// Run to run the request
 func (m targetRunner) Run(function func(ops HTTPOptions, cfg *config.Config, c client.Client), ops HTTPOptions, cfg *config.Config, c client.Client) {
 	function(ops, cfg, c)
 }
 
-//InitTargets which returns the targets
-// can write all the endpoints here
+// InitTargets which returns the targets
+//can write all the endpoints here
 func InitTargets(cfg *config.Config) *Targets {
 	return &Targets{List: []Target{
 		{
@@ -227,7 +227,7 @@ func makeResponse(res *http.Response) (*PingResp, error) {
 	return response, nil
 }
 
-//HitHTTPTarget to hit the target and get response
+// HitHTTPTarget to hit the target and get response
 func HitHTTPTarget(ops HTTPOptions) (*PingResp, error) {
 	req, err := newHTTPRequest(ops)
 	if err != nil {

@@ -11,7 +11,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-//SendSingleMissedBlockAlert Send missed block alert to telegram bot and mail
+// SendSingleMissedBlockAlert sends missed block alert to telegram and email accounts
 func SendSingleMissedBlockAlert(ops HTTPOptions, cfg *config.Config, c client.Client) error {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -72,7 +72,7 @@ func SendSingleMissedBlockAlert(ops HTTPOptions, cfg *config.Config, c client.Cl
 	return nil
 }
 
-//GetMissedBlocks to get missed block and send alert
+// GetMissedBlocks sends alerts of missed blocks according to the threshold given by user
 func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -157,7 +157,7 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 }
 
-//GetContinuousMissedBlock returns the latest missed block
+// GetContinuousMissedBlock returns the latest missed block from the db
 func GetContinuousMissedBlock(cfg *config.Config, c client.Client) string {
 	var blocks string
 	q := client.NewQuery("SELECT last(block_height) FROM vcf_missed_blocks", cfg.InfluxDB.Database, "")
@@ -177,7 +177,7 @@ func GetContinuousMissedBlock(cfg *config.Config, c client.Client) string {
 	return blocks
 }
 
-//GetlatestCurrentHeightFromDB returns latest current height from db
+// GetlatestCurrentHeightFromDB returns latest current height from db
 func GetlatestCurrentHeightFromDB(cfg *config.Config, c client.Client) string {
 	var currentHeight string
 	q := client.NewQuery("SELECT last(current_height) FROM vcf_missed_blocks", cfg.InfluxDB.Database, "")

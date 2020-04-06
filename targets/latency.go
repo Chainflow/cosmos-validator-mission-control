@@ -10,7 +10,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-//GetLatency to calculate latency
+// GetLatency to calculate latency of a peer address
 func GetLatency(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
