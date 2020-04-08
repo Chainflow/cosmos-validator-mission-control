@@ -20,7 +20,7 @@ func convertToCommaSeparated(amt string) string {
 	return p.Sprintf("%d", a)
 }
 
-//GetAccountInfo to get account balance information
+// GetAccountInfo to get account balance information using account address
 func GetAccountInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {

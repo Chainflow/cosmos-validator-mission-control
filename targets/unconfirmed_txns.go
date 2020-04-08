@@ -8,7 +8,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-//GetUnconfimedTxns to get the no of txns
+// GetUnconfimedTxns to get the no of uncofirmed txns
 func GetUnconfimedTxns(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {

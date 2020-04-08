@@ -12,7 +12,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-//GetValidatorVoted to check validator voted for the proposal or not
+// GetValidatorVoted to check validator voted for the proposal or not
 func GetValidatorVoted(LCDEndpoint string, proposalID string, accountAddress string) string {
 
 	proposalURL := LCDEndpoint + "gov/proposals/" + proposalID + "/votes"
@@ -39,7 +39,7 @@ func GetValidatorVoted(LCDEndpoint string, proposalID string, accountAddress str
 	return validatorVoted
 }
 
-//SendVotingPeriodProposalAlerts which send alerts of voting period proposals
+// SendVotingPeriodProposalAlerts which send alerts of voting period proposals
 func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, cfg *config.Config) error {
 	proposalURL := LCDEndpoint + "gov/proposals?status=voting_period"
 	res, err := http.Get(proposalURL)
@@ -100,7 +100,7 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 	return nil
 }
 
-//GetValidatorDeposited to check validator deposited for the proposal or not
+// GetValidatorDeposited to check validator deposited for the proposal or not
 func GetValidatorDeposited(LCDEndpoint string, proposalID string, accountAddress string) string {
 
 	proposalURL := LCDEndpoint + "gov/proposals/" + proposalID + "/deposits"
@@ -127,7 +127,7 @@ func GetValidatorDeposited(LCDEndpoint string, proposalID string, accountAddress
 	return validateDeposit
 }
 
-//GetProposals to get all the proposals and send alerts accordingly
+// GetProposals to get all the proposals and send alerts accordingly
 func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
@@ -163,11 +163,11 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			"content_value_description": proposal.Content.Value.Description,
 			"proposal_status":           proposal.ProposalStatus,
 			"final_tally_result":        proposal.FinalTallyResult,
-			"submit_time":               proposal.SubmitTime,
-			"deposit_end_time":          proposal.DepositEndTime,
+			"submit_time":               GetUserDateFormat(proposal.SubmitTime),
+			"deposit_end_time":          GetUserDateFormat(proposal.DepositEndTime),
 			"total_deposit":             proposal.TotalDeposit,
-			"voting_start_time":         proposal.VotingStartTime,
-			"voting_end_time":           proposal.VotingEndTime,
+			"voting_start_time":         GetUserDateFormat(proposal.VotingStartTime),
+			"voting_end_time":           GetUserDateFormat(proposal.VotingEndTime),
 			"validator_voted":           validatorVoted,
 			"validator_deposited":       validatorDeposited,
 		}
@@ -220,8 +220,8 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 }
 
-//DeleteDepoitEndProposals to delete proposals from db
-// which are not present in lcd resposne
+// DeleteDepoitEndProposals to delete proposals from db
+//which are not present in lcd resposne
 func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p Proposals) error {
 	var ID string
 	found := false
@@ -255,4 +255,15 @@ func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p Proposals) 
 		}
 	}
 	return nil
+}
+
+// GetUserDateFormat to which returns date in a user friendly
+func GetUserDateFormat(timeToConvert string) string {
+	time, err := time.Parse(time.RFC3339, timeToConvert)
+	if err != nil {
+		fmt.Println("Error while converting date ", err)
+	}
+	date := time.Format("Mon Jan _2 15:04:05 2006")
+	fmt.Println("Converted time into date format : ", date)
+	return date
 }

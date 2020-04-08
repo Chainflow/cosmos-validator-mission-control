@@ -10,7 +10,7 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-// JailedAlerting to send transaction alert to telegram and mail
+// ValidatorStatusAlert to send alerts to telegram and email about validator status
 func ValidatorStatusAlert(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	log.Println("Coming inside validator status alerting")
 
