@@ -1,78 +1,99 @@
-## Validator monitoring and alerting tool
+# Validator monitoring and alerting tool
 
-### Getting Started
+## Prerequisites
+- **Go 13.x+**
 
-- Grafana Installation on ununtu
+**Install Grafana on ununtu**
+
+Download the latest .tar.gz file and extract it by using the following commands
 
 ```sh
-- **Download the latest .tar.gz file and extract it by using the following commands**
-
-    cd $HOME
-    wget https://dl.grafana.com/oss/release/grafana-6.7.2.linux-amd64.tar.gz
-    tar -zxvf grafana-6.7.2.linux-amd64.tar.gz
-
-- **Start the grafana server**
-
-    cd grafana-6.7.2/bin/
-    ./grafana-server
-
+$ cd $HOME
+$ wget https://dl.grafana.com/oss/release/grafana-6.7.2.linux-amd64.tar.gz
+$ tar -zxvf grafana-6.7.2.linux-amd64.tar.gz
 ```
 
-- InfluxDB Installation
-
+Start the grafana server
 ```sh
-- **Download the latest .tar.gz file and extract it by using the following commands**
-
-    cd $HOME
-    wget https://dl.influxdata.com/influxdb/releases/influxdb-1.7.10_linux_amd64.tar.gz
-    tar xvfz influxdb-1.7.10_linux_amd64.tar.gz
-
-- **Start influxDB**
-
-    cd $HOME and run the below command to start the server
-    ./influxdb-1.7.10-1/usr/bin/influxd
-
-    **Note : If you want to give your own configuration then you can edit the influxdb.conf file which is in the path /influxdb-1.7.10-1/etc/influxdb and do not forget to restart the server after every change in configuration file.**
+$ cd grafana-6.7.2/bin/
+$ ./grafana-server
 ```
-- Telegraf Installation
+
+**Install InfluxDB**
+
+Download the latest .tar.gz file and extract it by using the following commands
 
 ```sh
-- ***Download the latest .tar.gz file and extract it by using the following commands***
+$ cd $HOME
+$ wget https://dl.influxdata.com/influxdb/releases/influxdb-1.7.10_linux_amd64.tar.gz
+$ tar xvfz influxdb-1.7.10_linux_amd64.tar.gz
+```
 
-    cd $HOME
-    wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.0_linux_amd64.tar.gz
-    tar xf telegraf-1.14.0_linux_amd64.tar.gz
+Start influxDB
 
-    **Start telegraph**
+```sh
+$ cd $HOME and run the below command to start the server
+$ ./influxdb-1.7.10-1/usr/bin/influxd
+```
 
-- go to the directory path and run the binary using below commands
-    cd telegraf/usr/bin/
-    ./telegraf --config ../../etc/telegraf/telegraf.conf
+**Note :** If you want to give custom configuration then you can edit the `influxdb.conf` at `/influxdb-1.7.10-1/etc/influxdb` and do not forget to restart the server after the changes.
 
-     **Note : If you want to give your own configuration then you can edit the telegraf.conf file which is in the path telegraf/etc/telegraf/telegraf.conf and do not forget to restart the server after every change in configuration file.**
+
+**Telegraf Installation**
+Download the latest .tar.gz file and extract it by using the following commands
+```sh
+$ cd $HOME
+$ wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.0_linux_amd64.tar.gz
+tar xf telegraf-1.14.0_linux_amd64.tar.gz
+```
+
+Start telegraph
+```sh
+$ cd telegraf/usr/bin/
+$ ./telegraf --config ../../etc/telegraf/telegraf.conf
+```
+
+## Get the code
+```bash
+$ git clone git@github.com:chris-remus/chainflow-vitwit.git
+$ cd chainflow-vitwit
+$ cd alpha
+$ cp example.config.toml config.toml
+```
+
+`config.toml` has following configurations
+- *tg_chat_id*
+
+    Telegram chat ID to receive telegram alerts
+- *tg_bot_token*
+
+    Telegram bot token. The bot should be added to the chat and it should have send msessage permission
+
+- *email_address*
+
+    Email address to receive email notifications
+
+- *sendgrid_token*
+
+    Sendgrid mail service api token.
+- *missed_blocks_threshold*
+
+    Configure the threshold to receive  **Missed Block Alerting**
+- *block_diff_threshold*
+
+    An integer value to receive **Block difference alerts**
+
+- *alert_time1* and *alert_time2*
+
+    These are for regular status updates. To receive validator status daily (twice), configure these parameters in the form of "02:25PM". The time here refers to UTC time.
+
+After populating config.toml, build and run the monitoring binary
+
+```bash
+$ go build && ./chainflow-vitwit
 ```
 
 ```bash
-git clone git@github.com:chris-remus/chainflow-vitwit.git
-cd chainflow-vitwit
-cp example.config.toml config.toml
-```
-
-- For **Get Missed Block Alerting** populate *missed_blocks_threshold* in `config.toml` with your desired threshold
-- To **Get Validator Status Alerts** populate *alert_time1* and *alert_time2* in `config.toml` in the form of UTC(ex:"02:25PM")
-- To **Get Block Difference Alerts** populate *block_diff_threshold* with your desired threshold
-- For **Telegram Alerting** populate *chat_id* and *bot_token* in `config.toml` with your values
-- For **Email Alerting** populate *token* and *to_email* (your email) in `config.toml` with your values
-
-After populating config.toml -
-
-```bash
-- Build and run the bin file
-
-    go build && ./chainflow-vitwit
-```
-
-```bash
-docker build -t cfv .
-docker run -d --name chainflow-vitwit cfv
+$ docker build -t cfv .
+$ docker run -d --name chainflow-vitwit cfv
 ```
