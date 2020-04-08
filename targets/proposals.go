@@ -163,11 +163,11 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			"content_value_description": proposal.Content.Value.Description,
 			"proposal_status":           proposal.ProposalStatus,
 			"final_tally_result":        proposal.FinalTallyResult,
-			"submit_time":               proposal.SubmitTime,
-			"deposit_end_time":          proposal.DepositEndTime,
+			"submit_time":               GetUserDateFormat(proposal.SubmitTime),
+			"deposit_end_time":          GetUserDateFormat(proposal.DepositEndTime),
 			"total_deposit":             proposal.TotalDeposit,
-			"voting_start_time":         proposal.VotingStartTime,
-			"voting_end_time":           proposal.VotingEndTime,
+			"voting_start_time":         GetUserDateFormat(proposal.VotingStartTime),
+			"voting_end_time":           GetUserDateFormat(proposal.VotingEndTime),
 			"validator_voted":           validatorVoted,
 			"validator_deposited":       validatorDeposited,
 		}
@@ -255,4 +255,15 @@ func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p Proposals) 
 		}
 	}
 	return nil
+}
+
+// GetUserDateFormat to which returns date in a user friendly
+func GetUserDateFormat(proposalTime string) string {
+	time, err := time.Parse(time.RFC3339, proposalTime)
+	if err != nil {
+		fmt.Println("Error while converting date ", err)
+	}
+	date := time.Format("Mon Jan _2 15:04:05 2006")
+	fmt.Println("Proposal Date : ", date)
+	return date
 }
