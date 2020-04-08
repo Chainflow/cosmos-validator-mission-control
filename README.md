@@ -94,6 +94,7 @@ After populating config.toml, build and run the monitoring binary
 $ go build -o chain-monit && ./chain-monit
 ```
 
+Run using docker
 ```bash
 $ docker build -t cfv .
 $ docker run -d --name chain-monit cfv
