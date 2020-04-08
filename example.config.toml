@@ -1,0 +1,32 @@
+node_url = "http://localhost:26657/"
+val_operator_addr = "cosmosvaloper14l0fp639yudfl46zauvv8rkzjgd4u0zk2aseys"
+account_addr = "cosmos14l0fp639yudfl46zauvv8rkzjgd4u0zk0fyvgr"
+validator_hex_addr = "8F2927C1D0180B19087BB35DE19BABA4E0DE9238"
+lcd_endpoint = "https://localhost:27017/"
+voting_power_threshold = 50
+num_peers_threshold = 2
+rpc_endpoint = ""
+external_rpc = ""
+missed_blocks_threshold = 2
+alert_time1 = "04:44PM"
+alert_time2 = "04:48PM"
+block_diff_threshold = 1
+
+[scraper]
+rate = "5s"
+port = ":8080"
+validator_rate = "60s"
+
+[telegram]
+tg_chat_id = 510331132
+tg_bot_token="1234567890"
+
+[sendgrid]
+sendgrid_token = "1234567890"
+email_address = "xyz@domain.com"
+
+[influxdb]
+port = "8086"
+database = "vcf"
+username = "admin"
+password = "password"
