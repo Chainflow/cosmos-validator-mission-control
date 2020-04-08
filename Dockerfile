@@ -1,9 +1,9 @@
 # Stage 1
 FROM golang:1.13.1 AS builder
 
-COPY . /app/chainflow-vitwit
+COPY . /app/chain-monit
 
-WORKDIR /app/chainflow-vitwit
+WORKDIR /app/chain-monit
 
 RUN go mod download
 
@@ -17,7 +17,7 @@ RUN apk --no-cache add ca-certificates
 
 COPY --from=builder /main /app/
 
-COPY --from=builder /app/chainflow-vitwit/config.toml /app
+COPY --from=builder /app/chain-monit/config.toml /app
 
 WORKDIR /app
 
