@@ -15,14 +15,15 @@ block_diff_threshold = 1
 [scraper]
 rate = "5s"
 port = ":8080"
+validator_rate = "60s"
 
 [telegram]
-chat_id = 510331132
-bot_token="1234567890"
+tg_chat_id = 510331132
+tg_bot_token="1234567890"
 
 [sendgrid]
-token = "1234567890"
-to_email = "xyz@domain.com"
+sendgrid_token = "1234567890"
+email_address = "xyz@domain.com"
 
 [influxdb]
 port = "8086"

@@ -17,7 +17,7 @@ func SendTelegramAlert(msg string, cfg *config.Config) error {
 
 // SendEmailAlert sends alert to email account
 func SendEmailAlert(msg string, cfg *config.Config) error {
-	if err := alerting.NewEmailAlerter().Send(msg, cfg.SendGrid.Token, cfg.SendGrid.ToEmail); err != nil {
+	if err := alerting.NewEmailAlerter().Send(msg, cfg.SendGrid.Token, cfg.SendGrid.EmailAddress); err != nil {
 		log.Printf("failed to send email alert: %v", err)
 		return err
 	}

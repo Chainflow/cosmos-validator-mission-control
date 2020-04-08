@@ -1,8 +1,8 @@
 FROM golang:1.13.1
 
-COPY . /app/chainflow-vitwit
+COPY . /app/chain-monit
 
-WORKDIR /app/chainflow-vitwit
+WORKDIR /app/chain-monit
 
 RUN go mod download
 

@@ -11,14 +11,14 @@ import (
 type (
 	//Telegram bot details struct
 	Telegram struct {
-		BotToken string `mapstructure:"bot_token"`
-		ChatID   int64  `mapstructure:"chat_id"`
+		BotToken string `mapstructure:"tg_bot_token"`
+		ChatID   int64  `mapstructure:"tg_chat_id"`
 	}
 
 	//SendGrid tokens
 	SendGrid struct {
-		Token   string `mapstructure:"token"`
-		ToEmail string `mapstructure:"to_email"`
+		Token        string `mapstructure:"sendgrid_token"`
+		EmailAddress string `mapstructure:"email_address"`
 	}
 
 	//Scraper time interval
