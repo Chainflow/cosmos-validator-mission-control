@@ -40,6 +40,7 @@ $ ./influxdb-1.7.10-1/usr/bin/influxd
 
 
 **Telegraf Installation**
+
 Download the latest .tar.gz file and extract it by using the following commands
 ```sh
 $ cd $HOME
