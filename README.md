@@ -58,7 +58,7 @@ $ ./telegraf --config ../../etc/telegraf/telegraf.conf
 ```bash
 $ git clone git@github.com:chris-remus/chainflow-vitwit.git
 $ cd chainflow-vitwit
-$ git fetch && git checkout develop
+$ git fetch && git checkout releases/alpha
 $ cp example.config.toml config.toml
 ```
 
