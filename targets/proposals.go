@@ -258,12 +258,12 @@ func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p Proposals) 
 }
 
 // GetUserDateFormat to which returns date in a user friendly
-func GetUserDateFormat(proposalTime string) string {
-	time, err := time.Parse(time.RFC3339, proposalTime)
+func GetUserDateFormat(timeToConvert string) string {
+	time, err := time.Parse(time.RFC3339, timeToConvert)
 	if err != nil {
 		fmt.Println("Error while converting date ", err)
 	}
 	date := time.Format("Mon Jan _2 15:04:05 2006")
-	fmt.Println("Proposal Date : ", date)
+	fmt.Println("Converted time into date format : ", date)
 	return date
 }
