@@ -10,7 +10,7 @@ type (
 	// QueryParams map of strings
 	QueryParams map[string]string
 
-	// HTTPOptions for http options
+	// HTTPOptions is a structure that holds all http options parameters
 	HTTPOptions struct {
 		Endpoint    string
 		QueryParams QueryParams
@@ -18,7 +18,8 @@ type (
 		Method      string
 	}
 
-	// Target struct
+	// Target is a structure which holds all the parameters of a target
+	//this could be used to write endpoints for each functionality
 	Target struct {
 		ExecutionType string
 		HTTPOptions   HTTPOptions
@@ -27,18 +28,18 @@ type (
 		ScraperRate   string
 	}
 
-	// Targets list of targets
+	// Targets list of all the targets
 	Targets struct {
 		List []Target
 	}
 
-	// PingResp struct
+	// PingResp is a structure which holds the options of a response
 	PingResp struct {
 		StatusCode int
 		Body       []byte
 	}
 
-	// Peer response
+	// Peer is a structure which holds the info about a peer address
 	Peer struct {
 		RemoteIP         string      `json:"remote_ip"`
 		ConnectionStatus interface{} `json:"connection_status"`
@@ -49,7 +50,7 @@ type (
 		} `json:"node_info"`
 	}
 
-	//NetInfoResult struct
+	// NetInfoResult struct
 	NetInfoResult struct {
 		Listening bool          `json:"listening"`
 		Listeners []interface{} `json:"listeners"`
@@ -57,14 +58,14 @@ type (
 		Peers     []Peer        `json:"peers"`
 	}
 
-	//NetInfo response
+	// NetInfo is a structre which holds the details of address
 	NetInfo struct {
 		JSONRpc string        `json:"jsonrpc"`
 		ID      string        `json:"id"`
 		Result  NetInfoResult `json:"result"`
 	}
 
-	//SyncInfo response
+	// SyncInfo response
 	SyncInfo struct {
 		LatestBlockHash   string `json:"latest_block_hash"`
 		LatestAppHash     string `json:"latest_app_hash"`
@@ -73,14 +74,14 @@ type (
 		CatchingUp        bool   `json:"catching_up"`
 	}
 
-	//ValidatorInfo response
+	// ValidatorInfo structure which holds the info of a validator
 	ValidatorInfo struct {
 		Address     string      `json:"address"`
 		PubKey      interface{} `json:"pub_key"`
 		VotingPower string      `json:"voting_power"`
 	}
 
-	//GaiaCliStatusNodeInfo struct
+	// GaiaCliStatusNodeInfo struct holds the parameters of a node status
 	GaiaCliStatusNodeInfo struct {
 		ProtocolVersion interface{} `json:"protocol_version"`
 		ID              string      `json:"id"`
@@ -92,14 +93,14 @@ type (
 		Other           interface{} `json:"other"`
 	}
 
-	//GaiaCliStatus struct
+	// GaiaCliStatus structure which holds the parameteres of node,validator and sync info
 	GaiaCliStatus struct {
 		NodeInfo      GaiaCliStatusNodeInfo `json:"node_info"`
 		SyncInfo      SyncInfo              `json:"sync_info"`
 		ValidatorInfo ValidatorInfo         `json:"validator_info"`
 	}
 
-	//ValidatorDescription struct
+	// ValidatorDescription structure which holds the parameters of a validator description
 	ValidatorDescription struct {
 		Moniker  string `json:"moniker"`
 		Identity string `json:"identity"`
@@ -107,20 +108,20 @@ type (
 		Details  string `json:"details"`
 	}
 
-	//ValidatorCommissionRates struct
+	// ValidatorCommissionRates structure holds the parameters of commision rates
 	ValidatorCommissionRates struct {
 		Rate          string `json:"rate"`
 		MaxRate       string `json:"max_rate"`
 		MaxChangeRate string `json:"max_change_rate"`
 	}
 
-	//ValidatorCommission strcut
+	// ValidatorCommission strcut holds the parameters of commission details of a validator
 	ValidatorCommission struct {
 		CommissionRates ValidatorCommissionRates `json:"commission_rates"`
 		UpdateTime      string                   `json:"update_time"`
 	}
 
-	//ValidatorResult struct
+	// ValidatorResult structure is a sub struct of validator response
 	ValidatorResult struct {
 		OperatorAddress   string               `json:"operator_address"`
 		ConsensusPubKey   string               `json:"consensus_pubkey"`
@@ -135,7 +136,7 @@ type (
 		MinSelfDelegation string               `json:"min_self_delegation"`
 	}
 
-	//ValidatorResp struct
+	// ValidatorResp structure which holds the parameters of a validator response
 	ValidatorResp struct {
 		Height string          `json:"height"`
 		Result ValidatorResult `json:"result"`
