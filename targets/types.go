@@ -142,19 +142,19 @@ type (
 		Result ValidatorResult `json:"result"`
 	}
 
-	//AccountBalance structs
+	// AccountBalance struct which holds the parameters of an account amount
 	AccountBalance struct {
 		Denom  string `json:"denom"`
 		Amount string `json:"amount"`
 	}
 
-	//AccountResp struct
+	// AccountResp struct which holds the response paramaters of an account
 	AccountResp struct {
 		Height string           `json:"height"`
 		Result []AccountBalance `json:"result"`
 	}
 
-	//CurrentBlockPrecommit struct
+	// CurrentBlockPrecommit struct holds the parameters of a block precommit details
 	CurrentBlockPrecommit struct {
 		Type             int64       `json:"type"`
 		Height           string      `json:"height"`
@@ -166,13 +166,13 @@ type (
 		Signature        string      `json:"signature"`
 	}
 
-	//CurrentBlockLastCommit struct
+	// CurrentBlockLastCommit struct holds the parameters of a block lastcommit details
 	CurrentBlockLastCommit struct {
 		BlockID    interface{}             `json:"block_id"`
 		Precommits []CurrentBlockPrecommit `json:"precommits"`
 	}
 
-	//CurrentBlock struct
+	// CurrentBlock struct holds the parameters of block details
 	CurrentBlock struct {
 		Header struct {
 			Height string `json:"height"`
@@ -183,20 +183,20 @@ type (
 		LastCommit CurrentBlockLastCommit `json:"last_commit"`
 	}
 
-	//CurrentBlockWithHeightResult struct
+	// CurrentBlockWithHeightResult struct
 	CurrentBlockWithHeightResult struct {
 		BlockMeta interface{}  `json:"block_meta"`
 		Block     CurrentBlock `json:"block"`
 	}
 
-	//CurrentBlockWithHeight struct
+	// CurrentBlockWithHeight struct holds the details of particular block
 	CurrentBlockWithHeight struct {
 		JSONRPC string                       `json:"jsonrpc"`
 		ID      string                       `json:"id"`
 		Result  CurrentBlockWithHeightResult `json:"result"`
 	}
 
-	//ProposalResultContent struct
+	// ProposalResultContent struct holds the parameters of a proposal content result
 	ProposalResultContent struct {
 		Type  string `json:"type"`
 		Value struct {
@@ -205,7 +205,7 @@ type (
 		} `json:"value"`
 	}
 
-	//ProposalResult struct
+	// ProposalResult struct holds the parameters of proposal result
 	ProposalResult struct {
 		Content          ProposalResultContent `json:"content"`
 		ID               string                `json:"id"`
@@ -218,30 +218,30 @@ type (
 		VotingEndTime    string                `json:"voting_end_time"`
 	}
 
-	//Proposals struct
+	// Proposals struct holds result of array of proposals
 	Proposals struct {
 		Height string           `json:"height"`
 		Result []ProposalResult `json:"result"`
 	}
 
-	//SelfDelegationBalance struct
+	// SelfDelegationBalance struct
 	SelfDelegationBalance struct {
 		Balance string `json:"balance"`
 	}
 
-	//SelfDelegation struct
+	// SelfDelegation struct which holds the result of a self delegation
 	SelfDelegation struct {
 		Height string                `json:"height"`
 		Result SelfDelegationBalance `json:"result"`
 	}
 
-	//CurrentRewardsAmount struct
+	// CurrentRewardsAmount struct holds the parameters of current rewards amount
 	CurrentRewardsAmount struct {
 		Height string           `json:"height"`
 		Result []AccountBalance `json:"result"`
 	}
 
-	//LastProposedBlockAndTime struct
+	// LastProposedBlockAndTime struct holds the parameters of last proposed block
 	LastProposedBlockAndTime struct {
 		BlockMeta struct {
 			BlockID interface{} `json:"block_id"`
@@ -270,7 +270,7 @@ type (
 		Block interface{} `json:"block"`
 	}
 
-	//ProposalVoters struct
+	// ProposalVoters struct holds the parameters of proposal voters
 	ProposalVoters struct {
 		Height string `json:"height"`
 		Result []struct {
@@ -280,7 +280,7 @@ type (
 		} `json:"result"`
 	}
 
-	//NetworkLatestBlock struct
+	// NetworkLatestBlock struct holds the parameters of network latest block
 	NetworkLatestBlock struct {
 		Result struct {
 			SyncInfo struct {
@@ -289,7 +289,7 @@ type (
 		} `json:"result"`
 	}
 
-	//ValidatorsHeight struct
+	// ValidatorsHeight struct which represents the details of validator
 	ValidatorsHeight struct {
 		Jsonrpc string `json:"jsonrpc"`
 		ID      string `json:"id"`
@@ -307,7 +307,7 @@ type (
 		} `json:"result"`
 	}
 
-	//Depositors struct
+	// Depositors struct which holds the parameters of depositors
 	Depositors struct {
 		Height string `json:"height"`
 		Result []struct {
@@ -320,7 +320,7 @@ type (
 		} `json:"result"`
 	}
 
-	//UnconfirmedTxns struct
+	// UnconfirmedTxns struct which holds the parameters of unconfirmed txns
 	UnconfirmedTxns struct {
 		Jsonrpc string `json:"jsonrpc"`
 		ID      string `json:"id"`
