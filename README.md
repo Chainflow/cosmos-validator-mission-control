@@ -150,7 +150,7 @@ ii. System Metrics (These are related to system configuration and all and which 
 - Completed Proposals : Displays list of the proposals which are completed it might be passed or rejected.
 
 ```bash
-Note: Above mentioned metrics will be calculated and displayed according to the validator address you will be populating in config.toml
+Note: Above mentioned metrics will be calculated and displayed according to the validator address which will be populating in config.toml
 ```
 
 **System Monitoring Metrics**
@@ -164,7 +164,7 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
  - Alert about no.of peers when the count falls below of **num_peers_threshold** which has been given by user in *config.toml*
 - Alert about the block difference between network and validator reaches or exceeds the **block_diff_threshold** which has been given by user in *config.toml*
 - Alert about the gaiad status whether it's running on your validator instance or not.
-- Alert about a new proposal
+- Alert about a new proposal.
 - Alert about the proposal if it's moved to voting period, passed or rejected.
 - Alert about voting period proposals if the voting end time is less than or equal to 24 hours and also if the validator didn't vote on propoal yet.
 - Alert about validator health whether it's voting or jailed. You can get alerts twice a day based on the time you have configured **alert_time1** and **alert_time2** in *config.toml*
