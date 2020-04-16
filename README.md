@@ -94,6 +94,14 @@ $ cp example.config.toml config.toml
 
     These are for regular status updates. To receive validator status daily (twice), configure these parameters in the form of "02:25PM". The time here refers to UTC time.
 
+- *voting_power_threshold*
+
+    Configure the threshold to receive alert when the voting power reaches or drops below of the threshold which has been given.
+
+- *num_peers_threshold*
+
+    Configure the threshold to get an alert if the no.of connected peers falls below of the threshold.
+
 After populating config.toml, build and run the monitoring binary
 
 ```bash
@@ -111,7 +119,7 @@ i. Validator Monitoring Metrics (These are the metrics which we have calculated 
 ii. System Metrics (These are related to system configuration and all and which comes from telegraf)
 ```
 
-`List of validator monitoring metrics`
+**List of validator monitoring metrics**
 
 - Validator Details :  Which displays details of a validator like moniker, website, keybase and details.
 - Gaiad Status :  Displays the chain is running or not in the from of UP and DOWN.
@@ -144,3 +152,20 @@ ii. System Metrics (These are related to system configuration and all and which 
 ```bash
 Note: Above mentioned metrics will be calculated and displayed according to the validator address you will be populating in config.toml
 ```
+
+**System Monitoring Metrics**
+-  For this you can refer `telgraf.conf` file for system monitoring metrics.You can just replace it with your original telegraf.conf file which have been located at /telegraf/etc/telegraf
+ 
+
+ **Alerting (Telegram and Email)**
+
+ - Alert about validator node sync status.
+ - Alert about missed blocks when the missed blocks count reaches or exceeded **missed_blocks_threshold** which has been given by user in *config.toml*
+ - Alert about no.of peers when the count falls below of **num_peers_threshold** which has been given by user in *config.toml*
+- Alert about the block difference between network and validator reaches or exceeds the **block_diff_threshold** which has been given by user in *config.toml*
+- Alert about the gaiad status whether it's running on your validator instance or not.
+- Alert about a new proposal
+- Alert about the proposal if it's moved to voting period, passed or rejected.
+- Alert about voting period proposals if the voting end time is less than or equal to 24 hours and also if the validator didn't vote on propoal yet.
+- Alert about validator health whether it's voting or jailed. You can get alerts twice a day based on the time you have configured **alert_time1** and **alert_time2** in *config.toml*
+- Alert about the voting power of your validator when it reaches or drops below of the **voting_power_threshold** which has been given by user in *config.toml*
