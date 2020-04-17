@@ -205,8 +205,13 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 				log.Printf("Writing the proposal: %s", proposal.ID)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
 				if proposal.ProposalStatus != proposalStatus {
-					_ = SendTelegramAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
-					_ = SendEmailAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
+					if proposal.ProposalStatus == "Rejected" {
+						_ = SendTelegramAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been %s", proposal.ID, proposal.ProposalStatus), cfg)
+						_ = SendEmailAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been = %s", proposal.ID, proposal.ProposalStatus), cfg)
+					} else {
+						_ = SendTelegramAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been moved to %s", proposal.ID, proposal.ProposalStatus), cfg)
+						_ = SendEmailAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been moved to %s", proposal.ID, proposal.ProposalStatus), cfg)
+					}
 				}
 			}
 		}
