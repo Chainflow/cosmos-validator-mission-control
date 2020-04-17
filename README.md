@@ -169,3 +169,24 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 - Alert about voting period proposals if the voting end time is less than or equal to 24 hours and also if the validator didn't vote on proposal yet.
 - Alert about validator health whether it's voting or jailed. You can get alerts twice a day based on the time you have configured **alert_time1** and **alert_time2** in *config.toml*
 - Alert about the voting power of your validator when it reaches or drops below **voting_power_threshold** which is user configured in *config.toml*
+
+
+**Instructions to setup the dashboards in grafana**
+
+*Login*
+- Open your web browser and go to http://localhost:3000/.  3000 is the default HTTP port that Grafana listens to if you haven’t configured a different port.
+- If you are a first time user then on the login page, type admin for the username and password.
+- After login you can change your password.
+
+*Import the dashboards*
+- To import the json file of the **validator monitoring metrics** click the *plus* button which is in lift side of the dashboard. Then click on import and copy paste the validator_monitoring_metrics.json data which is there in github repo. 
+
+- Select the datasources while you are importing and then click on import. Now you will be havnig a working dashboard for validator monitoring metrics.
+
+- To import **system monitoring metrics** follow the same steps, copy the json data which is there i system_monitoring_metrics.json .
+
+- While creating this dashboard if you are facing problem at valueset just change it to empty and then click on import by selecting the datasources.
+
+- Now you will be having two working dashboards.
+
+- *For more info abot grafana dashboard imports you can refer https://grafana.com/docs/grafana/latest/reference/export_import/*
