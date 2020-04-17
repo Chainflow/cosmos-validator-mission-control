@@ -175,18 +175,16 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 
 *Login*
 - Open your web browser and go to http://localhost:3000/.  3000 is the default HTTP port that Grafana listens to if you haven’t configured a different port.
-- If you are a first time user then on the login page, type admin for the username and password.
+- If you are a first time user type admin for the username and password in the login page.
 - After login you can change your password.
 
 *Import the dashboards*
-- To import the json file of the **validator monitoring metrics** click the *plus* button which is in lift side of the dashboard. Then click on import and copy paste the validator_monitoring_metrics.json data which is there in github repo. 
+- To import the json file of the **validator monitoring metrics** click the *plus* button present on left hand side of the dashboard. Click on import and load the validator_monitoring_metrics.json present in the grafana_template folder. 
 
-- Select the datasources while you are importing and then click on import. Now you will be havnig a working dashboard for validator monitoring metrics.
+- Select the datasources and click on import.
 
-- To import **system monitoring metrics** follow the same steps, copy the json data which is there i system_monitoring_metrics.json .
+- To import **system monitoring metrics** click the *plus* button present on left hand side of the dashboard. Click on import and load the system monitoring metrics.json present in the grafana_template folder
 
-- While creating this dashboard if you are facing problem at valueset just change it to empty and then click on import by selecting the datasources.
+- While creating this dashboard if you face any issues at valueset, change it to empty and then click on import by selecting the datasources.
 
-- Now you will be having two working dashboards.
-
-- *For more info abot grafana dashboard imports you can refer https://grafana.com/docs/grafana/latest/reference/export_import/*
+- *For more info about grafana dashboard imports you can refer https://grafana.com/docs/grafana/latest/reference/export_import/*
