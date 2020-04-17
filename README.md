@@ -121,51 +121,51 @@ ii. System Metrics (These are related to system configuration and all and which 
 
 **List of validator monitoring metrics**
 
-- Validator Details :  Which displays details of a validator like moniker, website, keybase and details.
-- Gaiad Status :  Displays the chain is running or not in the from of UP and DOWN.
-- Validator Status :  Displays about the validator health like Voting if the validator is in active state or else Jailed.
-- Gaiad Version : Displays the version of gaia.
-- Validator Caught Up : Displays whether the validator node has been synced to the network or not.
-- Block Time Difference : Displays the time difference between previous block and current block syncing.
-- Current Block Height -  Validator : Displays the current block height of validator.
+- Validator Details :  Displays the details of a validator like moniker, website, keybase and details.
+- Gaiad Status :  Displays whether the gaiad is running or not in the from of UP and DOWN.
+- Validator Status :  Displays the validator health. Shows Voting if the validator is in active state or else Jailed.
+- Gaiad Version : Displays the version of gaia currently running.
+- Validator Caught Up : Displays whether the validator node is in sync with the network or not.
+- Block Time Difference : Displays the time difference between previous block and current block.
+- Current Block Height -  Validator : Displays the current block height committed by the validator.
 - Latest Block Height - Network : Displays the latest block height of a network.
 - Height Difference : Displays the difference between heights of validator current block height and network latest block height.
-- Last Missed Block Range : Displays the continuous missed blocks range based on the missed block thershold given in the config.toml
+- Last Missed Block Range : Displays the continuous missed blocks range based on the missed block threshold given in the config.toml
 - Blocks Missed In last 48h : Displays the count of blocks missed by a validator in last 48 hours.
 - Unconfirmed Txns : Displays the number of uncofirmed transactions in that node.
-- No.of Peers : Displays the total number of peers connected in a network.
+- No.of Peers : Displays the total number of peers connected to the validator.
 - Peer Address : Displays the addresses of connected peers.
 - Latency : Displays the latency of connected peers in the form of graph.
-- Validator Fee : Displays the commission rate of a validator as fee.
+- Validator Fee : Displays the commission rate of a validator.
 - Max Change Rate : Displays the max change rate of a validator commission.
 - Max Rate : Displays the max rate of a validator commission.
-- Voting Power : Displays the voting power of a validator which has given in config.
+- Voting Power : Displays the voting power of your validator.
 - Self Delegation Balance : Displays delegation balance of your validator.
 - Current Balance : Displays the account balance of your validator.
-- Unclaimed Rewards : Displays the current rewards amount the validator.
-- Last proposed Block Heigt : Displays height of the last proposed block if it has been proposed by your validator.
-- Last Proposed Block Time : Displays time of the last proposed block which has been proposed be your validator.
-- Voting Period Proposals : Displays list of the proposals which are in voting period.
-- Deposit Period Proposals : Displays list of the proposals which are in deposit period.
-- Completed Proposals : Displays list of the proposals which are completed it might be passed or rejected.
+- Unclaimed Rewards : Displays the current unclaimed rewards amount the validator.
+- Last proposed Block Height : Displays height of the last block proposed by the validator.
+- Last Proposed Block Time : Displays the time of the last block proposed by the validator.
+- Voting Period Proposals : Displays the list of the proposals which are currently in voting period.
+- Deposit Period Proposals : Displays the list of the proposals which are currently in deposit period.
+- Completed Proposals : Displays the list of the proposals which are completed with their status as passed or rejected.
 
 ```bash
 Note: Above mentioned metrics will be calculated and displayed according to the validator address which will be populating in config.toml
 ```
 
 **System Monitoring Metrics**
--  For this you can refer `telgraf.conf` file for system monitoring metrics.You can just replace it with your original telegraf.conf file which have been located at /telegraf/etc/telegraf
+-  For this you can refer `telgraf.conf` file for system monitoring metrics.You can just replace it with your original telegraf.conf file which is located at /telegraf/etc/telegraf
  
 
  **Alerting (Telegram and Email)**
 
  - Alert about validator node sync status.
- - Alert about missed blocks when the missed blocks count reaches or exceeded **missed_blocks_threshold** which has been given by user in *config.toml*
- - Alert about no.of peers when the count falls below of **num_peers_threshold** which has been given by user in *config.toml*
-- Alert about the block difference between network and validator reaches or exceeds the **block_diff_threshold** which has been given by user in *config.toml*
+ - Alert about missed blocks when the missed blocks count reaches or exceedes **missed_blocks_threshold** which is user configured in *config.toml*
+ - Alert about no.of peers when the count falls below of **num_peers_threshold** which is user configured in *config.toml*
+- Alert about the block difference between network and validator reaches or exceeds the **block_diff_threshold** which is user configured in *config.toml*
 - Alert about the gaiad status whether it's running on your validator instance or not.
 - Alert about a new proposal.
 - Alert about the proposal if it's moved to voting period, passed or rejected.
-- Alert about voting period proposals if the voting end time is less than or equal to 24 hours and also if the validator didn't vote on propoal yet.
+- Alert about voting period proposals if the voting end time is less than or equal to 24 hours and also if the validator didn't vote on proposal yet.
 - Alert about validator health whether it's voting or jailed. You can get alerts twice a day based on the time you have configured **alert_time1** and **alert_time2** in *config.toml*
-- Alert about the voting power of your validator when it reaches or drops below of the **voting_power_threshold** which has been given by user in *config.toml*
+- Alert about the voting power of your validator when it reaches or drops below **voting_power_threshold** which is user configured in *config.toml*
