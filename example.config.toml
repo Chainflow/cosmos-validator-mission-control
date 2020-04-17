@@ -1,7 +1,7 @@
 node_url = "http://localhost:26657/"
 val_operator_addr = "cosmosvaloper1dwwl3tumr7t5rswe674mczp0cq5xlf3af4m92q"
 account_addr = "cosmos1dkwl3tumr7t5rswe674mczp1cq5xlf3avp0sxn"
-validator_hex_addr = "06E7798F67480B280BE14EFE9B13D3BEBC933D89"
+validator_hex_addr = "06E7798F67480B280BE14FE9B13D3BEBC933D89"
 lcd_endpoint = "http://localhost:1317/"
 rpc_endpoint = "https://sgapiv2.certus.one/v1"
 external_rpc = "http://localhost:26657/"
@@ -14,19 +14,19 @@ alert_time2 = "02:30AM"
 block_diff_threshold = 3
 
 [scraper]
-rate = "3s"
+rate = "5s"
 port = ":8080"
 validator_rate = "60s"
 
 [telegram]
-tg_chat_id = 228282105
-tg_bot_token = "1117273891:AAEtr3ZU5x4JRj5YSF4LBeu1fPFAJ4xj-UI"
+tg_chat_id = 228222105
+tg_bot_token = "1117273891:AAEtr35x4JRj5YSF4LBeu1fPFAJ4xj-UI"
 
 [sendgrid]
-sendgrid_token = "SG.fMdY2lmR8absbcgllGpqQ.5OKsFzyc_1ccoC8y_kwvIxsofJ_1UuOvRFiQVBdMb1Q"
-email_address = "prathyusha@vitwit.com"
+sendgrid_token = ""
+email_address = "xyz@domain.com"
 
 [influxdb]
 port = "8086"
 database = "vcf"
-username = "prathyusha"
+username = "admin"
