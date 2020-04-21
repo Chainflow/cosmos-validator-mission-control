@@ -102,6 +102,14 @@ $ cp example.config.toml config.toml
 
     Configure the threshold to get an alert if the no.of connected peers falls below the threshold.
 
+- *enable_telegram_alerts*
+
+    Configure **yes** if you wish to get telegram alerts otherwise make it **no** .
+
+- *enable_email_alerts*
+
+    Configure **yes** if you wish to get email alerts otherwise make it **no** .
+
 After populating config.toml, build and run the monitoring binary
 
 ```bash
