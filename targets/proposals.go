@@ -192,8 +192,17 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			if newProposal {
 				log.Printf("New Proposal Came: %s", proposal.ID)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
-				_ = SendTelegramAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
+
+				if proposal.ProposalStatus == "Rejected" || proposal.ProposalStatus == "Passed" {
+					_ = SendTelegramAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been %s", proposal.ID, proposal.ProposalStatus), cfg)
+					_ = SendEmailAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been = %s", proposal.ID, proposal.ProposalStatus), cfg)
+				} else if proposal.ProposalStatus == "VotingPeriod" {
+					_ = SendTelegramAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been moved to %s", proposal.ID, proposal.ProposalStatus), cfg)
+					_ = SendEmailAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been moved to %s", proposal.ID, proposal.ProposalStatus), cfg)
+				} else {
+					_ = SendTelegramAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
+					_ = SendEmailAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
+				}
 			} else {
 				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", proposal.ID), cfg.InfluxDB.Database, "")
 				if response, err := c.Query(q); err == nil && response.Error() == nil {
@@ -205,7 +214,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 				log.Printf("Writing the proposal: %s", proposal.ID)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
 				if proposal.ProposalStatus != proposalStatus {
-					if proposal.ProposalStatus == "Rejected" {
+					if proposal.ProposalStatus == "Rejected" || proposal.ProposalStatus == "Passed" {
 						_ = SendTelegramAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been %s", proposal.ID, proposal.ProposalStatus), cfg)
 						_ = SendEmailAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been = %s", proposal.ID, proposal.ProposalStatus), cfg)
 					} else {
