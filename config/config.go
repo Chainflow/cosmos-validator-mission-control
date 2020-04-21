@@ -55,6 +55,8 @@ type (
 		AlertTime1            string   `mapstructure:"alert_time1"`
 		AlertTime2            string   `mapstructure:"alert_time2"`
 		BlockDiffThreshold    int64    `mapstructure:"block_diff_threshold"`
+		EnableTelegramAlerts  string   `mapstructure:"enable_telegram_alerts"`
+		EnableEmailAlerts     string   `mapstructure:"enable_email_alerts"`
 	}
 )
 

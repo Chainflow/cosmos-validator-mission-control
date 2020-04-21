@@ -12,6 +12,8 @@ missed_blocks_threshold = 4
 alert_time1 = "02:30PM"
 alert_time2 = "02:30AM"
 block_diff_threshold = 3
+enable_telegram_alerts = "yes"
+enable_email_alerts = "yes"
 
 [scraper]
 rate = "5s"
