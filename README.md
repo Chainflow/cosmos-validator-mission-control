@@ -169,7 +169,7 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 -  For system monitoring metrics you can refer `telgraf.conf` file. You can just replace it with your original telegraf.conf file which will be located at /telegraf/etc/telegraf
  
 
- **Alerting (Telegram and Email)**
+ **Alerting** - Telegram and email are the platforms used to send alerts to the end user. Telegram was chosen over other platforms like Discord etc. as the majority of validators prefer to use Telegram for their personal alerting mechanisms as well. Telegarm alerts will be sent to chat_id present in config.toml and Email alerts will be sent to the email id present in config.toml.
 
  - Alert about validator node sync status.
  - Alert when missed blocks when the missed blocks count reaches or exceedes **missed_blocks_threshold** which is user configured in *config.toml*
