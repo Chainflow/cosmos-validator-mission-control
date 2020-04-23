@@ -163,7 +163,10 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 ```
 
 **System Monitoring Metrics**
--  For this you can refer `telgraf.conf` file for system monitoring metrics.You can just replace it with your original telegraf.conf file which will be located at /telegraf/etc/telegraf
+
+- Telegraf is a daemon that can run on any server and collect a wide variety of metrics from the system (cpu, memory, swap, etc.), common services (mysql, redis, postgres, etc.). It was originally built as a metric-gathering agent for InfluxDB, but has recently evolved to output metrics to other data sinks as well, such as Kafka, Datadog, and OpenTSDB.
+
+-  For system monitoring metrics you can refer `telgraf.conf` file. You can just replace it with your original telegraf.conf file which will be located at /telegraf/etc/telegraf
  
 
  **Alerting (Telegram and Email)**
