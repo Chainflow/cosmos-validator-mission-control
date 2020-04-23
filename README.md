@@ -7,6 +7,12 @@ For the purposes of these instructions, for now, please assume that Grafana is t
 ## Install Prerequisites
 - **Go 13.x+**
 
+**Setup a rest-server on validator instance** :
+If your validator instance does not have a rest server running, execute this command to setup the rest server
+```sh
+gaiacli rest-server --chain-id cosmoshub-3 --laddr tcp://127.0.0.1:1317
+```
+
 - **Docker ?**
 
 **A - Install Grafana for Ubuntu**
@@ -132,10 +138,12 @@ $ docker build -t cfv .
 $ docker run -d --name chain-monit cfv
 ```
 
-In grafana you will see three dashboards
+**In grafana you will see three dashboards**
+
 ```bash
 i. Validator Monitoring Metrics (These are the metrics which we have calculated and stored in influxdb)
 ii. System Metrics (These are related to system configuration which comes from telegraf)
+iii. Summary (Which gives a quick information about validator and system metrics)
 ```
 
 **List of validator monitoring metrics**
@@ -171,6 +179,7 @@ ii. System Metrics (These are related to system configuration which comes from t
 ```bash
 Note: Above mentioned metrics will be calculated and displayed according to the validator address which will be configured in config.toml
 ```
+For alerts regarding system metrics, a telegram bot can be set up on the dashboard itself. A new notification channel can be added for telegram bot by clicking on the bell icon on the left hand sidebar of the dashboard. This will let the user configure the telegram bot id and chat id. A custom alert can be set for each graph by clicking on the edit button and adding alert rules.
 
 **System Monitoring Metrics**
 -  For this you can refer `telgraf.conf` file for system monitoring metrics.You can just replace it with your original telegraf.conf file which will be located at /telegraf/etc/telegraf
@@ -189,6 +198,14 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 - Alert about validator health whether it's voting or jailed. You can get alerts twice a day based on the time you have configured **alert_time1** and **alert_time2** in *config.toml*
 - Alert when the voting power of your validator drops below **voting_power_threshold** which is user configured in *config.toml*
 
+**About summary dashboard**
+
+- This dashboard is to show a quick information about validator details and system metrics.
+
+- Validator identity (Moniker, Website, Keybase Identity, Details, Operator Address and Account Address), validator summary (Gaiad Status, Validator Status, Voting Power, Height Difference and No.Of peers) these are the metrics which are related to validator details.
+
+- CPU usage, RAM Usage, Memory usage and information about disk usage, these metrics are showing under system metrics summary.
+ 
 
 **4 - Setup the dashboards in grafana**
 
@@ -202,8 +219,20 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 
 - Select the datasources and click on import.
 
-- To import **system monitoring metrics** click the *plus* button present on left hand side of the dashboard. Click on import and load the system monitoring metrics.json present in the grafana_template folder
+- To import **system monitoring metrics** click the *plus* button present on left hand side of the dashboard. Click on import and load the system_monitoring_metrics.json present in the grafana_template folder
 
 - While creating this dashboard if you face any issues at valueset, change it to empty and then click on import by selecting the datasources.
 
+- To import **summary**, you can just follow the above steps which you did for validator monitoring metrics or system monitoring metrics. To import the json you can find the summary.json template in grafana_template folder.
+
 - *For more info about grafana dashboard imports you can refer https://grafana.com/docs/grafana/latest/reference/export_import/*
+
+**Hosting on standalone monitoring node**
+
+This monitoring tool is meant to be hosted and deployed on the validator server but it can also be hosted on any public sentry node of the validator. 
+Firewall settings for the monitoring node should be modified a little to allow communication between validator rpc and lcd endpoints. 
+Port 26657 and 1317 which are the default rpc and lcd point respectively of the validator should be accessible by the monitoring node on which 
+the tool is hosted on. If the default ports have been changed, relevant ports need to be exposed. 
+In config.toml of the monitoring tool, node_url and lcd_endpoint have to be updated with the appropriate ip and port no. 
+To get accurate system and validator metrics information, it is recommended to run the influxdb on the validator instance and 
+opening 8086 port to the monitoring node to get the metrics displayed on grafana dashboard.
