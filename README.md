@@ -68,7 +68,7 @@ By default telegraf does not expose any ports.
 
 ## Install and configure the Validator Mission Control code
 
-**1 - Get the Validator Mission Control code*
+**1 - Get the Validator Mission Control code**
 
 ```bash
 $ git clone git@github.com:chris-remus/chainflow-vitwit.git
