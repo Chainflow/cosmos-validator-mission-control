@@ -39,7 +39,7 @@ func GetBlockTimeDifference(ops HTTPOptions, cfg *config.Config, c client.Client
 	currentHeight, _ := strconv.Atoi(currentBlockHeight)
 
 	prevHeight := currentHeight - 1
-	ops.Endpoint = cfg.NodeURL + "block"
+	ops.Endpoint = cfg.NodeURL + "/block"
 	ops.Endpoint = ops.Endpoint + "?height=" + strconv.Itoa(prevHeight)
 
 	resp, err := HitHTTPTarget(ops)

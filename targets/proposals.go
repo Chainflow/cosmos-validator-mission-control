@@ -15,7 +15,7 @@ import (
 // GetValidatorVoted to check validator voted for the proposal or not
 func GetValidatorVoted(LCDEndpoint string, proposalID string, accountAddress string) string {
 
-	proposalURL := LCDEndpoint + "gov/proposals/" + proposalID + "/votes"
+	proposalURL := LCDEndpoint + "/gov/proposals/" + proposalID + "/votes"
 	res, err := http.Get(proposalURL)
 	if err != nil {
 		log.Printf("Error: %v", err)
@@ -41,7 +41,7 @@ func GetValidatorVoted(LCDEndpoint string, proposalID string, accountAddress str
 
 // SendVotingPeriodProposalAlerts which send alerts of voting period proposals
 func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, cfg *config.Config) error {
-	proposalURL := LCDEndpoint + "gov/proposals?status=voting_period"
+	proposalURL := LCDEndpoint + "/gov/proposals?status=voting_period"
 	res, err := http.Get(proposalURL)
 	if err != nil {
 		log.Printf("Error: %v", err)
@@ -59,7 +59,7 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 	}
 
 	for _, proposal := range p.Result {
-		proposalVotesURL := LCDEndpoint + "gov/proposals/" + proposal.ID + "/votes"
+		proposalVotesURL := LCDEndpoint + "/gov/proposals/" + proposal.ID + "/votes"
 		res, err := http.Get(proposalVotesURL)
 		if err != nil {
 			log.Printf("Error: %v", err)
@@ -103,7 +103,7 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 // GetValidatorDeposited to check validator deposited for the proposal or not
 func GetValidatorDeposited(LCDEndpoint string, proposalID string, accountAddress string) string {
 
-	proposalURL := LCDEndpoint + "gov/proposals/" + proposalID + "/deposits"
+	proposalURL := LCDEndpoint + "/gov/proposals/" + proposalID + "/deposits"
 	res, err := http.Get(proposalURL)
 	if err != nil {
 		log.Printf("Error: %v", err)
