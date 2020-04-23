@@ -3,6 +3,12 @@
 ## Prerequisites
 - **Go 13.x+**
 
+**Setup a rest-server on validator instance** :
+If your validator instance does not have a rest server running, execute this command to setup the rest server
+```sh
+gaiacli rest-server --chain-id cosmoshub-3 --laddr tcp://127.0.0.1:1317
+```
+
 **Install Grafana on ubuntu**
 
 Download the latest .tar.gz file and extract it by using the following commands
