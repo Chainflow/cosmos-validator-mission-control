@@ -11,7 +11,7 @@ import (
 func SendSingleMissedBlockAlert(cfg *config.Config) error {
 	log.Println("Calling missed block alerting")
 	ops := HTTPOptions{
-		Endpoint: cfg.ExternalRPC + "status",
+		Endpoint: cfg.ExternalRPC + "/status",
 		Method:   "GET",
 	}
 
@@ -31,7 +31,7 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 	cbh := networkLatestBlock.Result.SyncInfo.LatestBlockHeight
 
 	resp, err = HitHTTPTarget(HTTPOptions{
-		Endpoint:    cfg.ExternalRPC + "block",
+		Endpoint:    cfg.ExternalRPC + "/block",
 		QueryParams: QueryParams{"height": cbh},
 		Method:      "GET",
 	})

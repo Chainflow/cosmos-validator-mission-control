@@ -41,7 +41,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Net Info URL",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.NodeURL + "net_info?",
+				Endpoint: cfg.NodeURL + "/net_info?",
 				Method:   http.MethodGet,
 			},
 			Func:        GetNetInfo,
@@ -57,7 +57,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Operator Information",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "staking/validators/" + cfg.ValOperatorAddress,
+				Endpoint: cfg.LCDEndpoint + "/staking/validators/" + cfg.ValOperatorAddress,
 				Method:   http.MethodGet,
 			},
 			Func:        GetOperatorInfo,
@@ -67,7 +67,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Operator Account Information",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "bank/balances/" + cfg.AccountAddress,
+				Endpoint: cfg.LCDEndpoint + "/bank/balances/" + cfg.AccountAddress,
 				Method:   http.MethodGet,
 			},
 			Func:        GetAccountInfo,
@@ -83,7 +83,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Proposals",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "gov/proposals",
+				Endpoint: cfg.LCDEndpoint + "/gov/proposals",
 				Method:   http.MethodGet,
 			},
 			Func:        GetProposals,
@@ -104,7 +104,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Current Rewards Amount",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "distribution/validators/" + cfg.ValOperatorAddress + "/rewards",
+				Endpoint: cfg.LCDEndpoint + "/distribution/validators/" + cfg.ValOperatorAddress + "/rewards",
 				Method:   http.MethodGet,
 			},
 			Func:        GetCurrentRewardsAmount,
@@ -114,7 +114,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Last proposed block and time",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "blocks/latest",
+				Endpoint: cfg.LCDEndpoint + "/blocks/latest",
 				Method:   http.MethodGet,
 			},
 			Func:        GetLatestProposedBlockAndTime,
@@ -130,7 +130,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Network Latest Block",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.ExternalRPC + "status?",
+				Endpoint: cfg.ExternalRPC + "/status?",
 				Method:   http.MethodGet,
 			},
 			Func:        GetNetworkLatestBlock,
@@ -140,7 +140,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Validator Voting Power",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.NodeURL + "validators",
+				Endpoint: cfg.NodeURL + "/validators",
 				Method:   http.MethodGet,
 			},
 			Func:        GetValidatorVotingPower,
@@ -150,7 +150,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Block Time Difference",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.NodeURL + "block",
+				Endpoint: cfg.NodeURL + "/block",
 				Method:   http.MethodGet,
 			},
 			Func:        GetBlockTimeDifference,
@@ -160,7 +160,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Get Current Block Height",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.ExternalRPC + "status",
+				Endpoint: cfg.ExternalRPC + "/status",
 				Method:   http.MethodGet,
 			},
 			Func:        GetMissedBlocks,
@@ -170,7 +170,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Get no of unconfirmed txns",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.NodeURL + "num_unconfirmed_txs?",
+				Endpoint: cfg.NodeURL + "/num_unconfirmed_txs?",
 				Method:   http.MethodGet,
 			},
 			Func:        GetUnconfimedTxns,
@@ -180,7 +180,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Get Validator status alerting",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "staking/validators/",
+				Endpoint: cfg.LCDEndpoint + "/staking/validators/",
 				Method:   http.MethodGet,
 			},
 			Func:        ValidatorStatusAlert,
