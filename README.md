@@ -1,9 +1,15 @@
 # Validator monitoring and alerting tool
 
-## Prerequisites
+The current test implementation is for Grafana to be installed on the validator host system. We are working to test a remote setup as well, where Grafana can be installed on a remote system connected to the validator host system.
+
+For the purposes of these instructions, for now, please assume that Grafana is to be installed on the validator host system.
+
+## Install Prerequisites
 - **Go 13.x+**
 
-**Install Grafana on ubuntu**
+- **Docker ?**
+
+**A - Install Grafana for Ubuntu**
 
 Download the latest .tar.gz file and extract it by using the following commands
 
@@ -21,7 +27,7 @@ $ ./grafana-server
 Grafana will be running on port :3000 (ex:: https://localhost:3000)
 ```
 
-**Install InfluxDB**
+**B - Install InfluxDB**
 
 Download the latest .tar.gz file and extract it by using the following commands
 
@@ -40,10 +46,10 @@ $ ./influxdb-1.7.10-1/usr/bin/influxd
 The default port that runs the InfluxDB HTTP service is :8086
 ```
 
-**Note :** If you want to give custom configuration then you can edit the `influxdb.conf` at `/influxdb-1.7.10-1/etc/influxdb` and do not forget to restart the server after the changes.
+**Note :** If you want to give custom configuration then you can edit the `influxdb.conf` at `/influxdb-1.7.10-1/etc/influxdb` and do not forget to restart the server after the changes. You can find a sample 'influxdb.conf' [file here]<https://github.com/jheyman/influxdb/blob/master/influxdb.conf>.
 
 
-**Telegraf Installation**
+**C - Install Telegraf**
 
 Download the latest .tar.gz file and extract it by using the following commands
 ```sh
@@ -60,7 +66,10 @@ $ ./telegraf --config ../../etc/telegraf/telegraf.conf
 By default telegraf does not expose any ports.
 ```
 
-## Get the code
+## Install and configure the Validator Mission Control code
+
+**1 - Get the Validator Mission Control code*
+
 ```bash
 $ git clone git@github.com:chris-remus/chainflow-vitwit.git
 $ cd chainflow-vitwit
@@ -68,7 +77,8 @@ $ git fetch && git checkout releases/alpha
 $ cp example.config.toml config.toml
 ```
 
-`config.toml` has following configurations
+**2 - Configure the following variables in `config.toml`**
+
 - *tg_chat_id*
 
     Telegram chat ID to receive telegram alerts
@@ -116,13 +126,13 @@ After populating config.toml, build and run the monitoring binary
 $ go build -o chain-monit && ./chain-monit
 ```
 
-Run using docker
+**3 - Run using docker**
 ```bash
 $ docker build -t cfv .
 $ docker run -d --name chain-monit cfv
 ```
 
-In grafana there will be two types of dashboard 
+In grafana you will see three dashboards
 ```bash
 i. Validator Monitoring Metrics (These are the metrics which we have calculated and stored in influxdb)
 ii. System Metrics (These are related to system configuration which comes from telegraf)
@@ -163,13 +173,10 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 ```
 
 **System Monitoring Metrics**
-
-- Telegraf is a daemon that can run on any server and collect a wide variety of metrics from the system (cpu, memory, swap, etc.), common services (mysql, redis, postgres, etc.). It was originally built as a metric-gathering agent for InfluxDB, but has recently evolved to output metrics to other data sinks as well, such as Kafka, Datadog, and OpenTSDB.
-
--  For system monitoring metrics you can refer `telgraf.conf` file. You can just replace it with your original telegraf.conf file which will be located at /telegraf/etc/telegraf
+-  For this you can refer `telgraf.conf` file for system monitoring metrics.You can just replace it with your original telegraf.conf file which will be located at /telegraf/etc/telegraf
  
 
- **Alerting** - Telegram and email are the platforms used to send alerts to the end user. Telegram was chosen over other platforms like Discord etc. as the majority of validators prefer to use Telegram for their personal alerting mechanisms as well. Telegarm alerts will be sent to chat_id present in config.toml and Email alerts will be sent to the email id present in config.toml.
+ **Alerting (Telegram and Email)**
 
  - Alert about validator node sync status.
  - Alert when missed blocks when the missed blocks count reaches or exceedes **missed_blocks_threshold** which is user configured in *config.toml*
@@ -183,7 +190,7 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 - Alert when the voting power of your validator drops below **voting_power_threshold** which is user configured in *config.toml*
 
 
-**Instructions to setup the dashboards in grafana**
+**4 - Setup the dashboards in grafana**
 
 *Login*
 - Open your web browser and go to http://localhost:3000/.  3000 is the default HTTP port that Grafana listens to if you haven’t configured a different port.
@@ -200,5 +207,3 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 - While creating this dashboard if you face any issues at valueset, change it to empty and then click on import by selecting the datasources.
 
 - *For more info about grafana dashboard imports you can refer https://grafana.com/docs/grafana/latest/reference/export_import/*
-
-**Hosting on standalone monitoring node** - This monitoring tool is meant to be hosted and deployed on the validator server but it can also be hosted on any node. Firewall settings for the monitoring node should be modified a little to allow communication between validator rpc and lcd endpoints. Port 26657 and 1317 which are the default rpc and lcd point respectively of the validator should be accessible by the monitoring node on which the tool is hosted on. If the default ports have been changed, relevant ports need to be exposed. In config.toml of the monitoring tool, node_url and lcd_endpoint have to be updated with the appropriate ip and port no.  
