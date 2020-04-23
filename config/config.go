@@ -38,7 +38,7 @@ type (
 
 	//Config
 	Config struct {
-		NodeURL               string   `mapstructure:"node_url"`
+		ValidatorRpcEndpoint  string   `mapstructure:"validator_rpc_endpoint"`
 		ValOperatorAddress    string   `mapstructure:"val_operator_addr"`
 		AccountAddress        string   `mapstructure:"account_addr"`
 		ValidatorHexAddress   string   `mapstructure:"validator_hex_addr"`
@@ -63,11 +63,11 @@ type (
 //ReadFromEnv to read env details
 func ReadFromEnv() *Config {
 	return &Config{
-		NodeURL:            getEnv("NODE_URL", ""),
-		ValOperatorAddress: getEnv("VAL_OPERATOR_ADDR", ""),
-		AccountAddress:     getEnv("ACCOUNT_ADDR", ""),
-		LCDEndpoint:        getEnv("LCD_ENDPOINT", ""),
-		RPCEndpoint:        getEnv("EXTERNAL_RPC", ""),
+		ValidatorRpcEndpoint: getEnv("validator_rpc_endpoint", ""),
+		ValOperatorAddress:   getEnv("VAL_OPERATOR_ADDR", ""),
+		AccountAddress:       getEnv("ACCOUNT_ADDR", ""),
+		LCDEndpoint:          getEnv("LCD_ENDPOINT", ""),
+		RPCEndpoint:          getEnv("EXTERNAL_RPC", ""),
 	}
 }
 

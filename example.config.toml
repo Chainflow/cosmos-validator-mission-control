@@ -1,8 +1,24 @@
-node_url = "http://localhost:26657"
+# Validator rpc end point(RPC of your own validator)
+#useful to gather information about network info, validatr voting power, unconfirmed txns etc.
+validator_rpc_endpoint = "http://localhost:26657"
+
+# Operator address of your validator
+#which will be used to get staking, delegation and distribution rewards.
 val_operator_addr = "cosmosvaloper1dwwl3tumr7t5rswe674mczp0cq5xlf3af4m92q"
+
+# Your validator account address
+#which will be used to get account informtion etc
 account_addr = "cosmos1dkwl3tumr7t5rswe674mczp1cq5xlf3avp0sxn"
+
+# Validator hex address
+#useful to know about last proposed block, missed blocks and voting power.
 validator_hex_addr = "06E7798F67480B280BE14FE9B13D3BEBC933D89"
+
+# Address of your lcd client
 lcd_endpoint = "http://localhost:1317"
+
+# External open RPC endpoint(secondary RPC other than your own validator).
+#useful to gather information like validator caught up, syncing and missed blocks etc.
 external_rpc = "http://50.112.14.10:26657"
 
 # Configure the threshold to receive alert when the voting power reaches or drops below of the threshold given.
