@@ -163,10 +163,13 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 ```
 
 **System Monitoring Metrics**
--  For this you can refer `telgraf.conf` file for system monitoring metrics.You can just replace it with your original telegraf.conf file which will be located at /telegraf/etc/telegraf
+
+- Telegraf is a daemon that can run on any server and collect a wide variety of metrics from the system (cpu, memory, swap, etc.), common services (mysql, redis, postgres, etc.). It was originally built as a metric-gathering agent for InfluxDB, but has recently evolved to output metrics to other data sinks as well, such as Kafka, Datadog, and OpenTSDB.
+
+-  For system monitoring metrics you can refer `telgraf.conf` file. You can just replace it with your original telegraf.conf file which will be located at /telegraf/etc/telegraf
  
 
- **Alerting (Telegram and Email)**
+ **Alerting** - Telegram and email are the platforms used to send alerts to the end user. Telegram was chosen over other platforms like Discord etc. as the majority of validators prefer to use Telegram for their personal alerting mechanisms as well. Telegarm alerts will be sent to chat_id present in config.toml and Email alerts will be sent to the email id present in config.toml.
 
  - Alert about validator node sync status.
  - Alert when missed blocks when the missed blocks count reaches or exceedes **missed_blocks_threshold** which is user configured in *config.toml*
@@ -197,3 +200,5 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 - While creating this dashboard if you face any issues at valueset, change it to empty and then click on import by selecting the datasources.
 
 - *For more info about grafana dashboard imports you can refer https://grafana.com/docs/grafana/latest/reference/export_import/*
+
+**Hosting on standalone monitoring node** - This monitoring tool is meant to be hosted and deployed on the validator server but it can also be hosted on any node. Firewall settings for the monitoring node should be modified a little to allow communication between validator rpc and lcd endpoints. Port 26657 and 1317 which are the default rpc and lcd point respectively of the validator should be accessible by the monitoring node on which the tool is hosted on. If the default ports have been changed, relevant ports need to be exposed. In config.toml of the monitoring tool, node_url and lcd_endpoint have to be updated with the appropriate ip and port no.  

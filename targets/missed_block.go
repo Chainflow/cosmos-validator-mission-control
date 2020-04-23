@@ -34,7 +34,7 @@ func SendSingleMissedBlockAlert(ops HTTPOptions, cfg *config.Config, c client.Cl
 	cbh := networkLatestBlock.Result.SyncInfo.LatestBlockHeight
 
 	resp, err = HitHTTPTarget(HTTPOptions{
-		Endpoint:    cfg.ExternalRPC + "block",
+		Endpoint:    cfg.ExternalRPC + "/block",
 		QueryParams: QueryParams{"height": cbh},
 		Method:      "GET",
 	})
@@ -95,7 +95,7 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	cbh := networkLatestBlock.Result.SyncInfo.LatestBlockHeight
 
 	resp, err = HitHTTPTarget(HTTPOptions{
-		Endpoint:    cfg.ExternalRPC + "block",
+		Endpoint:    cfg.ExternalRPC + "/block",
 		QueryParams: QueryParams{"height": cbh},
 		Method:      "GET",
 	})
