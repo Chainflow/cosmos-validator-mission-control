@@ -200,3 +200,5 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 - While creating this dashboard if you face any issues at valueset, change it to empty and then click on import by selecting the datasources.
 
 - *For more info about grafana dashboard imports you can refer https://grafana.com/docs/grafana/latest/reference/export_import/*
+
+**Hosting on sentry** - This monitoring tool is meant to be hosted and deployed on the validator server but it can also be hosted on any of the sentry nodes. Firewall settings for the node should be modified a little to allow communication between validator rpc and lcd endpoints. Port 26657 and 1317 which are the default rpc and lcd point respectively of the validator should be accessible by the sentry node on which the tool is hosted on. If the default ports have been changed, relevant ports need to be exposed. In config.toml of the monitoring tool, node_url and lcd_endpoint have to be updated with the appropriate ip and port no.  
