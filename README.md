@@ -13,7 +13,7 @@ If your validator instance does not have a rest server running, execute this com
 gaiacli rest-server --chain-id cosmoshub-3 --laddr tcp://127.0.0.1:1317
 ```
 
-- **Docker ?**
+- **Docker 19+**
 
 **A - Install Grafana for Ubuntu**
 
