@@ -122,10 +122,11 @@ $ docker build -t cfv .
 $ docker run -d --name chain-monit cfv
 ```
 
-In grafana there will be two types of dashboard 
+In grafana there will be three types of dashboards
 ```bash
 i. Validator Monitoring Metrics (These are the metrics which we have calculated and stored in influxdb)
 ii. System Metrics (These are related to system configuration which comes from telegraf)
+iii. Summary (Which gives a quick information about validator and system metrics)
 ```
 
 **List of validator monitoring metrics**
@@ -182,6 +183,14 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 - Alert about validator health whether it's voting or jailed. You can get alerts twice a day based on the time you have configured **alert_time1** and **alert_time2** in *config.toml*
 - Alert when the voting power of your validator drops below **voting_power_threshold** which is user configured in *config.toml*
 
+**About summary dashboard**
+
+- This dashboard is to show a quick information about validator details and system metrics.
+
+- Validator identity (Moniker, Website, Keybase Identity, Details, Operator Address and Account Address), validator summary (Gaiad Status, Validator Status, Voting Power, Height Difference and No.Of peers) these are the metrics which are related to validator details.
+
+- CPU usage, RAM Usage, Memory usage and information about disk usage, these metrics are showing under system metrics summary.
+ 
 
 **Instructions to setup the dashboards in grafana**
 
@@ -195,9 +204,11 @@ Note: Above mentioned metrics will be calculated and displayed according to the 
 
 - Select the datasources and click on import.
 
-- To import **system monitoring metrics** click the *plus* button present on left hand side of the dashboard. Click on import and load the system monitoring metrics.json present in the grafana_template folder
+- To import **system monitoring metrics** click the *plus* button present on left hand side of the dashboard. Click on import and load the system_monitoring_metrics.json present in the grafana_template folder
 
 - While creating this dashboard if you face any issues at valueset, change it to empty and then click on import by selecting the datasources.
+
+- To import **summary**, you can just follow the above steps which you did for validator monitoring metrics or system monitoring metrics. To import the json you can find the summary.json template in grafana_template folder.
 
 - *For more info about grafana dashboard imports you can refer https://grafana.com/docs/grafana/latest/reference/export_import/*
 
