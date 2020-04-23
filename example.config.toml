@@ -3,7 +3,6 @@ val_operator_addr = "cosmosvaloper1dwwl3tumr7t5rswe674mczp0cq5xlf3af4m92q"
 account_addr = "cosmos1dkwl3tumr7t5rswe674mczp1cq5xlf3avp0sxn"
 validator_hex_addr = "06E7798F67480B280BE14FE9B13D3BEBC933D89"
 lcd_endpoint = "http://localhost:1317/"
-rpc_endpoint = "https://sgapiv2.certus.one/v1"
 external_rpc = "http://localhost:26657/"
 
 voting_power_threshold = 50
