@@ -31,7 +31,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Base URL Endpoint",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.NodeURL,
+				Endpoint: cfg.ValidatorRpcEndpoint,
 				Method:   http.MethodGet,
 			},
 			Func:        CheckGaiad,
@@ -41,7 +41,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Net Info URL",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.NodeURL + "/net_info?",
+				Endpoint: cfg.ValidatorRpcEndpoint + "/net_info?",
 				Method:   http.MethodGet,
 			},
 			Func:        GetNetInfo,
@@ -140,7 +140,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Validator Voting Power",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.NodeURL + "/validators",
+				Endpoint: cfg.ValidatorRpcEndpoint + "/validators",
 				Method:   http.MethodGet,
 			},
 			Func:        GetValidatorVotingPower,
@@ -150,7 +150,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Block Time Difference",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.NodeURL + "/block",
+				Endpoint: cfg.ValidatorRpcEndpoint + "/block",
 				Method:   http.MethodGet,
 			},
 			Func:        GetBlockTimeDifference,
@@ -170,7 +170,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Get no of unconfirmed txns",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.NodeURL + "/num_unconfirmed_txs?",
+				Endpoint: cfg.ValidatorRpcEndpoint + "/num_unconfirmed_txs?",
 				Method:   http.MethodGet,
 			},
 			Func:        GetUnconfimedTxns,
