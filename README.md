@@ -1,22 +1,16 @@
-# Validator monitoring and alerting tool
+# Validator Mission Control tool
 
-The current test implementation is for Grafana to be installed on the validator host system. We are working to test a remote setup as well, where Grafana can be installed on a remote system connected to the validator host system.
-
-For the purposes of these instructions, for now, please assume that Grafana is to be installed on the validator host system.
+**Validator mission control** tool provides a wide verity of metrics and alerts for validator node operators. It can be installed on validator node directly or any other monitoring nodes (with some special firewall on validator node). We utilized the power of Grafana + Telegraf and extended the monitoring & alerting with custom built go server.
 
 ## Install Prerequisites
 - **Go 13.x+**
-
-- **Setup a rest-server on validator instance** :
-If your validator instance does not have a rest server running, execute this command to setup the rest server
-```sh
-gaiacli rest-server --chain-id cosmoshub-3 --laddr tcp://127.0.0.1:1317
-```
-
 - **Docker 19+**
+- **Grafana 6.7+**
+- **InfluxDB 1.7+**
+- **Telegraf 1.14+**
+- **Gaia client**
 
-**A - Install Grafana for Ubuntu**
-
+### A - Install Grafana for Ubuntu
 Download the latest .tar.gz file and extract it by using the following commands
 
 ```sh
@@ -33,7 +27,7 @@ $ ./grafana-server
 Grafana will be running on port :3000 (ex:: https://localhost:3000)
 ```
 
-**B - Install InfluxDB**
+### Install InfluxDB
 
 Download the latest .tar.gz file and extract it by using the following commands
 
@@ -55,7 +49,7 @@ The default port that runs the InfluxDB HTTP service is :8086
 **Note :** If you want to give custom configuration then you can edit the `influxdb.conf` at `/influxdb-1.7.10-1/etc/influxdb` and do not forget to restart the server after the changes. You can find a sample 'influxdb.conf' [file here]<https://github.com/jheyman/influxdb/blob/master/influxdb.conf>.
 
 
-**C - Install Telegraf**
+### Install Telegraf
 
 Download the latest .tar.gz file and extract it by using the following commands
 ```sh
@@ -68,13 +62,18 @@ Start telegraph
 ```sh
 $ cd telegraf/usr/bin/
 $ ./telegraf --config ../../etc/telegraf/telegraf.conf
-
-By default telegraf does not expose any ports.
 ```
 
-## Install and configure the Validator Mission Control code
+### Setup a rest-server on validator instance
+If your validator instance does not have a rest server running, execute this command to setup the rest server
 
-**1 - Get the Validator Mission Control code**
+```sh
+gaiacli rest-server --chain-id cosmoshub-3 --laddr tcp://127.0.0.1:1317
+```
+
+## Install and configure the Validator Mission Control Tool
+
+### Get the code
 
 ```bash
 $ git clone git@github.com:chris-remus/chainflow-vitwit.git
@@ -82,7 +81,7 @@ $ cd chainflow-vitwit
 $ cp example.config.toml config.toml
 ```
 
-**2 - Configure the following variables in `config.toml`**
+### Configure the following variables in `config.toml`
 
 - *tg_chat_id*
 
@@ -155,21 +154,25 @@ After populating config.toml, build and run the monitoring binary
 $ go build -o chain-monit && ./chain-monit
 ```
 
-**3 - Run using docker**
+### Run using docker
 ```bash
 $ docker build -t cfv .
 $ docker run -d --name chain-monit cfv
 ```
 
-**In grafana you will see three dashboards**
+We have finished the installation and started the server. Lets configure Grafana dashboard.
 
-```bash
-i. Validator Monitoring Metrics (These are the metrics which we have calculated and stored in influxdb)
-ii. System Metrics (These are related to system configuration which comes from telegraf)
-iii. Summary (Which gives a quick information about validator and system metrics)
-```
+## Granfana Dashboards
 
-**List of validator monitoring metrics**
+In grafana demo provided, you will see three dashboards
+
+1. Validator Monitoring Metrics (These are the metrics which we have calculated and stored in influxdb)
+2. System Metrics (These are related to system configuration which comes from telegraf)
+3. Summary (Which gives a quick information about validator and system metrics)
+
+
+### 1. Validator monitoring metrics
+The following list of metrics are displayed in this dashboard.
 
 - Validator Details :  Displays the details of a validator like moniker, website, keybase identity and details.
 - Gaiad Status :  Displays whether the gaiad is running or not in the from of UP and DOWN.
@@ -204,40 +207,25 @@ iii. Summary (Which gives a quick information about validator and system metrics
 
 For alerts regarding system metrics, a telegram bot can be set up on the dashboard itself. A new notification channel can be added for telegram bot by clicking on the bell icon on the left hand sidebar of the dashboard. This will let the user configure the telegram bot id and chat id. A custom alert can be set for each graph by clicking on the edit button and adding alert rules.
 
-**System Monitoring Metrics**
--  For this you can refer `telgraf.conf` file for system monitoring metrics.You can just replace it with your original telegraf.conf file which will be located at /telegraf/etc/telegraf
+### 2. System Monitoring Metrics
+These are powered by telegraf and we are utilizing the features as is. We don't see a need to extend these metrics as these are highly informative and granular.
+-  For the list of system monitoring metrics, you can refer `telgraf.conf`. You can just replace it with your original telegraf.conf file which will be located at /telegraf/etc/telegraf (installation directory)
  
-
- **Alerting (Telegram and Email)**
-
- - Alert about validator node sync status.
- - Alert when missed blocks when the missed blocks count reaches or exceedes **missed_blocks_threshold** which is user configured in *config.toml*
- - Alert when no.of peers when the count falls below of **num_peers_threshold** which is user configured in *config.toml*
-- Alert when the block difference between network and validator reaches or exceeds the **block_diff_threshold** which is user configured in *config.toml*
-- Alert when the gaiad status is not running on validator instance.
-- Alert when a new proposal is created.
-- Alert when the proposal is moved to voting period, passed or rejected.
-- Alert when voting period proposals is due in less than 24 hours and also if the validator didn't vote on proposal yet.
-- Alert about validator health whether it's voting or jailed. You can get alerts twice a day based on the time you have configured **alert_time1** and **alert_time2** in *config.toml*
-- Alert when the voting power of your validator drops below **voting_power_threshold** which is user configured in *config.toml*
-
-**About summary dashboard**
-
-- This dashboard displays a quick information summary of validator details and system metrics.
+ ### 3. Summary Dashboard
+This dashboard displays a quick information summary of validator details and system metrics. It has following details.
 
 - Validator identity (Moniker, Website, Keybase Identity, Details, Operator Address and Account Address), validator summary (Gaiad Status, Validator Status, Voting Power, Height Difference and No.Of peers) are the metrics being displayed from Validator details.
 
 - CPU usage, RAM Usage, Memory usage and information about disk usage are the metrics being displayed from System details.
- 
 
-**4 - Setup the dashboards in grafana**
+## How to import these dashboards in your grafana?
 
-*Login*
-- Open your web browser and go to http://localhost:3000/.  3000 is the default HTTP port that Grafana listens to if you haven’t configured a different port.
-- If you are a first time user type admin for the username and password in the login page.
+### 1. Login to your grafana dashboard
+- Open your web browser and go to http://<your_ip>:3000/. `3000` is the default HTTP port that Grafana listens to if you haven’t configured a different port.
+- If you are a first time user type `admin` for the username and password in the login page.
 - You can change the password after login.
 
-*Import the dashboards*
+### Import the dashboards
 - To import the json file of the **validator monitoring metrics** click the *plus* button present on left hand side of the dashboard. Click on import and load the validator_monitoring_metrics.json present in the grafana_template folder. 
 
 - Select the datasources and click on import.
@@ -250,12 +238,32 @@ For alerts regarding system metrics, a telegram bot can be set up on the dashboa
 
 - *For more info about grafana dashboard imports you can refer https://grafana.com/docs/grafana/latest/reference/export_import/*
 
-**Hosting on standalone monitoring node**
 
-This monitoring tool is meant to be hosted and deployed on the validator server but it can also be hosted on any public sentry node of the validator.
+## Alerting (Telegram and Email)
+ We have developed a custom alerting module to alert on several events. It uses the data from influxdb and trigger the alerts based on user configured thresholds.
 
- - Prerequisites and setup for sentry node remains the same with 1 exception. Telegrafdb should be installed on the validator instance instead of sentry node. 
- - While importing and setting up the dashboards for Grafana, the url has to be changed for InfluxDBTelegraf datasource.
+ - Alert about validator node sync status.
+ - Alert when missed blocks when the missed blocks count reaches or exceedes **missed_blocks_threshold** which is user configured in *config.toml*
+ - Alert when no.of peers when the count falls below of **num_peers_threshold** which is user configured in *config.toml*
+- Alert when the block difference between network and validator reaches or exceeds the **block_diff_threshold** which is user configured in *config.toml*
+- Alert when the gaiad status is not running on validator instance.
+- Alert when a new proposal is created.
+- Alert when the proposal is moved to voting period, passed or rejected.
+- Alert when voting period proposals is due in less than 24 hours and also if the validator didn't vote on proposal yet.
+- Alert about validator health whether it's voting or jailed. You can get alerts twice a day based on the time you have configured **alert_time1** and **alert_time2** in *config.toml*
+- Alert when the voting power of your validator drops below **voting_power_threshold** which is user configured in *config.toml*
+
+
+## Hosting it on separate monitoring node
+
+This monitoring tool can also be hosted on any separate monitoring node/public sentry node of the validator.
+
+ - Prerequisites and setup for sentry node remains the same with 1 exception. Telegraf should be installed on the validator instance instead of sentry node. Telegraf collects all the hardware matrics like CPU load, RAM usage etc and post it to InfluxDB. InfluxDB sits on monitoring node. 
+ - While importing and setting up the dashboards for Grafana, the url has to be changed for InfluxDBTelegraf datasource to point to validator node telegraf url.
  - As mentioned above, the default port on which Telegraf points the data is 8086, so the url should be replaced as "http://validator-ip:8086"
  - This will allow Grafana to display system metrics of validator instance instead of displaying metrics of monitoring node.
+ - All other metrics can be colelcted from monitoring node itself. Monitoring node should have the access to validator RPC and LCD endpoints. Configure your validator firewall to allow Monitoring node to access these endpoints.
  
+
+**Note:**
+We thought well about the validator operator needs and covered all the required features for monitoring and alerting. Please feel free to create issues if you think of any missing feature.
