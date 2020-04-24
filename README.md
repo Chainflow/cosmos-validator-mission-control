@@ -258,4 +258,4 @@ Port 26657 and 1317 which are the default rpc and lcd point respectively of the 
 the tool is hosted on. If the default ports have been changed, relevant ports need to be exposed. 
 In config.toml of the monitoring tool, node_url and lcd_endpoint have to be updated with the appropriate ip and port no. 
 To get accurate system and validator metrics information, it is recommended to run the influxdb on the validator instance and 
-opening 8086 port to the monitoring node to get the metrics displayed on grafana dashboard.
+opening 8086 port to the monitoring node to get the metrics displayed on grafana dashboard. While importing the dashboard on Grafana the url should be pointed to the exposed influxd port of validator instance instead of localhost.
