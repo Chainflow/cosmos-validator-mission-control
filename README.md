@@ -256,6 +256,6 @@ This monitoring tool is meant to be hosted and deployed on the validator server 
 
  - Prerequisites and setup for sentry node remains the same with 1 exception. Telegrafdb should be installed on the validator instance instaed of sentry node. 
  - While importing and setting up the dashboards for Grafana, the url has to be changed for InfluxDBTelegraf datasource.
- - As mentioned above the default port on which Telegraf points the data is 8086, so the url should be replaced as "http://<validator-ip>:8086"
+ - As mentioned above the default port on which Telegraf points the data is 8086, so the url should be replaced as "http:// <validator-ip> :8086"
  - This will allow Grafana to display system metrics of validator instance instead of displaying metrics of monitoring node.
  
