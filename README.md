@@ -223,11 +223,11 @@ For alerts regarding system metrics, a telegram bot can be set up on the dashboa
 
 **About summary dashboard**
 
-- This dashboard is to show a quick information about validator details and system metrics.
+- This dashboard displays a quick information summary of validator details and system metrics.
 
-- Validator identity (Moniker, Website, Keybase Identity, Details, Operator Address and Account Address), validator summary (Gaiad Status, Validator Status, Voting Power, Height Difference and No.Of peers) these are the metrics which are related to validator details.
+- Validator identity (Moniker, Website, Keybase Identity, Details, Operator Address and Account Address), validator summary (Gaiad Status, Validator Status, Voting Power, Height Difference and No.Of peers) are the metrics being displayed from Validator details.
 
-- CPU usage, RAM Usage, Memory usage and information about disk usage, these metrics are showing under system metrics summary.
+- CPU usage, RAM Usage, Memory usage and information about disk usage are the metrics being displayed from System details.
  
 
 **4 - Setup the dashboards in grafana**
