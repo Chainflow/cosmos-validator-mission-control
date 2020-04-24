@@ -79,7 +79,6 @@ By default telegraf does not expose any ports.
 ```bash
 $ git clone git@github.com:chris-remus/chainflow-vitwit.git
 $ cd chainflow-vitwit
-$ git fetch && git checkout releases/alpha
 $ cp example.config.toml config.toml
 ```
 
