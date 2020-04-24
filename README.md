@@ -199,9 +199,9 @@ iii. Summary (Which gives a quick information about validator and system metrics
 - Deposit Period Proposals : Displays the list of the proposals which are currently in deposit period.
 - Completed Proposals : Displays the list of the proposals which are completed with their status as passed or rejected.
 
-```bash
-Note: Above mentioned metrics will be calculated and displayed according to the validator address which will be configured in config.toml
-```
+
+**Note:** Above mentioned metrics will be calculated and displayed according to the validator address which will be configured in config.toml
+
 For alerts regarding system metrics, a telegram bot can be set up on the dashboard itself. A new notification channel can be added for telegram bot by clicking on the bell icon on the left hand sidebar of the dashboard. This will let the user configure the telegram bot id and chat id. A custom alert can be set for each graph by clicking on the edit button and adding alert rules.
 
 **System Monitoring Metrics**
