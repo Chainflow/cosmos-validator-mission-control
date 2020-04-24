@@ -252,10 +252,10 @@ For alerts regarding system metrics, a telegram bot can be set up on the dashboa
 
 **Hosting on standalone monitoring node**
 
-This monitoring tool is meant to be hosted and deployed on the validator server but it can also be hosted on any public sentry node of the validator. 
-Firewall settings for the monitoring node should be modified a little to allow communication between validator rpc and lcd endpoints. 
-Port 26657 and 1317 which are the default rpc and lcd point respectively of the validator should be accessible by the monitoring node on which 
-the tool is hosted on. If the default ports have been changed, relevant ports need to be exposed. 
-In config.toml of the monitoring tool, node_url and lcd_endpoint have to be updated with the appropriate ip and port no. 
-To get accurate system and validator metrics information, it is recommended to run the influxdb on the validator instance and 
-opening 8086 port to the monitoring node to get the metrics displayed on grafana dashboard. While importing the dashboard on Grafana the url should be pointed to the exposed influxd port of validator instance instead of localhost.
+This monitoring tool is meant to be hosted and deployed on the validator server but it can also be hosted on any public sentry node of the validator.
+
+ - Prerequisites and setup for sentry node remains the same with 1 exception. Telegrafdb should be installed on the validator instance instaed of sentry node. 
+ - While importing and setting up the dashboards for Grafana, the url has to be changed for InfluxDBTelegraf datasource.
+ - As mentioned above the default port on which Telegraf points the data is 8086, so the url should be replaced as "http://<validator-ip>:8086"
+ - This will allow Grafana to display system metrics of validator instance instead of displaying metrics of monitoring node.
+ 
