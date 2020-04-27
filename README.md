@@ -48,7 +48,7 @@ $ ./influxdb-1.7.10-1/usr/bin/influxd
 The default port that runs the InfluxDB HTTP service is :8086
 ```
 
-**Note :** If you want cusomize the configuration, edit `influxdb.conf` at `/influxdb-1.7.10-1/etc/influxdb` and don't forget to restart the server after the changes. You can find a sample 'influxdb.conf' [file here]<https://github.com/jheyman/influxdb/blob/master/influxdb.conf>.
+**Note :** If you want cusomize the configuration, edit `influxdb.conf` at `/influxdb-1.7.10-1/etc/influxdb` and don't forget to restart the server after the changes. You can find a sample 'influxdb.conf' [file here](https://github.com/jheyman/influxdb/blob/master/influxdb.conf).
 
 
 ### Install Telegraf
