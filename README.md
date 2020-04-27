@@ -1,6 +1,8 @@
 # Validator Mission Control
 
-**Validator mission control** provides a comprehensive set of metrics and alerts for Cosmos validator node operators. It can be installed on a validator node directly or a separate monitoring nodes (with an appropriate firewall setup on validator node). We utilized the power of Grafana + Telegraf and extended the monitoring & alerting with a custom built go server.
+**Validator Mission Control** provides a comprehensive set of metrics and alerts for Cosmos validator node operators. We utilized the power of Grafana + Telegraf and extended the monitoring & alerting with a custom built go server.
+
+It can be installed on a validator node directly or a separate monitoring node (with an appropriate firewall setup on validator node). These instructions assume the user will install Validator Mission Control on the validator. See this section for details on installing it on a separate monitoring node. 
 
 ## Install Prerequisites
 - **Go 13.x+**
