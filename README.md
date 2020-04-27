@@ -273,5 +273,6 @@ This monitoring tool can also be hosted on any separate monitoring node/public s
  - All other metrics can be collected from monitoring node itself. The monitoring node should have access to the validator RPC and LCD endpoints. Configure your validator firewall to allow the monitoring node to access these endpoints.
  
 
-**Feedback?**
-Please feel free to create issues to suggest additional metrics, alerts or features.
+## Feedback and Questions
+
+Please feel free to create issues in this repo to ask questions and/or suggest additional metrics, alerts or features.
