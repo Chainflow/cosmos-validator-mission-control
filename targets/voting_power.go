@@ -20,6 +20,10 @@ func GetValidatorVotingPower(ops HTTPOptions, cfg *config.Config, c client.Clien
 
 	// Calling function to get current block height
 	currentHeight := GetValidatorBlock(cfg, c)
+	if currentHeight == "" {
+		log.Println("Error while fetching current block height from db ", currentHeight)
+		return
+	}
 
 	ops.Endpoint = ops.Endpoint + "?height=" + currentHeight
 

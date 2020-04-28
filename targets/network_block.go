@@ -41,6 +41,10 @@ func GetNetworkLatestBlock(ops HTTPOptions, cfg *config.Config, c client.Client)
 	// Calling function to get validator latest
 	// block height
 	validatorHeight := GetValidatorBlock(cfg, c)
+	if validatorHeight == "" {
+		log.Println("Error while fetching validator block height from db ", validatorHeight)
+		return
+	}
 
 	vaidatorBlockHeight, _ := strconv.Atoi(validatorHeight)
 	heightDiff := networkBlockHeight - vaidatorBlockHeight
