@@ -1,3 +1,5 @@
+![Image description](https://github.com/chris-remus/cosmos-validator-mission-control/blob/master/Untitled%20design.jpg)
+
 # Introducing Validator Mission Control
 
 [Chainflow](https://chainflow.io/staking) and [Vitwit](https://vitwit.com) are feeling excited to release the Cosmos Validator Mission Control monitoring and alerting dashboard today. It's a free and open-source validator monitoring and alerting dashboard that anyone can use to monitor their Cosmos validator infrastructure. The work was [funded by an Interchain Foundation Grant](https://chainflow.io/chainflow-receives-icf-validator-monitoring-and-alerting-grant/).
