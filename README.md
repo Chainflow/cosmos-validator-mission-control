@@ -82,25 +82,30 @@ Validator Mission Control focuses on providing helpful alerts, while not includi
 Here's the full list of alerts -
 
 1. Availability
-	1.1 Server available and reachable - Alert if unreachable
-	1.2 Gaiad running - Alert if Gaiad stops
-	1.3 Validator active, i.e. not jailed - Alert if validator's jailed
+* Server available and reachable - Alert if unreachable
+* Gaiad running - Alert if Gaiad stops
+* Validator active, i.e. not jailed - Alert if validator's jailed
+
 2. Performance
-	2.1. Disk utilization - Alert if 70% is exceeded
-	2.3 CPU utilization - Alert if 70% is exceeded
-	2.4 RAM utilization - Alert if 95% is exceeded
+* Disk utilization - Alert if 70% is exceeded
+* CPU utilization - Alert if 70% is exceeded
+* RAM utilization - Alert if 95% is exceeded
+
 3. Validator performance
-	3.3 Caught-up? - Alert if node is not synced
-	3.4 Validator voting? - Alert if validator not voting
-	3.5 Missed blocks - Alert if block threshold is exceeded, currently 4 blocks for testing purposes
+* Caught-up? - Alert if node is not synced
+* Validator voting? - Alert if validator not voting
+* Missed blocks - Alert if block threshold is exceeded, currently 4 blocks for testing purposes
+
 4. Connectivity
-	4.1. Number of peers - Alert if number of peers drops below a threshold, currently 1 for testing purposes
+* Number of peers - Alert if number of peers drops below a threshold, currently 1 for testing purposes
+
 5. Validator details
-	5.1 Voting power - Alert if voting power drops below a threshold, currently 50 for testing purposes
+* Voting power - Alert if voting power drops below a threshold, currently 50 for testing purposes
+
 6. Proposals
-	6.1 New proposal - Alert if new proposal is created
-	6.2 Proposal voting period and period expiration date - Alerts when proposal enters deposit period, voting period, is passed or rejected
-	6.3 Validator voting status - Alert if validator hasn't voted within 24 hours of voting period expiration
+* New proposal - Alert if new proposal is created
+* Proposal voting period and period expiration date - Alerts when proposal enters deposit period, voting period, is passed or rejected
+* Validator voting status - Alert if validator hasn't voted within 24 hours of voting period expiration
  
 ## Responding to the Community
 
@@ -108,7 +113,7 @@ The Cosmos community provided two rounds of feedback.
 
 The first round was in response to the original specification published here. One takeaway from that round was the importance of proposal monitoring and alerting, which was subsequently implemented, as described above.
 
-The second response was in response to an initial review provided by Ztake, POS Bakerz and Staking Facilities. The round resulted in the Summary dashboard creation, display element reorganization, and adding the number of unconfirmed mempool transactions.
+The second response was in response to an initial review provided by [Ztake](ztake.org), [POS Bakerz](posbakerz.com) and [Staking Facilities](stakingfacilities.com). The round resulted in the Summary dashboard creation, display element reorganization, and adding the number of unconfirmed mempool transactions.
 
 The broader call for prototype feedback didn't yield actionable feedback. Because of this, feedback will continue to be collected for a to-be-determined period of time.
 
@@ -126,3 +131,5 @@ See the alerts in action in [this Telegram group](https://t.me/joinchat/LZH9y02z
 You can find installation and implementation instructions at [this Github issue](https://github.com/chris-remus/chainflow-icf-validator-tool-grant/issues/21).
 
 Please address any questions or feedback you may have, including feature requests at [this Github issue](https://github.com/chris-remus/chainflow-icf-validator-tool-grant/issues/21) or the [Chainflow Telegram group](https://chainflow.io/cosmos-validator-mission-control/t.me/chainflowpos).
+
+(First published on the Chainflow blog [here](https://chainflow.io/cosmos-validator-mission-control/).)
