@@ -115,7 +115,7 @@ The Cosmos community provided two rounds of feedback.
 
 The first round was in response to the original specification published here. One takeaway from that round was the importance of proposal monitoring and alerting, which was subsequently implemented, as described above.
 
-The second response was in response to an initial review provided by [Ztake](ztake.org), [POS Bakerz](posbakerz.com) and [Staking Facilities](stakingfacilities.com). The round resulted in the Summary dashboard creation, display element reorganization, and adding the number of unconfirmed mempool transactions.
+The second response was in response to an initial review provided by [Ztake](https://ztake.org), [POS Bakerz](https://posbakerz.com) and [Staking Facilities](https://stakingfacilities.com). The round resulted in the Summary dashboard creation, display element reorganization, and adding the number of unconfirmed mempool transactions.
 
 The broader call for prototype feedback didn't yield actionable feedback. Because of this, feedback will continue to be collected for a to-be-determined period of time.
 
