@@ -22,6 +22,11 @@ func GetBlockTimeDifference(ops HTTPOptions, cfg *config.Config, c client.Client
 	// Calling function to get validator latest
 	// block height
 	currentBlockHeight := GetValidatorBlock(cfg, c)
+	if currentBlockHeight == "" {
+		log.Println("Error while fetching current block height from db ", currentBlockHeight)
+		return
+	}
+
 	ops.Endpoint = ops.Endpoint + "?height=" + currentBlockHeight
 	currResp, err := HitHTTPTarget(ops)
 	if err != nil {
