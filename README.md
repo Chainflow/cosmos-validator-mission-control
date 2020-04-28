@@ -123,6 +123,8 @@ Now that the tool is released, assuming use of the tool will spark additional id
 
 ## Getting Started
 
+[Setup Instructions](./INSTRUCTIONS.md)
+
 [Login here](http://134.209.142.233:3000/) to see Validator Mission Control in action on a test setup 👇
 
 UID: user3
