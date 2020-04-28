@@ -68,8 +68,8 @@ By default telegraf does not expose any ports.
 
 ## Get the code
 ```bash
-$ git clone git@github.com:chris-remus/chainflow-vitwit.git
-$ cd chainflow-vitwit
+$ git clone git@github.com:chris-remus/cosmos-validator-mission-control.git
+$ cd cosmos-validator-mission-control
 $ git fetch && git checkout develop
 $ cp example.config.toml config.toml
 ```
