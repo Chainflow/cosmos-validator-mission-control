@@ -155,7 +155,7 @@ $ cp example.config.toml config.toml
 
 After populating config.toml, check if you have connected to influxdb and created a database which you are going to use.
 
-If not follow the these steps to create a database
+If not follow these steps to create a database
 
 ```bash
 $   cd $HOME
