@@ -153,9 +153,9 @@ $ cp example.config.toml config.toml
 
     External open RPC endpoint(secondary RPC other than your own validator). Useful to gather information like validator caught up, syncing and missed blocks etc.
 
-After populating config.toml, check if you have connected to influxdb and created a database which you are going to use.
+After populating config.toml, check if you have connected to influxdb.
 
-If not follow these steps to create a database
+If your connection throws error "database not found", create a database
 
 ```bash
 $   cd $HOME
