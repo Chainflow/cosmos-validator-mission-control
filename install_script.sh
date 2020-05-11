@@ -2,6 +2,9 @@
 
 cd $HOME
 
+teleFalg="$1"
+teleFlagValue="--remote-hosted"
+
 wget https://dl.grafana.com/oss/release/grafana-6.7.2.linux-amd64.tar.gz
 
 tar -zxvf grafana-6.7.2.linux-amd64.tar.gz
@@ -22,13 +25,18 @@ cd $HOME
 
 cd $HOME
 
-wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.0_linux_amd64.tar.gz
+if [ "$teleFalg" != "$teleFlagValue" ];
+then 
+	wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.0_linux_amd64.tar.gz
 
-tar xf telegraf-1.14.0_linux_amd64.tar.gz
+	tar xf telegraf-1.14.0_linux_amd64.tar.gz
 
-cd telegraf/usr/bin/
+	cd telegraf/usr/bin/
  
-./telegraf --config ../../etc/telegraf/telegraf.conf &
+	./telegraf --config ../../etc/telegraf/telegraf.conf &
+else
+	echo "--remote-hosted enabled, so not downloading the telegraf"
+fi
 
 git clone git@github.com:Chainflow/cosmos-validator-mission-control.git
 
@@ -42,7 +50,7 @@ CREATE DATABASE vcf
 
 exit
 
-go build && ./cosmos-validator-mission-control
+go build && ./cosmos-validator-mission-control &
 
 docker build -t cfv .
 
