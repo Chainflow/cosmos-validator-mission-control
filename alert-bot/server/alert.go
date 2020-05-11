@@ -1,8 +1,8 @@
 package server
 
 import (
-	"chainflow-vitwit/alert-bot/alerting"
-	"chainflow-vitwit/alert-bot/config"
+	"cosmos-validator-mission-control/alert-bot/alerting"
+	"cosmos-validator-mission-control/alert-bot/config"
 	"log"
 )
 
