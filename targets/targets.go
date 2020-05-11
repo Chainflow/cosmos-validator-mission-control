@@ -2,7 +2,7 @@ package targets
 
 import (
 	"bytes"
-	"chainflow-vitwit/config"
+	"cosmos-validator-mission-control/config"
 	"io/ioutil"
 	"net/http"
 	"net/url"
