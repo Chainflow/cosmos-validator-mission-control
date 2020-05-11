@@ -153,7 +153,19 @@ $ cp example.config.toml config.toml
 
     External open RPC endpoint(secondary RPC other than your own validator). Useful to gather information like validator caught up, syncing and missed blocks etc.
 
-After populating config.toml, build and run the monitoring binary
+After populating config.toml, check if you have connected to influxdb and created a database which you are going to use.
+
+If not follow these steps to create a database
+
+```bash
+$   cd $HOME
+$   influx
+>   CREATE DATABASE db_name
+
+ex: CREATE DATABASE vcf
+```
+
+After all these steps, build and run the monitoring binary
 
 ```bash
 $ go build -o chain-monit && ./chain-monit

@@ -77,11 +77,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "cmd",
 			Name:          "Gaiad Version",
 			Func:          GaiadVersion,
-			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.ValidatorRpcEndpoint + "/status",
-				Method:   http.MethodGet,
-			},
-			ScraperRate: cfg.Scraper.Rate,
+			ScraperRate:   cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",

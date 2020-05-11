@@ -331,31 +331,4 @@ type (
 			Txs        interface{} `json:"txs"`
 		} `json:"result"`
 	}
-
-	// GaiadStatusInfo struct which holds the information of node status
-	GaiadStatusInfo struct {
-		Jsonrpc string `json:"jsonrpc"`
-		ID      int    `json:"id"`
-		Result  struct {
-			NodeInfo struct {
-				ProtocolVersion struct {
-					P2P   string `json:"p2p"`
-					Block string `json:"block"`
-					App   string `json:"app"`
-				} `json:"protocol_version"`
-				ID         string `json:"id"`
-				ListenAddr string `json:"listen_addr"`
-				Network    string `json:"network"`
-				Version    string `json:"version"`
-				Channels   string `json:"channels"`
-				Moniker    string `json:"moniker"`
-				Other      struct {
-					TxIndex    string `json:"tx_index"`
-					RPCAddress string `json:"rpc_address"`
-				} `json:"other"`
-			} `json:"node_info"`
-			SyncInfo      interface{} `json:"sync_info"`
-			ValidatorInfo interface{} `json:"validator_info"`
-		} `json:"result"`
-	}
 )
