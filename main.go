@@ -1,8 +1,8 @@
 package main
 
 import (
-	"chainflow-vitwit/config"
-	"chainflow-vitwit/targets"
+	"cosmos-validator-mission-control/config"
+	"cosmos-validator-mission-control/targets"
 	"fmt"
 	"log"
 	"sync"
