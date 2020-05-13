@@ -1,7 +1,7 @@
 package targets
 
 import (
-	"chainflow-vitwit/config"
+	"cosmos-validator-mission-control/config"
 	"log"
 	"os/exec"
 	"regexp"

@@ -1,7 +1,7 @@
 package server
 
 import (
-	"chainflow-vitwit/alert-bot/config"
+	"cosmos-validator-mission-control/alert-bot/config"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -13,7 +13,7 @@ import (
 func ValidatorStatusAlert(cfg *config.Config) error {
 	log.Println("Coming inside validator status alerting")
 	ops := HTTPOptions{
-		Endpoint: cfg.LCDEndpoint + "staking/validators/" + cfg.ValOperatorAddress,
+		Endpoint: cfg.LCDEndpoint + "/staking/validators/" + cfg.ValOperatorAddress,
 		Method:   http.MethodGet,
 	}
 
@@ -64,7 +64,7 @@ func ValidatorStatusAlert(cfg *config.Config) error {
 func CheckValidatorJailed(cfg *config.Config) error {
 	log.Println("Coming inside jailed alerting")
 	ops := HTTPOptions{
-		Endpoint: cfg.LCDEndpoint + "staking/validators/" + cfg.ValOperatorAddress,
+		Endpoint: cfg.LCDEndpoint + "/staking/validators/" + cfg.ValOperatorAddress,
 		Method:   http.MethodGet,
 	}
 

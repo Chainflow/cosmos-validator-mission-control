@@ -1,8 +1,8 @@
 package targets
 
 import (
-	"chainflow-vitwit/alerting"
-	"chainflow-vitwit/config"
+	"cosmos-validator-mission-control/alerting"
+	"cosmos-validator-mission-control/config"
 	"log"
 	"strings"
 )
