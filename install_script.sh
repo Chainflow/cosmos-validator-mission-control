@@ -50,7 +50,7 @@ CREATE DATABASE vcf
 
 exit
 
-go build && ./cosmos-validator-mission-control &
+go build && ./cosmos-validator-mission-control
 
 docker build -t cfv .
 
