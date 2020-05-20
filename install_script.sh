@@ -2,6 +2,8 @@
 
 cd $HOME
 
+export INFLUX_DAEMON=influxd
+
 teleFalg="$1"
 teleFlagValue="--remote-hosted"
 
@@ -19,9 +21,27 @@ wget https://dl.influxdata.com/influxdb/releases/influxdb-1.7.10_linux_amd64.tar
 
 tar xvfz influxdb-1.7.10_linux_amd64.tar.gz
 
-cd $HOME 
+echo "-----------Fetching influxd path--------"
+INFLUXD_PATH=$(which $INFLUX_DAEMON)
 
-./influxdb-1.7.10-1/usr/bin/influxd &
+echo "---------Creating system file---------"
+
+echo "[Unit]
+Description=${INFLUX_DAEMON} daemon
+After=network-online.target
+[Service]
+User=${USER}
+ExecStart=${INFLUXD_PATH}
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+[Install]
+WantedBy=multi-user.target
+" >$INFLUX_DAEMON.service
+
+sudo mv $INFLUX_DAEMON.service /lib/systemd/system/$INFLUX_DAEMON.service
+sudo -S systemctl daemon-reload
+sudo -S systemctl start $INFLUX_DAEMON
 
 cd $HOME
 
