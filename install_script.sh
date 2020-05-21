@@ -111,6 +111,8 @@ influx
 
 CREATE DATABASE vcf
 
+CREATE DATABASE telegraf
+
 exit
 
 echo "------ Building and running the code --------"
