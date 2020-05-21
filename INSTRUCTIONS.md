@@ -233,6 +233,16 @@ This dashboard displays a quick information summary of validator details and sys
 - If you are a first time user type `admin` for the username and password in the login page.
 - You can change the password after login.
 
+    Before importing the dashboards you need to configure datasoruces of InfluxDBVCF and InfluxDBTelegraf
+    - Go to configuration and select Data Sources. There you can find an option of add Data Source, click on it and add data source by follwoing below steps.
+    - To create InfluxDBVCF -> In palace of name give InfluxDBVCF and in place of url give the url of influxdb where it is running (ex: http://localhost:8086)
+    - Then below in influxDB Details section give Database name as vcf(You can give database name whatever you have created), and also fill User field with your user name.
+    - After doing all these you can test the data source by clicking on Save & Test option.
+
+    - Follow the same steps to create InfluxDBTelegraf. But you have to make sure to give InfluxDBTelegraf as name and telegraf as database (If you have configured database with other options you can give those).
+
+    NOTE : The above mentioned values(ex: names and urls) are not fixed. You can configure on your own. But if you change the datasources names make sure to change it in dashboard also, otherwise it gives error.
+
 ### Import the dashboards
 - To import the json file of the **validator monitoring metrics** click the *plus* button present on left hand side of the dashboard. Click on import and load the validator_monitoring_metrics.json present in the grafana_template folder. 
 
