@@ -3,6 +3,7 @@
 cd $HOME
 
 export INFLUX_DAEMON=influxd
+export TELEGRAF=telegraf
 
 teleFalg="$1"
 teleFlagValue="--remote-hosted"
@@ -24,7 +25,7 @@ tar xvfz influxdb-1.7.10_linux_amd64.tar.gz
 echo "-----------Fetching influxd path--------"
 INFLUXD_PATH=$(which $INFLUX_DAEMON)
 
-echo "---------Creating system file---------"
+echo "---------Creating influxd system file---------"
 
 echo "[Unit]
 Description=${INFLUX_DAEMON} daemon
@@ -50,10 +51,29 @@ then
 	wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.0_linux_amd64.tar.gz
 
 	tar xf telegraf-1.14.0_linux_amd64.tar.gz
+	
+	echo "-----------Fetching telegraf path--------"
+	TELEGRAF_PATH=telegraf/usr/bin/telegraf
 
-	cd telegraf/usr/bin/
- 
-	./telegraf --config ../../etc/telegraf/telegraf.conf &
+	echo "---------Creating telegraf system file---------"
+
+	echo "[Unit]
+	Description=${TELEGRAF} daemon
+	After=network-online.target
+	[Service]
+	User=${USER}
+	ExecStart=${HOME}/telegraf/usr/bin/telegraf --config telegraf/etc/telegraf/telegraf.conf
+	Restart=always
+	RestartSec=3
+	LimitNOFILE=4096
+	[Install]
+	WantedBy=multi-user.target
+	" >$TELEGRAF.service
+
+	sudo mv $TELEGRAF.service /lib/systemd/system/$TELEGRAF.service
+	sudo -S systemctl daemon-reload
+	sudo -S systemctl start $TELEGRAF
+
 else
 	echo "--remote-hosted enabled, so not downloading the telegraf"
 fi
