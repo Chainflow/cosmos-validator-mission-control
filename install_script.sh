@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 cd $HOME
 
 export INFLUX_DAEMON=influxd
@@ -10,19 +12,19 @@ teleFlagValue="--remote-hosted"
 
 echo "----------- Installing grafana -----------"
 
-sudo apt-get install -y adduser libfontconfig1
+sudo -S apt-get install -y adduser libfontconfig1
 
 wget https://dl.grafana.com/oss/release/grafana_6.7.2_amd64.deb
 
-sudo dpkg -i grafana_6.7.2_amd64.deb
+sudo -S dpkg -i grafana_6.7.2_amd64.deb
 
 echo "------ Starting grafana server using systemd --------"
 
-sudo systemctl daemon-reload
+sudo -S systemctl daemon-reload
 
-sudo systemctl start grafana-server
+sudo -S systemctl start grafana-server
 
-sudo systemctl status grafana-server
+sudo -S systemctl status grafana-server
 
 cd $HOME
 
