@@ -12,7 +12,7 @@ It can be installed on a validator node directly or a separate monitoring node (
 - **Telegraf 1.14+**
 - **Gaia client**
 
-### A - Install Grafana for Ubuntu
+### Install Grafana for Ubuntu
 
 ```sh
 $ sudo -S apt-get install -y adduser libfontconfig1
@@ -72,6 +72,18 @@ gaiacli rest-server --chain-id cosmoshub-3 --laddr tcp://127.0.0.1:1317
 $ git clone https://github.com/Chainflow/cosmos-validator-mission-control.git
 $ cd cosmos-validator-mission-control
 $ cp example.config.toml config.toml
+```
+
+### Create databases using influx shell
+
+- Make sure influxd is running, then only you can login to influx shell.
+- If you wish to change the database name make sure to change it in config.toml file also.
+
+```bash
+$ influx
+
+> CREATE DATABASE vcf
+> CREATE DATABASE telegraf
 ```
 
 ### Configure the following variables in `config.toml`
