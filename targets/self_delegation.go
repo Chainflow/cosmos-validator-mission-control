@@ -29,15 +29,15 @@ func GetSelfDelegation(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
-	daemon := ""
+	denom := ""
 
-	if cfg.StakingDaemon == "" {
-		daemon = "uatom"
+	if cfg.StakingDemon == "" {
+		denom = "uatom"
 	} else {
-		daemon = cfg.StakingDaemon
+		denom = cfg.StakingDemon
 	}
 
-	addressBalance := convertToCommaSeparated(delegationResp.Result.Balance) + daemon
+	addressBalance := convertToCommaSeparated(delegationResp.Result.Balance) + denom
 	_ = writeToInfluxDb(c, bp, "vcf_self_delegation_balance", map[string]string{}, map[string]interface{}{"balance": addressBalance})
 	log.Printf("Address Balance: %s", addressBalance)
 }

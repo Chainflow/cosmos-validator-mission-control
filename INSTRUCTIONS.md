@@ -153,9 +153,9 @@ $ cp example.config.toml config.toml
 
     External open RPC endpoint(secondary RPC other than your own validator). Useful to gather information like validator caught up, syncing and missed blocks etc.
 
-- *staking_daenom*
+- *staking_denom*
 
-    Give stakig deanom to display along with self delegation balance (ex:uatom or umuon)
+    Give stakig denom to display along with self delegation balance (ex:uatom or umuon)
 
 After populating config.toml, check if you have connected to influxdb and created a database which you are going to use.
 
