@@ -47,6 +47,8 @@ fi
 
 echo "--------- Cloning cosmos-validator-mission-control -----------"
 
+cd go/src/github.com
+
 git clone https://github.com/Chainflow/cosmos-validator-mission-control.git
 
 cd cosmos-validator-mission-control
