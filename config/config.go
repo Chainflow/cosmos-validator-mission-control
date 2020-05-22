@@ -57,6 +57,7 @@ type (
 		BlockDiffThreshold    int64    `mapstructure:"block_diff_threshold"`
 		EnableTelegramAlerts  string   `mapstructure:"enable_telegram_alerts"`
 		EnableEmailAlerts     string   `mapstructure:"enable_email_alerts"`
+		StakingDaemon         string   `mapstructure:"staking_daenom"`
 	}
 )
 
