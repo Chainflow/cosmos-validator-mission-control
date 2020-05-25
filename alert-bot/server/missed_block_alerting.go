@@ -1,7 +1,7 @@
 package server
 
 import (
-	"chainflow-vitwit/alert-bot/config"
+	"cosmos-validator-mission-control/alert-bot/config"
 	"encoding/json"
 	"fmt"
 	"log"

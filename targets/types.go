@@ -1,7 +1,7 @@
 package targets
 
 import (
-	"chainflow-vitwit/config"
+	"cosmos-validator-mission-control/config"
 
 	client "github.com/influxdata/influxdb1-client/v2"
 )

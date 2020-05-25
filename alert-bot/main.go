@@ -1,8 +1,8 @@
 package main
 
 import (
-	"chainflow-vitwit/alert-bot/config"
-	"chainflow-vitwit/alert-bot/server"
+	"cosmos-validator-mission-control/alert-bot/config"
+	"cosmos-validator-mission-control/alert-bot/server"
 	"fmt"
 	"log"
 	"sync"

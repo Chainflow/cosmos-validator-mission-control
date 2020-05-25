@@ -1,4 +1,4 @@
-module chainflow-vitwit
+module cosmos-validator-mission-control
 
 go 1.13
 

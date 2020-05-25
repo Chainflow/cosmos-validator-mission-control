@@ -78,8 +78,8 @@ gaiacli rest-server --chain-id cosmoshub-3 --laddr tcp://127.0.0.1:1317
 ### Get the code
 
 ```bash
-$ git clone git@github.com:chris-remus/chainflow-vitwit.git
-$ cd chainflow-vitwit
+$ git clone git@github.com:Chainflow/cosmos-validator-mission-control.git
+$ cd cosmos-validator-mission-control
 $ cp example.config.toml config.toml
 ```
 
@@ -153,7 +153,19 @@ $ cp example.config.toml config.toml
 
     External open RPC endpoint(secondary RPC other than your own validator). Useful to gather information like validator caught up, syncing and missed blocks etc.
 
-After populating config.toml, build and run the monitoring binary
+After populating config.toml, check if you have connected to influxdb.
+
+If your connection throws error "database not found", create a database
+
+```bash
+$   cd $HOME
+$   influx
+>   CREATE DATABASE db_name
+
+ex: CREATE DATABASE vcf
+```
+
+After all these steps, build and run the monitoring binary
 
 ```bash
 $ go build -o chain-monit && ./chain-monit
