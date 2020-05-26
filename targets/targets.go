@@ -31,7 +31,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Base URL Endpoint",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.ValidatorRpcEndpoint,
+				Endpoint: cfg.ValidatorRpcEndpoint + "/status?",
 				Method:   http.MethodGet,
 			},
 			Func:        CheckGaiad,
