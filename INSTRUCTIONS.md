@@ -13,57 +13,50 @@ It can be installed on a validator node directly or a separate monitoring node (
 - **Gaia client**
 
 ### A - Install Grafana for Ubuntu
-Download the latest .tar.gz file and extract it by using the following commands
+Download the latest .deb file and extract it by using the following commands
 
 ```sh
 $ cd $HOME
-$ wget https://dl.grafana.com/oss/release/grafana-6.7.2.linux-amd64.tar.gz
-$ tar -zxvf grafana-6.7.2.linux-amd64.tar.gz
+$ sudo -S apt-get install -y adduser libfontconfig1
+$ wget https://dl.grafana.com/oss/release/grafana_6.7.2_amd64.deb
+$ sudo -S dpkg -i grafana_6.7.2_amd64.deb
 ```
 
 Start the grafana server
 ```sh
-$ cd grafana-6.7.2/bin/
-$ ./grafana-server
+$ sudo -S systemctl daemon-reload
+
+$ sudo -S systemctl start grafana-server
 
 Grafana will be running on port :3000 (ex:: https://localhost:3000)
 ```
 
-### Install InfluxDB
-
-Download the latest .tar.gz file and extract it by using the following commands
+### Install InfluxDB and Telegraf
 
 ```sh
 $ cd $HOME
-$ wget https://dl.influxdata.com/influxdb/releases/influxdb-1.7.10_linux_amd64.tar.gz
-$ tar xvfz influxdb-1.7.10_linux_amd64.tar.gz
+$ wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+$ source /etc/lsb-release
+$ echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
 
 Start influxDB
 
 ```sh
-$ cd $HOME and run the below command to start the server
-$ ./influxdb-1.7.10-1/usr/bin/influxd
+$ sudo -S apt-get update && sudo apt-get install influxdb
+$ sudo -S service influxdb start
 
 The default port that runs the InfluxDB HTTP service is :8086
 ```
 
-**Note :** If you want cusomize the configuration, edit `influxdb.conf` at `/influxdb-1.7.10-1/etc/influxdb` and don't forget to restart the server after the changes. You can find a sample 'influxdb.conf' [file here](https://github.com/jheyman/influxdb/blob/master/influxdb.conf).
+**Note :** If you want cusomize the configuration, edit `influxdb.conf` at `/etc/influxdb/influxdb.conf` and don't forget to restart the server after the changes. You can find a sample 'influxdb.conf' [file here](https://github.com/jheyman/influxdb/blob/master/influxdb.conf).
 
-
-### Install Telegraf
-
-Download the latest .tar.gz file and extract it by using the following commands
-```sh
-$ cd $HOME
-$ wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.0_linux_amd64.tar.gz
-tar xf telegraf-1.14.0_linux_amd64.tar.gz
-```
 
 Start telegraf
+
 ```sh
-$ cd telegraf/usr/bin/
-$ ./telegraf --config ../../etc/telegraf/telegraf.conf
+$ sudo -S apt-get update && sudo apt-get install telegraf
+$ sudo -S service telegraf start
 ```
 
 ### Setup a rest server on the validator instance
@@ -163,6 +156,7 @@ $   influx
 >   CREATE DATABASE db_name
 
 ex: CREATE DATABASE vcf
+ex: CREATE DATABASE telegraf
 ```
 
 After all these steps, build and run the monitoring binary
