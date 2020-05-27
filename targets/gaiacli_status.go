@@ -4,36 +4,35 @@ import (
 	"cosmos-validator-mission-control/config"
 	"encoding/json"
 	"log"
-	"os/exec"
 	"strconv"
 
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-// GetGaiaCliStatus to run command gaiacli status and handle the reponse of it like
+// GetGaiaCliStatus to reponse of validator status like
 //current block height and node status
-func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
+func GetGaiaCliStatus(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
 		return
 	}
 	var pts []*client.Point
 
-	cmd := exec.Command("gaiacli", "status")
-	out, err := cmd.CombinedOutput()
+	resp, err := HitHTTPTarget(ops)
 	if err != nil {
-		log.Printf("Error executing cmd gaiacli status")
+		log.Printf("Error: %v", err)
 		return
 	}
-	var status GaiaCliStatus
-	err = json.Unmarshal(out, &status)
+
+	var status ValidatorRpcStatus
+	err = json.Unmarshal(resp.Body, &status)
 	if err != nil {
 		log.Printf("Error: %v", err)
 		return
 	}
 
 	var bh int
-	currentBlockHeight := status.SyncInfo.LatestBlockHeight
+	currentBlockHeight := status.Result.SyncInfo.LatestBlockHeight
 	if currentBlockHeight != "" {
 		bh, _ = strconv.Atoi(currentBlockHeight)
 		p2, err := createDataPoint("vcf_current_block_height", map[string]string{}, map[string]interface{}{"height": bh})
@@ -43,7 +42,7 @@ func GetGaiaCliStatus(_ HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	var synced int
-	caughtUp := !status.SyncInfo.CatchingUp
+	caughtUp := !status.Result.SyncInfo.CatchingUp
 	if !caughtUp {
 		_ = SendTelegramAlert("Your validator node is not synced!", cfg)
 		_ = SendEmailAlert("Your validator node is not synced!", cfg)
