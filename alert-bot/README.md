@@ -3,8 +3,8 @@
 ### Getting Started
 
 ```bash
-git clone git@github.com:chris-remus/chainflow-vitwit.git
-cd chainflow-vitwit/alert-bot
+git clone https://github.com/Chainflow/cosmos-validator-mission-control.git
+cd cosmos-validator-mission-control/akash_alert_bot
 cp example.config.toml config.toml
 ```
 - To **Get Validator Status Alerts** populate *alert_time1* and *alert_time2* in `config.toml` in the form of UTC(ex:"02:25PM")

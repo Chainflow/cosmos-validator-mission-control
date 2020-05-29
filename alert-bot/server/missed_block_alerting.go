@@ -40,7 +40,7 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 		return err
 	}
 
-	var b BlockResponse
+	var b AkashBlockResponse
 	err = json.Unmarshal(resp.Body, &b)
 	if err != nil {
 		log.Printf("Error: %v", err)
@@ -49,7 +49,7 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 
 	addrExists := false
 
-	for _, c := range b.Result.Block.LastCommit.Precommits {
+	for _, c := range b.Result.Block.LastCommit.Signatures {
 		if c.ValidatorAddress == cfg.ValidatorHexAddress {
 			addrExists = true
 		}

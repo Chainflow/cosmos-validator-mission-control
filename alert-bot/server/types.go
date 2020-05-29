@@ -98,7 +98,6 @@ type (
 	// BlockResponse response of a block information
 	BlockResponse struct {
 		JSONRPC string      `json:"jsonrpc"`
-		ID      string      `json:"id"`
 		Result  BlockResult `json:"result"`
 	}
 
@@ -108,6 +107,32 @@ type (
 			SyncInfo struct {
 				LatestBlockHeight string `json:"latest_block_height"`
 			} `json:"sync_info"`
+		} `json:"result"`
+	}
+
+	// AkashBlockResponse
+	AkashBlockResponse struct {
+		Jsonrpc string `json:"jsonrpc"`
+		Result  struct {
+			BlockID interface{} `json:"block_id"`
+			Block   struct {
+				Header struct {
+					ChainID string `json:"chain_id"`
+					Height  string `json:"height"`
+					Time    string `json:"time"`
+				} `json:"header"`
+				Data       interface{} `json:"data"`
+				Evidence   interface{} `json:"evidence"`
+				LastCommit struct {
+					Height     string `json:"height"`
+					Signatures []struct {
+						BlockIDFlag      int    `json:"block_id_flag"`
+						ValidatorAddress string `json:"validator_address"`
+						Timestamp        string `json:"timestamp"`
+						Signature        string `json:"signature"`
+					} `json:"signatures"`
+				} `json:"last_commit"`
+			} `json:"block"`
 		} `json:"result"`
 	}
 )
