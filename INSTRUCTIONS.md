@@ -71,7 +71,7 @@ gaiacli rest-server --chain-id cosmoshub-3 --laddr tcp://127.0.0.1:1317
 ### Get the code
 
 ```bash
-$ git clone git@github.com:Chainflow/cosmos-validator-mission-control.git
+$ git clone https://github.com/Chainflow/cosmos-validator-mission-control.git
 $ cd cosmos-validator-mission-control
 $ cp example.config.toml config.toml
 ```
