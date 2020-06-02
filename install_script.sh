@@ -45,6 +45,13 @@ else
 	echo "------remote-hosted enabled, so not downloading the telegraf--------"
 fi
 
+echo "------------Creating databases vcf and telegraf-------------"
+
+curl "http://localhost:8086/query" --data-urlencode "q=CREATE DATABASE vcf"
+
+curl "http://localhost:8086/query" --data-urlencode "q=CREATE DATABASE telegraf"
+
+
 echo "--------- Cloning cosmos-validator-mission-control -----------"
 
 cd go/src/github.com
