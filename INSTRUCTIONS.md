@@ -12,6 +12,19 @@ It can be installed on a validator node directly or a separate monitoring node (
 - **Telegraf 1.14+**
 - **Gaia client**
 
+## You can run this installation script to setup the monitoring tool
+
+- From this script Grafana, influx and telegraf will be installed.
+- If you are running telegraf on someother node run script by giving --remote-hosted flag so that the script don't start telegraf in current node.
+- To run script 
+```bash
+
+chmod +x install_script.sh
+./install_script.sh
+
+```
+- After installation you just need to configure the config.toml.
+
 ### A - Install Grafana for Ubuntu
 Download the latest .tar.gz file and extract it by using the following commands
 
