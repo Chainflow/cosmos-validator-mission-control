@@ -31,7 +31,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Base URL Endpoint",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.ValidatorRpcEndpoint,
+				Endpoint: cfg.ValidatorRpcEndpoint + "/status?",
 				Method:   http.MethodGet,
 			},
 			Func:        CheckGaiad,
@@ -50,8 +50,12 @@ func InitTargets(cfg *config.Config) *Targets {
 		{
 			ExecutionType: "cmd",
 			Name:          "Gaiacli status cmd",
-			Func:          GetGaiaCliStatus,
-			ScraperRate:   cfg.Scraper.Rate,
+			HTTPOptions: HTTPOptions{
+				Endpoint: cfg.ValidatorRpcEndpoint + "/status?",
+				Method:   http.MethodGet,
+			},
+			Func:        GetGaiaCliStatus,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",

@@ -13,57 +13,50 @@ It can be installed on a validator node directly or a separate monitoring node (
 - **Gaia client**
 
 ### A - Install Grafana for Ubuntu
-Download the latest .tar.gz file and extract it by using the following commands
+Download the latest .deb file and extract it by using the following commands
 
 ```sh
 $ cd $HOME
-$ wget https://dl.grafana.com/oss/release/grafana-6.7.2.linux-amd64.tar.gz
-$ tar -zxvf grafana-6.7.2.linux-amd64.tar.gz
+$ sudo -S apt-get install -y adduser libfontconfig1
+$ wget https://dl.grafana.com/oss/release/grafana_6.7.2_amd64.deb
+$ sudo -S dpkg -i grafana_6.7.2_amd64.deb
 ```
 
 Start the grafana server
 ```sh
-$ cd grafana-6.7.2/bin/
-$ ./grafana-server
+$ sudo -S systemctl daemon-reload
+
+$ sudo -S systemctl start grafana-server
 
 Grafana will be running on port :3000 (ex:: https://localhost:3000)
 ```
 
-### Install InfluxDB
-
-Download the latest .tar.gz file and extract it by using the following commands
+### Install InfluxDB and Telegraf
 
 ```sh
 $ cd $HOME
-$ wget https://dl.influxdata.com/influxdb/releases/influxdb-1.7.10_linux_amd64.tar.gz
-$ tar xvfz influxdb-1.7.10_linux_amd64.tar.gz
+$ wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+$ source /etc/lsb-release
+$ echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
 
 Start influxDB
 
 ```sh
-$ cd $HOME and run the below command to start the server
-$ ./influxdb-1.7.10-1/usr/bin/influxd
+$ sudo -S apt-get update && sudo apt-get install influxdb
+$ sudo -S service influxdb start
 
 The default port that runs the InfluxDB HTTP service is :8086
 ```
 
-**Note :** If you want cusomize the configuration, edit `influxdb.conf` at `/influxdb-1.7.10-1/etc/influxdb` and don't forget to restart the server after the changes. You can find a sample 'influxdb.conf' [file here](https://github.com/jheyman/influxdb/blob/master/influxdb.conf).
+**Note :** If you want cusomize the configuration, edit `influxdb.conf` at `/etc/influxdb/influxdb.conf` and don't forget to restart the server after the changes. You can find a sample 'influxdb.conf' [file here](https://github.com/jheyman/influxdb/blob/master/influxdb.conf).
 
-
-### Install Telegraf
-
-Download the latest .tar.gz file and extract it by using the following commands
-```sh
-$ cd $HOME
-$ wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.0_linux_amd64.tar.gz
-tar xf telegraf-1.14.0_linux_amd64.tar.gz
-```
 
 Start telegraf
+
 ```sh
-$ cd telegraf/usr/bin/
-$ ./telegraf --config ../../etc/telegraf/telegraf.conf
+$ sudo -S apt-get update && sudo apt-get install telegraf
+$ sudo -S service telegraf start
 ```
 
 ### Setup a rest server on the validator instance
@@ -78,7 +71,7 @@ gaiacli rest-server --chain-id cosmoshub-3 --laddr tcp://127.0.0.1:1317
 ### Get the code
 
 ```bash
-$ git clone git@github.com:Chainflow/cosmos-validator-mission-control.git
+$ git clone https://github.com/Chainflow/cosmos-validator-mission-control.git
 $ cd cosmos-validator-mission-control
 $ cp example.config.toml config.toml
 ```
@@ -153,7 +146,11 @@ $ cp example.config.toml config.toml
 
     External open RPC endpoint(secondary RPC other than your own validator). Useful to gather information like validator caught up, syncing and missed blocks etc.
 
-After populating config.toml, check if you have connected to influxdb.
+- *staking_denom*
+
+    Give stakig denom to display along with self delegation balance (ex:uatom or umuon)
+
+After populating config.toml, check if you have connected to influxdb and created a database which you are going to use.
 
 If your connection throws error "database not found", create a database
 
@@ -163,6 +160,7 @@ $   influx
 >   CREATE DATABASE db_name
 
 ex: CREATE DATABASE vcf
+ex: CREATE DATABASE telegraf
 ```
 
 After all these steps, build and run the monitoring binary
@@ -245,7 +243,19 @@ This dashboard displays a quick information summary of validator details and sys
 - If you are a first time user type `admin` for the username and password in the login page.
 - You can change the password after login.
 
-### Import the dashboards
+### 2. Create Datasources
+
+- Before importing the dashboards you have to create datasources of InfluxDBTelegraf and InfluxDBVCF.
+- To create datasoruces go to configuration and select Data Sources.
+- After that you can find Add data source, select InfluxDB from Time series databases section.
+- Then to create `InfluxDBVCF` Datasource, follow these configurations. In place of name give InfluxDBVCF, in place of URL give url of influxdb where it is running (ex : http://ip_address:8086). Finaly in InfluxDB Details section give Database name as vcf (If you haven't created a database with different name). You can give User and Password of influx if you have set anthing, otherwise you can leave it empty.
+- After this configuration click on Save & Test. Now you have a working Datasource of InfluxDBVCF.
+
+- Repeat same steps to create `InfluxDBTelegraf` Datasource. In place of name give InfluxDBTelegraf, give URL of telegraf where it is running (ex: http://ip_address:8086). Give Database name as telegraf, user and password (If you have configured any). 
+
+- After this configuration click on Save & Test. Now you have a working Datasource of InfluxDBTelegraf.
+
+### 3. Import the dashboards
 - To import the json file of the **validator monitoring metrics** click the *plus* button present on left hand side of the dashboard. Click on import and load the validator_monitoring_metrics.json present in the grafana_template folder. 
 
 - Select the datasources and click on import.
