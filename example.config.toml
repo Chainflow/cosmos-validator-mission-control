@@ -44,6 +44,9 @@ enable_telegram_alerts = "yes"
 #  Configure 'yes' if you wish to get email alerts otherwise make it 'no' .
 enable_email_alerts = "yes"
 
+# Give staking denom to display with self delegation balance
+staking_denom = "uatom"
+
 [scraper]
 rate = "5s"
 port = ":8080"
