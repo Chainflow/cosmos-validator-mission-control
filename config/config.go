@@ -58,6 +58,8 @@ type (
 		EnableTelegramAlerts  string   `mapstructure:"enable_telegram_alerts"`
 		EnableEmailAlerts     string   `mapstructure:"enable_email_alerts"`
 		StakingDemon          string   `mapstructure:"staking_denom"`
+		DaemonName            string   `mapstructure:"daemon_name"`
+		ClientName            string   `mapstructure:"clinet_name"`
 	}
 )
 

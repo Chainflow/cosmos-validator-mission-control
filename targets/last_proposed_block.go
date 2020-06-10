@@ -23,19 +23,43 @@ func GetLatestProposedBlockAndTime(ops HTTPOptions, cfg *config.Config, c client
 		return
 	}
 
-	var blockResp LastProposedBlockAndTime
-	err = json.Unmarshal(resp.Body, &blockResp)
-	if err != nil {
-		log.Printf("Error: %v", err)
-		return
+	var latestBlockTime string
+	var proposerAddress string
+	var blockHeight string
+
+	if cfg.DaemonName == "akashd" {
+		var blockResp AkashBlockInfo
+		err = json.Unmarshal(resp.Body, &blockResp)
+		if err != nil {
+			log.Printf("Error: %v", err)
+			return
+		}
+
+		latestBlockTime = blockResp.Block.Header.Time
+		proposerAddress = blockResp.Block.Header.ProposerAddress
+		blockHeight = blockResp.Block.Header.Height
+
+	} else {
+		var blockResp LastProposedBlockAndTime
+		err = json.Unmarshal(resp.Body, &blockResp)
+		if err != nil {
+			log.Printf("Error: %v", err)
+			return
+		}
+
+		latestBlockTime = blockResp.BlockMeta.Header.Time
+		proposerAddress = blockResp.BlockMeta.Header.ProposerAddress
+		blockHeight = blockResp.BlockMeta.Header.Height
 	}
 
-	blockTime := GetUserDateFormat(blockResp.BlockMeta.Header.Time)
+	log.Println("latest block details :: ", latestBlockTime, proposerAddress, blockHeight)
+
+	blockTime := GetUserDateFormat(latestBlockTime)
 	fmt.Println("last proposed block time", blockTime)
 
-	if cfg.ValidatorHexAddress == blockResp.BlockMeta.Header.ProposerAddress {
+	if cfg.ValidatorHexAddress == proposerAddress {
 		fields := map[string]interface{}{
-			"height":     blockResp.BlockMeta.Header.Height,
+			"height":     blockHeight,
 			"block_time": blockTime,
 		}
 

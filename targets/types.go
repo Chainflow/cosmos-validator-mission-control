@@ -60,9 +60,9 @@ type (
 
 	// NetInfo is a structre which holds the details of address
 	NetInfo struct {
-		JSONRpc string        `json:"jsonrpc"`
-		ID      string        `json:"id"`
-		Result  NetInfoResult `json:"result"`
+		JSONRpc string `json:"jsonrpc"`
+		// ID      string        `json:"id"`
+		Result NetInfoResult `json:"result"`
 	}
 
 	// SyncInfo response
@@ -191,9 +191,9 @@ type (
 
 	// CurrentBlockWithHeight struct holds the details of particular block
 	CurrentBlockWithHeight struct {
-		JSONRPC string                       `json:"jsonrpc"`
-		ID      string                       `json:"id"`
-		Result  CurrentBlockWithHeightResult `json:"result"`
+		JSONRPC string `json:"jsonrpc"`
+		// ID      string                       `json:"id"`
+		Result CurrentBlockWithHeightResult `json:"result"`
 	}
 
 	// ProposalResultContent struct holds the parameters of a proposal content result
@@ -292,8 +292,8 @@ type (
 	// ValidatorsHeight struct which represents the details of validator
 	ValidatorsHeight struct {
 		Jsonrpc string `json:"jsonrpc"`
-		ID      string `json:"id"`
-		Result  struct {
+		// ID      string `json:"id"`
+		Result struct {
 			BlockHeight string `json:"block_height"`
 			Validators  []struct {
 				Address string `json:"address"`
@@ -323,8 +323,8 @@ type (
 	// UnconfirmedTxns struct which holds the parameters of unconfirmed txns
 	UnconfirmedTxns struct {
 		Jsonrpc string `json:"jsonrpc"`
-		ID      string `json:"id"`
-		Result  struct {
+		// ID      string `json:"id"`
+		Result struct {
 			NTxs       string      `json:"n_txs"`
 			Total      string      `json:"total"`
 			TotalBytes string      `json:"total_bytes"`
@@ -334,8 +334,8 @@ type (
 
 	ValidatorRpcStatus struct {
 		Jsonrpc string `json:"jsonrpc"`
-		ID      string `json:"id"`
-		Result  struct {
+		// ID      string `json:"id"`
+		Result struct {
 			NodeInfo struct {
 				ProtocolVersion struct {
 					P2P   string `json:"p2p"`
@@ -369,5 +369,80 @@ type (
 				VotingPower string `json:"voting_power"`
 			} `json:"validator_info"`
 		} `json:"result"`
+	}
+
+	// AkashSelfDelegationBalance
+	AkashSelfDelegationBalance struct {
+		Height string `json:"height"`
+		Result struct {
+			DelegatorAddress string `json:"delegator_address"`
+			ValidatorAddress string `json:"validator_address"`
+			Shares           string `json:"shares"`
+			Balance          struct {
+				Denom  string `json:"denom"`
+				Amount string `json:"amount"`
+			} `json:"balance"`
+		} `json:"result"`
+	}
+
+	// AkashBlockInfo
+	AkashBlockInfo struct {
+		BlockID struct {
+			Hash  string `json:"hash"`
+			Parts struct {
+				Total string `json:"total"`
+				Hash  string `json:"hash"`
+			} `json:"parts"`
+		} `json:"block_id"`
+		Block struct {
+			Header struct {
+				Version struct {
+					Block string `json:"block"`
+					App   string `json:"app"`
+				} `json:"version"`
+				ChainID     string `json:"chain_id"`
+				Height      string `json:"height"`
+				Time        string `json:"time"`
+				LastBlockID struct {
+					Hash  string `json:"hash"`
+					Parts struct {
+						Total string `json:"total"`
+						Hash  string `json:"hash"`
+					} `json:"parts"`
+				} `json:"last_block_id"`
+				LastCommitHash     string `json:"last_commit_hash"`
+				DataHash           string `json:"data_hash"`
+				ValidatorsHash     string `json:"validators_hash"`
+				NextValidatorsHash string `json:"next_validators_hash"`
+				ConsensusHash      string `json:"consensus_hash"`
+				AppHash            string `json:"app_hash"`
+				LastResultsHash    string `json:"last_results_hash"`
+				EvidenceHash       string `json:"evidence_hash"`
+				ProposerAddress    string `json:"proposer_address"`
+			} `json:"header"`
+			Data struct {
+				Txs []string `json:"txs"`
+			} `json:"data"`
+			Evidence struct {
+				Evidence interface{} `json:"evidence"`
+			} `json:"evidence"`
+			LastCommit struct {
+				Height  string `json:"height"`
+				Round   string `json:"round"`
+				BlockID struct {
+					Hash  string `json:"hash"`
+					Parts struct {
+						Total string `json:"total"`
+						Hash  string `json:"hash"`
+					} `json:"parts"`
+				} `json:"block_id"`
+				Signatures []struct {
+					BlockIDFlag      int    `json:"block_id_flag"`
+					ValidatorAddress string `json:"validator_address"`
+					Timestamp        string `json:"timestamp"`
+					Signature        string `json:"signature"`
+				} `json:"signatures"`
+			} `json:"last_commit"`
+		} `json:"block"`
 	}
 )

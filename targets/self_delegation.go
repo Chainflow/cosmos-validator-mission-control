@@ -22,22 +22,38 @@ func GetSelfDelegation(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
-	var delegationResp SelfDelegation
-	err = json.Unmarshal(resp.Body, &delegationResp)
-	if err != nil {
-		log.Printf("Error: %v", err)
-		return
-	}
+	var selfDelegationBal string
+	var balanceDeamon string
 
-	denom := ""
+	if cfg.DaemonName == "akashd" {
+		var delegationResp AkashSelfDelegationBalance
+		err = json.Unmarshal(resp.Body, &delegationResp)
+		if err != nil {
+			log.Printf("Error: %v", err)
+			return
+		}
 
-	if cfg.StakingDemon == "" {
-		denom = "uatom"
+		selfDelegationBal = delegationResp.Result.Balance.Amount
+		balanceDeamon = delegationResp.Result.Balance.Denom
+
 	} else {
-		denom = cfg.StakingDemon
+
+		var delegationResp SelfDelegation
+		err = json.Unmarshal(resp.Body, &delegationResp)
+		if err != nil {
+			log.Printf("Error: %v", err)
+			return
+		}
+
+		selfDelegationBal = delegationResp.Result.Balance
+		// balanceDeamon = "umuon"
 	}
 
-	addressBalance := convertToCommaSeparated(delegationResp.Result.Balance) + denom
+	if balanceDeamon == "" {
+		balanceDeamon = cfg.StakingDemon
+	}
+
+	addressBalance := convertToCommaSeparated(selfDelegationBal) + balanceDeamon
 	_ = writeToInfluxDb(c, bp, "vcf_self_delegation_balance", map[string]string{}, map[string]interface{}{"balance": addressBalance})
 	log.Printf("Address Balance: %s", addressBalance)
 }
