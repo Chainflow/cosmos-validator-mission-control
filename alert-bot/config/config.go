@@ -31,6 +31,7 @@ type (
 		ExternalRPC         string            `mapstructure:"external_rpc"`
 		AlertTime1          string            `mapstructure:"alert_time1"`
 		AlertTime2          string            `mapstructure:"alert_time2"`
+		ValidatorName       string            `mapstructure:"validator_name"`
 	}
 )
 
