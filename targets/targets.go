@@ -80,8 +80,12 @@ func InitTargets(cfg *config.Config) *Targets {
 		{
 			ExecutionType: "cmd",
 			Name:          "Gaiad Version",
-			Func:          GaiadVersion,
-			ScraperRate:   cfg.Scraper.Rate,
+			HTTPOptions: HTTPOptions{
+				Endpoint: cfg.LCDEndpoint + "/node_info",
+				Method:   http.MethodGet,
+			},
+			Func:        GaiadVersion,
+			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
 			ExecutionType: "http",
