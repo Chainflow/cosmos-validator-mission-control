@@ -58,6 +58,7 @@ type (
 		EnableTelegramAlerts  string   `mapstructure:"enable_telegram_alerts"`
 		EnableEmailAlerts     string   `mapstructure:"enable_email_alerts"`
 		StakingDemon          string   `mapstructure:"staking_denom"`
+		ValidatorName         string   `mapstructure:"validator_name"`
 	}
 )
 
