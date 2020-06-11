@@ -3,6 +3,7 @@ account_addr = "cosmos14l0fp639yudfl46zauvv8rkzjgd4u0zk0fyvgr"
 validator_hex_addr = "8F2927C1D0180B19087BB35DE19BABA4E0DE9238"
 lcd_endpoint = "http://localhost:1317"
 external_rpc = "http://localhost:26657"
+validator_name = "witval"
 
 # [alert-intervals]
 alert_time1 = "07:23PM"
