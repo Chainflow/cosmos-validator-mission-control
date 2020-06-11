@@ -8,8 +8,8 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-// GaiadVersion to get gaiad version by running command gaiad version
-func GaiadVersion(ops HTTPOptions, cfg *config.Config, c client.Client) {
+// NodeVersion to get application version from the LCD
+func NodeVersion(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
 		return
@@ -28,8 +28,8 @@ func GaiadVersion(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
-	gaiaVersion := applicationInfo.ApplicationVersion.Version
+	nodeVersion := applicationInfo.ApplicationVersion.Version
 
-	_ = writeToInfluxDb(c, bp, "vcf_gaiad_version", map[string]string{}, map[string]interface{}{"v": gaiaVersion})
-	log.Printf("Version: %s", gaiaVersion)
+	_ = writeToInfluxDb(c, bp, "vcf_gaiad_version", map[string]string{}, map[string]interface{}{"v": nodeVersion})
+	log.Printf("Version: %s", nodeVersion)
 }
