@@ -56,8 +56,8 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 	}
 
 	if !addrExists {
-		_ = SendTelegramAlert(fmt.Sprintf("Validator missed a block at block height %s", cbh), cfg)
-		_ = SendEmailAlert(fmt.Sprintf("Validator missed a block at block height %s", cbh), cfg)
+		_ = SendTelegramAlert(fmt.Sprintf("Akash validator %s missed a block at block height %s", cfg.ValidatorName, cbh), cfg)
+		_ = SendEmailAlert(fmt.Sprintf("Akash validator %s missed a block at block height %s", cfg.ValidatorName, cbh), cfg)
 		log.Println("Sent missed block alerting")
 	}
 

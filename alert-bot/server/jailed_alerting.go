@@ -47,12 +47,12 @@ func ValidatorStatusAlert(cfg *config.Config) error {
 	if t == a1 || t == a2 {
 		validatorStatus := validatorResp.Result.Jailed
 		if !validatorStatus {
-			_ = SendTelegramAlert(fmt.Sprintf("Your validator is currently voting"), cfg)
-			_ = SendEmailAlert(fmt.Sprintf("Your validator is currently voting"), cfg)
+			_ = SendTelegramAlert(fmt.Sprintf("%s validator is currently voting", cfg.ValidatorName), cfg)
+			_ = SendEmailAlert(fmt.Sprintf("%s validator is currently voting", cfg.ValidatorName), cfg)
 			log.Println("Sent validator status alert")
 		} else {
-			_ = SendTelegramAlert(fmt.Sprintf("Your validator is in jailed status"), cfg)
-			_ = SendEmailAlert(fmt.Sprintf("Your validator is in jailed status"), cfg)
+			_ = SendTelegramAlert(fmt.Sprintf("%s validator is in jailed status", cfg.ValidatorName), cfg)
+			_ = SendEmailAlert(fmt.Sprintf("%s validator is in jailed status", cfg.ValidatorName), cfg)
 			log.Println("Sent validator status alert")
 		}
 	}
@@ -83,8 +83,8 @@ func CheckValidatorJailed(cfg *config.Config) error {
 
 	validatorStatus := validatorResp.Result.Jailed
 	if validatorStatus {
-		_ = SendTelegramAlert(fmt.Sprintf("Your validator is in jailed status"), cfg)
-		_ = SendEmailAlert(fmt.Sprintf("Your validator is in jailed status"), cfg)
+		_ = SendTelegramAlert(fmt.Sprintf("Akash validator %s is in jailed status", cfg.ValidatorName), cfg)
+		_ = SendEmailAlert(fmt.Sprintf("Akash validator %s is in jailed status", cfg.ValidatorName), cfg)
 		log.Println("Sent validator jailed status alert")
 	}
 	return nil
