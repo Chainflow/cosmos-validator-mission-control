@@ -9,6 +9,7 @@ cd cosmos-validator-mission-control/alert-bot
 cp example.config.toml config.toml
 ```
 - *val_operator_addr*
+
     Operator address of your validator which will be used to get staking, delegation and distribution rewards.
 
 - *account_addr* 
