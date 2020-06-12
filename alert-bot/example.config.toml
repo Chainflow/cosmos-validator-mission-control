@@ -10,9 +10,9 @@ alert_time1 = "07:23PM"
 alert_time2 = "08:15AM"
 
 [telegram]
-chat_id = 510331001
-bot_token="1234567890"
+tg_chat_id = 510331001
+tg_bot_token="1234567890"
 
 [sendgrid]
-token = "1234567890"
-to_email = "xyz@domain.com"
+sendgrid_token = "1234567890"
+email_address = "xyz@domain.com"
