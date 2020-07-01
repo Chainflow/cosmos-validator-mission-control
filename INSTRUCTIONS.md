@@ -12,6 +12,22 @@ It can be installed on a validator node directly or a separate monitoring node (
 - **Telegraf 1.14+**
 - **Gaia client**
 
+## You can run this installation script to setup the monitoring tool
+
+- One click installation to download grafana, telegraf, influxdb.
+- Also it will create the databases(vcf and telegraf). If you configure different database names make sure to create those in influxDB.
+- If you are running telegraf on someother node run script by giving --remote-hosted flag so that the script don't start telegraf in current node (ex: ./install_script.sh --remote-hosted)
+- Here you can find
+[script file](https://github.com/Chainflow/cosmos-validator-mission-control/blob/script/install_script.sh).
+- To run script 
+```bash
+chmod +x install_script.sh
+./install_script.sh
+
+```
+- After installation you just need to configure the config.toml and start the monitoring tool server.
+- Follow further steps to setup grafana dashboards.
+
 ### A - Install Grafana for Ubuntu
 Download the latest .deb file and extract it by using the following commands
 
