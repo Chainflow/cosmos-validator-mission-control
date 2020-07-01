@@ -90,8 +90,8 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 			log.Println("timeDiff...", timeDiff.Hours())
 
 			if timeDiff.Hours() <= 24 {
-				_ = SendTelegramAlert(fmt.Sprintf("Validator has not voted on proposal = %s", proposal.ID), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("Validator has not voted on proposal = %s", proposal.ID), cfg)
+				_ = SendTelegramAlert(fmt.Sprintf("%s validator has not voted on proposal = %s", cfg.ValidatorName, proposal.ID), cfg)
+				_ = SendEmailAlert(fmt.Sprintf("%s validator has not voted on proposal = %s", cfg.ValidatorName, proposal.ID), cfg)
 
 				log.Println("Sent alert of voting period proposals")
 			}

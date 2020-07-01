@@ -128,7 +128,7 @@ Now that the tool is released, assuming use of the tool will spark additional id
 [Login here](http://134.209.142.233:3000/) to see Validator Mission Control in action on a test setup 👇
 
 UID: user3
-PWD: user
+PWD: user3
 
 See the alerts in action in [this Telegram group](https://t.me/joinchat/LZH9y02zCwwOcEjuhU8-yw).
 
