@@ -2,40 +2,34 @@ package targets
 
 import (
 	"cosmos-validator-mission-control/config"
+	"encoding/json"
 	"log"
-	"os/exec"
-	"regexp"
 
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-// GaiadVersion to get gaiad version by running command gaiad version
-func GaiadVersion(_ HTTPOptions, cfg *config.Config, c client.Client) {
+// NodeVersion to get application version from the LCD
+func NodeVersion(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
 		return
 	}
 
-	cmd := exec.Command("gaiad", "version", "--long")
-	out, err := cmd.CombinedOutput()
+	resp, err := HitHTTPTarget(ops)
 	if err != nil {
-		log.Printf("cmd.Run() failed with %s\n", err)
-		_ = writeToInfluxDb(c, bp, "vcf_gaiad_version", map[string]string{}, map[string]interface{}{"v": "NA"})
+		log.Printf("Error: %v", err)
 		return
 	}
 
-	resp := string(out)
+	var applicationInfo ApplicationInfo
+	err = json.Unmarshal(resp.Body, &applicationInfo)
+	if err != nil {
+		log.Printf("Error: %v", err)
+		return
+	}
 
-	r := regexp.MustCompile(`version: ([0-9]{1}.[0-9]{1}.[0-9]{1})`)
-	matches := r.FindAllStringSubmatch(resp, -1)
-	if len(matches) == 0 {
-		_ = writeToInfluxDb(c, bp, "vcf_gaiad_version", map[string]string{}, map[string]interface{}{"v": "NA"})
-		return
-	}
-	if len(matches[0]) != 2 {
-		_ = writeToInfluxDb(c, bp, "vcf_gaiad_version", map[string]string{}, map[string]interface{}{"v": "NA"})
-		return
-	}
-	_ = writeToInfluxDb(c, bp, "vcf_gaiad_version", map[string]string{}, map[string]interface{}{"v": matches[0][1]})
-	log.Printf("Version: %s", matches[0][1])
+	nodeVersion := applicationInfo.ApplicationVersion.Version
+
+	_ = writeToInfluxDb(c, bp, "vcf_gaiad_version", map[string]string{}, map[string]interface{}{"v": nodeVersion})
+	log.Printf("Version: %s", nodeVersion)
 }

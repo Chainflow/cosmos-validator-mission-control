@@ -59,8 +59,8 @@ func SendSingleMissedBlockAlert(ops HTTPOptions, cfg *config.Config, c client.Cl
 
 	if !addrExists {
 		if cfg.MissedBlocksThreshold == 1 {
-			_ = SendTelegramAlert(fmt.Sprintf("Validator missed a block at block height %s", cbh), cfg)
-			_ = SendEmailAlert(fmt.Sprintf("Validator missed a block at block height %s", cbh), cfg)
+			_ = SendTelegramAlert(fmt.Sprintf("%s validator missed a block at block height %s", cfg.ValidatorName, cbh), cfg)
+			_ = SendEmailAlert(fmt.Sprintf("%s validator missed a block at block height %s", cfg.ValidatorName, cbh), cfg)
 			_ = writeToInfluxDb(c, bp, "vcf_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": cbh, "range": cbh})
 			_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
 			_ = writeToInfluxDb(c, bp, "vcf_total_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
@@ -132,8 +132,8 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		if cfg.MissedBlocksThreshold > 1 {
 			if int64(len(blocksArray))-1 >= cfg.MissedBlocksThreshold {
 				missedBlocks := strings.Split(blocks, ",")
-				_ = SendTelegramAlert(fmt.Sprintf("Validator missed blocks from height %s to %s", missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("Validator missed blocks from height %s to %s", missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
+				_ = SendTelegramAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
+				_ = SendEmailAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
 				_ = writeToInfluxDb(c, bp, "vcf_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": blocks, "range": missedBlocks[0] + " - " + missedBlocks[len(missedBlocks)-2]})
 				_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": "", "current_height": cbh})
 				return

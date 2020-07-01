@@ -46,11 +46,11 @@ func ValidatorStatusAlert(ops HTTPOptions, cfg *config.Config, c client.Client) 
 	if t == a1 || t == a2 {
 		validatorStatus := validatorResp.Result.Jailed
 		if !validatorStatus {
-			_ = SendTelegramAlert(fmt.Sprintf("Your validator is currently voting"), cfg)
+			_ = SendTelegramAlert(fmt.Sprintf("Your validator %s is currently voting", cfg.ValidatorName), cfg)
 			_ = SendEmailAlert(fmt.Sprintf("Your validator is currently voting"), cfg)
 			log.Println("Sent validator status alert")
 		} else {
-			_ = SendTelegramAlert(fmt.Sprintf("Your validator is in jailed status"), cfg)
+			_ = SendTelegramAlert(fmt.Sprintf("Your validator %s is in jailed status", cfg.ValidatorName), cfg)
 			_ = SendEmailAlert(fmt.Sprintf("Your validator is in jailed status"), cfg)
 			log.Println("Sent validator status alert")
 		}
