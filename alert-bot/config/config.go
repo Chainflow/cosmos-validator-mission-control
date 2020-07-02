@@ -9,14 +9,14 @@ import (
 type (
 	// Telegram bot config details
 	TelegramBotConfig struct {
-		BotToken string `mapstructure:"bot_token"`
-		ChatID   int64  `mapstructure:"chat_id"`
+		BotToken string `mapstructure:"tg_bot_token"`
+		ChatID   int64  `mapstructure:"tg_chat_id"`
 	}
 
 	// EmailConfig
 	EmailConfig struct {
-		SendGridAPIToken    string `mapstructure:"token"`
-		ReceiverMailAddress string `mapstructure:"to_email"`
+		SendGridAPIToken    string `mapstructure:"sendgrid_token"`
+		ReceiverMailAddress string `mapstructure:"email_address"`
 	}
 
 	// Config defines all the app configurations
