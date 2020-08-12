@@ -26,7 +26,7 @@ func GaiadVersion(_ HTTPOptions, cfg *config.Config, c client.Client) {
 
 	resp := string(out)
 
-	r := regexp.MustCompile(`version: ([0-9]{1}.[0-9]{1}.[0-9]{1})`)
+	r := regexp.MustCompile(`Software version: ([0-9]{1}.[0-9]{1}.[0-9]{1})`)
 	matches := r.FindAllStringSubmatch(resp, -1)
 	if len(matches) == 0 {
 		_ = writeToInfluxDb(c, bp, "vcf_gaiad_version", map[string]string{}, map[string]interface{}{"v": "NA"})
