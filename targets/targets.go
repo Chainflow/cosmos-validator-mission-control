@@ -201,7 +201,7 @@ func InitTargets(cfg *config.Config) *Targets {
 				Endpoint: cfg.ExternalRPC + "/status",
 				Method:   http.MethodGet,
 			},
-			Func:        EmergencyContinuousMissedBlocks,
+			Func:        SendEmergencyContinuousMissedBlocks,
 			ScraperRate: cfg.Scraper.Rate,
 		},
 	}}

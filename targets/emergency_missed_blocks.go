@@ -11,8 +11,8 @@ import (
 	client "github.com/influxdata/influxdb1-client/v2"
 )
 
-// EmergencyContinuousMissedBlocks is to send alerts to pager duty if validator miss blocks continously
-func EmergencyContinuousMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
+// SendEmergencyContinuousMissedBlocks is to send alerts to pager duty if validator miss blocks continously
+func SendEmergencyContinuousMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
 		return
@@ -50,44 +50,47 @@ func EmergencyContinuousMissedBlocks(ops HTTPOptions, cfg *config.Config, c clie
 		return
 	}
 
-	addrExists := false
-	for _, c := range b.Result.Block.LastCommit.Precommits {
-		if c.ValidatorAddress == cfg.ValidatorHexAddress {
-			addrExists = true
-		}
-	}
+	if &b != nil {
 
-	if !addrExists {
-		blocks := GetEmergencyContinuousMissedBlocks(cfg, c)
-		blocksArray := strings.Split(blocks, ",")
-
-		currentHeightFromDb := GetlatestCurrentHeightFromDB(cfg, c)
-		if cfg.EmergencyMissedBlocksThreshold >= 2 {
-			if int64(len(blocksArray))-1 >= cfg.EmergencyMissedBlocksThreshold {
-				// Send emergency missed block alerts to telgram as well as pagerduty
-
-				missedBlocks := strings.Split(blocks, ",")
-				_ = SendTelegramAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
-				_ = SendEmergencyEmailAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
-				_ = writeToInfluxDb(c, bp, "vcf_emergency_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": "", "current_height": cbh})
-				return
-			} else if len(blocksArray) == 1 {
-				blocks = cbh + ","
-			} else {
-				rpcBlockHeight, _ := strconv.Atoi(cbh)
-				dbBlockHeight, _ := strconv.Atoi(currentHeightFromDb)
-				diff := rpcBlockHeight - dbBlockHeight
-				if diff == 1 {
-					blocks = blocks + cbh + ","
-				} else if diff > 1 {
-					blocks = ""
-				}
+		addrExists := false
+		for _, c := range b.Result.Block.LastCommit.Precommits {
+			if c.ValidatorAddress == cfg.ValidatorHexAddress {
+				addrExists = true
 			}
-			_ = writeToInfluxDb(c, bp, "vcf_emergency_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": blocks, "current_height": cbh})
 		}
+
+		if !addrExists {
+			blocks := GetEmergencyContinuousMissedBlocks(cfg, c)
+			blocksArray := strings.Split(blocks, ",")
+
+			currentHeightFromDb := GetlatestCurrentHeightFromDB(cfg, c)
+			if cfg.EmergencyMissedBlocksThreshold >= 2 {
+				if int64(len(blocksArray))-1 >= cfg.EmergencyMissedBlocksThreshold {
+					// Send emergency missed block alerts to telgram as well as pagerduty
+
+					missedBlocks := strings.Split(blocks, ",")
+					_ = SendTelegramAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
+					_ = SendEmailAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
+					_ = SendEmergencyEmailAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
+					_ = writeToInfluxDb(c, bp, "vcf_emergency_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": "", "current_height": cbh})
+					return
+				} else if len(blocksArray) == 1 {
+					blocks = cbh + ","
+				} else {
+					rpcBlockHeight, _ := strconv.Atoi(cbh)
+					dbBlockHeight, _ := strconv.Atoi(currentHeightFromDb)
+					diff := rpcBlockHeight - dbBlockHeight
+					if diff == 1 {
+						blocks = blocks + cbh + ","
+					} else if diff > 1 {
+						blocks = ""
+					}
+				}
+				_ = writeToInfluxDb(c, bp, "vcf_emergency_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": blocks, "current_height": cbh})
+			}
+		}
+		return
 	}
-	return
 }
 
 // GetlatestCurrentHeightFromDB returns latest current height from db
