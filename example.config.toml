@@ -50,6 +50,14 @@ staking_denom = "uatom"
 # Give your validator name to get it display in telegram and email messages
 validator_name = "Validator Moniker"
 
+# Give threshold to notify about continuous missed blocks to your pager duty account.
+# so that it will send mails, messages and makes you a call about alerts.
+emergency_missed_blocks_threshold = 50
+
+# Give mail address of pager duty service to send alerts of emergency missed blocks
+# Have to give mail address which was generated after creation of a service in pager duty.
+pagerduty_email = "service@domain.pagerduty.com"
+
 [scraper]
 rate = "5s"
 port = ":8080"
@@ -61,6 +69,7 @@ tg_chat_id = 228222105
 
 # Telegram bot token. The bot should be added to the chat and it should have send message permission.
 tg_bot_token = "1117273891:AAEtr35x4JRj5YSF4LBeu1fPFAJ4xj-UI"
+
 
 [sendgrid]
 # Sendgrid mail service api token.
