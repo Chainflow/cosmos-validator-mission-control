@@ -165,7 +165,6 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	} else {
 		log.Println("Got an empty response from external rpc block dataa...")
 	}
-
 }
 
 // GetContinuousMissedBlock returns the latest missed block from the db

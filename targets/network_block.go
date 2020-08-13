@@ -31,33 +31,36 @@ func GetNetworkLatestBlock(ops HTTPOptions, cfg *config.Config, c client.Client)
 		return
 	}
 
-	networkBlockHeight, err := strconv.Atoi(networkBlock.Result.SyncInfo.LatestBlockHeight)
-	if err != nil {
-		log.Println("Error while converting network height from string to int ", err)
-	}
-	_ = writeToInfluxDb(c, bp, "vcf_network_latest_block", map[string]string{}, map[string]interface{}{"block_height": networkBlockHeight})
-	log.Printf("Network height: %d", networkBlockHeight)
+	if &networkBlock != nil {
 
-	// Calling function to get validator latest
-	// block height
-	validatorHeight := GetValidatorBlock(cfg, c)
-	if validatorHeight == "" {
-		log.Println("Error while fetching validator block height from db ", validatorHeight)
-		return
-	}
+		networkBlockHeight, err := strconv.Atoi(networkBlock.Result.SyncInfo.LatestBlockHeight)
+		if err != nil {
+			log.Println("Error while converting network height from string to int ", err)
+		}
+		_ = writeToInfluxDb(c, bp, "vcf_network_latest_block", map[string]string{}, map[string]interface{}{"block_height": networkBlockHeight})
+		log.Printf("Network height: %d", networkBlockHeight)
 
-	vaidatorBlockHeight, _ := strconv.Atoi(validatorHeight)
-	heightDiff := networkBlockHeight - vaidatorBlockHeight
+		// Calling function to get validator latest
+		// block height
+		validatorHeight := GetValidatorBlock(cfg, c)
+		if validatorHeight == "" {
+			log.Println("Error while fetching validator block height from db ", validatorHeight)
+			return
+		}
 
-	_ = writeToInfluxDb(c, bp, "vcf_height_difference", map[string]string{}, map[string]interface{}{"difference": heightDiff})
-	log.Printf("Network height: %d and Validator Height: %d", networkBlockHeight, vaidatorBlockHeight)
+		vaidatorBlockHeight, _ := strconv.Atoi(validatorHeight)
+		heightDiff := networkBlockHeight - vaidatorBlockHeight
 
-	// Send alert
-	if int64(heightDiff) >= cfg.BlockDiffThreshold {
-		_ = SendTelegramAlert(fmt.Sprintf("Block difference between network and validator has exceeded %d", cfg.BlockDiffThreshold), cfg)
-		_ = SendEmailAlert(fmt.Sprintf("Block difference between network and validator has exceeded %d", cfg.BlockDiffThreshold), cfg)
+		_ = writeToInfluxDb(c, bp, "vcf_height_difference", map[string]string{}, map[string]interface{}{"difference": heightDiff})
+		log.Printf("Network height: %d and Validator Height: %d", networkBlockHeight, vaidatorBlockHeight)
 
-		log.Println("Sent alert of block height difference")
+		// Send alert
+		if int64(heightDiff) >= cfg.BlockDiffThreshold {
+			_ = SendTelegramAlert(fmt.Sprintf("Block difference between network and validator has exceeded %d", cfg.BlockDiffThreshold), cfg)
+			_ = SendEmailAlert(fmt.Sprintf("Block difference between network and validator has exceeded %d", cfg.BlockDiffThreshold), cfg)
+
+			log.Println("Sent alert of block height difference")
+		}
 	}
 }
 
