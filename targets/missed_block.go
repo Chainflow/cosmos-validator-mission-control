@@ -50,24 +50,28 @@ func SendSingleMissedBlockAlert(ops HTTPOptions, cfg *config.Config, c client.Cl
 		return err
 	}
 
-	addrExists := false
-	for _, c := range b.Result.Block.LastCommit.Precommits {
-		if c.ValidatorAddress == cfg.ValidatorHexAddress {
-			addrExists = true
-		}
-	}
+	if &b != nil {
 
-	if !addrExists {
-		if cfg.MissedBlocksThreshold == 1 {
-			_ = SendTelegramAlert(fmt.Sprintf("%s validator missed a block at block height %s", cfg.ValidatorName, cbh), cfg)
-			_ = SendEmailAlert(fmt.Sprintf("%s validator missed a block at block height %s", cfg.ValidatorName, cbh), cfg)
-			_ = writeToInfluxDb(c, bp, "vcf_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": cbh, "range": cbh})
-			_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
-			_ = writeToInfluxDb(c, bp, "vcf_total_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
-		} else {
-			_ = writeToInfluxDb(c, bp, "vcf_total_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
+		addrExists := false
+		for _, c := range b.Result.Block.LastCommit.Precommits {
+			if c.ValidatorAddress == cfg.ValidatorHexAddress {
+				addrExists = true
+			}
 		}
 
+		if !addrExists {
+			if cfg.MissedBlocksThreshold == 1 {
+				_ = SendTelegramAlert(fmt.Sprintf("%s validator missed a block at block height %s", cfg.ValidatorName, cbh), cfg)
+				_ = SendEmailAlert(fmt.Sprintf("%s validator missed a block at block height %s", cfg.ValidatorName, cbh), cfg)
+				_ = writeToInfluxDb(c, bp, "vcf_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": cbh, "range": cbh})
+				_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
+				_ = writeToInfluxDb(c, bp, "vcf_total_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
+			} else {
+				_ = writeToInfluxDb(c, bp, "vcf_total_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
+			}
+		}
+	} else {
+		log.Println("Got empty response from external rpc....")
 	}
 	return nil
 }
@@ -111,49 +115,55 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
-	addrExists := false
-	for _, c := range b.Result.Block.LastCommit.Precommits {
-		if c.ValidatorAddress == cfg.ValidatorHexAddress {
-			addrExists = true
-		}
-	}
-
-	if !addrExists {
-		blocks := GetContinuousMissedBlock(cfg, c)
-		currentHeightFromDb := GetlatestCurrentHeightFromDB(cfg, c)
-		blocksArray := strings.Split(blocks, ",")
-		fmt.Println("blocks length ", int64(len(blocksArray)), currentHeightFromDb)
-		// calling function to store single blocks
-		err := SendSingleMissedBlockAlert(ops, cfg, c)
-		if err != nil {
-			log.Printf("Error while sending missed block alert: %v", err)
-
-		}
-		if cfg.MissedBlocksThreshold > 1 {
-			if int64(len(blocksArray))-1 >= cfg.MissedBlocksThreshold {
-				missedBlocks := strings.Split(blocks, ",")
-				_ = SendTelegramAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
-				_ = writeToInfluxDb(c, bp, "vcf_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": blocks, "range": missedBlocks[0] + " - " + missedBlocks[len(missedBlocks)-2]})
-				_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": "", "current_height": cbh})
-				return
+	if &b != nil {
+		addrExists := false
+		for _, c := range b.Result.Block.LastCommit.Precommits {
+			if c.ValidatorAddress == cfg.ValidatorHexAddress {
+				addrExists = true
 			}
-			if len(blocksArray) == 1 {
-				blocks = cbh + ","
-			} else {
-				rpcBlockHeight, _ := strconv.Atoi(cbh)
-				dbBlockHeight, _ := strconv.Atoi(currentHeightFromDb)
-				diff := rpcBlockHeight - dbBlockHeight
-				if diff == 1 {
-					blocks = blocks + cbh + ","
-				} else if diff > 1 {
-					blocks = ""
+		}
+
+		log.Println("address exists and height......", addrExists, cbh)
+
+		if !addrExists {
+			blocks := GetContinuousMissedBlock(cfg, c)
+			currentHeightFromDb := GetlatestCurrentHeightFromDB(cfg, c)
+			blocksArray := strings.Split(blocks, ",")
+			fmt.Println("blocks length ", int64(len(blocksArray)), currentHeightFromDb)
+			// calling function to store single blocks
+			err := SendSingleMissedBlockAlert(ops, cfg, c)
+			if err != nil {
+				log.Printf("Error while sending missed block alert: %v", err)
+
+			}
+			if cfg.MissedBlocksThreshold > 1 {
+				if int64(len(blocksArray))-1 >= cfg.MissedBlocksThreshold {
+					missedBlocks := strings.Split(blocks, ",")
+					_ = SendTelegramAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
+					_ = SendEmailAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
+					_ = writeToInfluxDb(c, bp, "vcf_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": blocks, "range": missedBlocks[0] + " - " + missedBlocks[len(missedBlocks)-2]})
+					_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": "", "current_height": cbh})
+					return
 				}
-			}
-			_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": blocks, "current_height": cbh})
-			return
+				if len(blocksArray) == 1 {
+					blocks = cbh + ","
+				} else {
+					rpcBlockHeight, _ := strconv.Atoi(cbh)
+					dbBlockHeight, _ := strconv.Atoi(currentHeightFromDb)
+					diff := rpcBlockHeight - dbBlockHeight
+					if diff == 1 {
+						blocks = blocks + cbh + ","
+					} else if diff > 1 {
+						blocks = ""
+					}
+				}
+				_ = writeToInfluxDb(c, bp, "vcf_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": blocks, "current_height": cbh})
+				return
 
+			}
 		}
+	} else {
+		log.Println("Got an empty response from external rpc block dataa...")
 	}
 }
 

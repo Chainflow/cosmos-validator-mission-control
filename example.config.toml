@@ -48,7 +48,7 @@ enable_email_alerts = "yes"
 staking_denom = "uatom"
 
 # Give your validator name to get it display in telegram and email messages
-validator_name = "witval"
+validator_name = "Validator Moniker"
 
 [scraper]
 rate = "5s"
