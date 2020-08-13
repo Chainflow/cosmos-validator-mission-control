@@ -32,8 +32,8 @@ func CheckGaiad(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	caughtUp := !status.Result.SyncInfo.CatchingUp
 	if !caughtUp {
-		_ = SendTelegramAlert(fmt.Sprintf("Gaiad on your validator instance is not running: \n%v", resp), cfg)
-		_ = SendEmailAlert(fmt.Sprintf("Gaiad on your validator instance is not running: \n%v", resp), cfg)
+		_ = SendTelegramAlert(fmt.Sprintf("Gaiad on your validator instance is not running: \n%v", string(resp.Body)), cfg)
+		_ = SendEmailAlert(fmt.Sprintf("Gaiad on your validator instance is not running: \n%v", string(resp.Body)), cfg)
 		_ = writeToInfluxDb(c, bp, "vcf_gaiad_status", map[string]string{}, map[string]interface{}{"status": 0})
 		return
 	}
