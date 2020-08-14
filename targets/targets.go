@@ -194,16 +194,6 @@ func InitTargets(cfg *config.Config) *Targets {
 			Func:        ValidatorStatusAlert,
 			ScraperRate: cfg.Scraper.ValidatorRate,
 		},
-		{
-			ExecutionType: "http",
-			Name:          "Send emergency missed block alerts to pager duty",
-			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.ExternalRPC + "/status",
-				Method:   http.MethodGet,
-			},
-			Func:        SendEmergencyContinuousMissedBlocks,
-			ScraperRate: cfg.Scraper.Rate,
-		},
 	}}
 }
 

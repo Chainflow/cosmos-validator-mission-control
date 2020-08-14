@@ -126,12 +126,19 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		log.Println("address exists and height......", addrExists, cbh)
 
 		if !addrExists {
+
+			// Calling SendEmeregencyAlerts to send emeregency alerts
+			err := SendEmeregencyAlerts(cfg, c, cbh)
+			if err != nil {
+				log.Println("Error while sending emeregecny missed block alerts...", err)
+			}
+
 			blocks := GetContinuousMissedBlock(cfg, c)
 			currentHeightFromDb := GetlatestCurrentHeightFromDB(cfg, c)
 			blocksArray := strings.Split(blocks, ",")
 			fmt.Println("blocks length ", int64(len(blocksArray)), currentHeightFromDb)
 			// calling function to store single blocks
-			err := SendSingleMissedBlockAlert(ops, cfg, c)
+			err = SendSingleMissedBlockAlert(ops, cfg, c)
 			if err != nil {
 				log.Printf("Error while sending missed block alert: %v", err)
 
