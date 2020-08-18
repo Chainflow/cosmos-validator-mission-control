@@ -22,9 +22,7 @@ func CheckGaiad(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
-		_ = SendTelegramAlert("Gaiad on your validator instance is not running", cfg)
-		_ = SendEmailAlert("Gaiad on your validator instance is not running", cfg)
-		_ = writeToInfluxDb(c, bp, "vcf_gaiad_status", map[string]string{}, map[string]interface{}{"status": 0})
+		log.Println("Error while getting gaiad status..")
 		return
 	}
 

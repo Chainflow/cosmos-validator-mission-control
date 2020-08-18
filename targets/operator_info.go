@@ -41,7 +41,10 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		pts = append(pts, p0)
 	}
 
+	//log.Println("validator response.........", validatorResp)
+
 	operatorAddress := validatorResp.Result.OperatorAddress
+	log.Println("operatorAddress....",operatorAddress)
 	p1, err := createDataPoint("vcf_operator_address", map[string]string{}, map[string]interface{}{"address": operatorAddress})
 	if err == nil {
 		pts = append(pts, p1)

@@ -43,11 +43,18 @@ func ValidatorStatusAlert(ops HTTPOptions, cfg *config.Config, c client.Client) 
 
 	log.Println("a1, a2 and present time : ", a1, a2, t)
 
-	if t == a1 || t == a2 {
+	minutes := now.Minute()
+	log.Println("minutes...", minutes)
+
+	hour := now.Hour()
+	h := hour%4
+	log.Println("hours....", h)
+
+	if t == a1 || t == a2 || (minutes == 30 && h == 0) {
 		validatorStatus := validatorResp.Result.Jailed
 		if !validatorStatus {
-			_ = SendTelegramAlert(fmt.Sprintf("Your validator is currently voting"), cfg)
-			_ = SendEmailAlert(fmt.Sprintf("Your validator is currently voting"), cfg)
+			_ = SendTelegramAlert(fmt.Sprintf("Chainflow Cosmos Validator Currently Voting"), cfg)
+			_ = SendEmailAlert(fmt.Sprintf("Chainflow Cosmos Validator Currently Voting"), cfg)
 			log.Println("Sent validator status alert")
 		} else {
 			_ = SendTelegramAlert(fmt.Sprintf("Your validator is in jailed status"), cfg)

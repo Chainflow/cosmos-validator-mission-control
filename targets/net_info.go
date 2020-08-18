@@ -24,12 +24,15 @@ func GetNetInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		log.Printf("Error getting node_info: %v", err)
 		return
 	}
+	
 	var ni NetInfo
 	err = json.Unmarshal(resp.Body, &ni)
 	if err != nil {
 		log.Printf("Error: %v", err)
 		return
 	}
+
+	//log.Println("net info, peers count and addresses....", ni, ni.Result.NumPeers, ni.Result.Peers)
 
 	numPeers, err := strconv.Atoi(ni.Result.NumPeers)
 	if err != nil {

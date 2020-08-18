@@ -49,13 +49,15 @@ func SendSingleMissedBlockAlert(ops HTTPOptions, cfg *config.Config, c client.Cl
 		log.Printf("Error: %v", err)
 		return err
 	}
-
+	
 	addrExists := false
 	for _, c := range b.Result.Block.LastCommit.Precommits {
 		if c.ValidatorAddress == cfg.ValidatorHexAddress {
 			addrExists = true
 		}
 	}
+
+	log.Println("Is address exists and block height......", addrExists, cbh)
 
 	if !addrExists {
 		if cfg.MissedBlocksThreshold == 1 {
@@ -111,6 +113,8 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
+	if &b != nil {
+
 	addrExists := false
 	for _, c := range b.Result.Block.LastCommit.Precommits {
 		if c.ValidatorAddress == cfg.ValidatorHexAddress {
@@ -118,6 +122,8 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		}
 	}
 
+	log.Println("Is address exists and block height......", addrExists, cbh)
+	
 	if !addrExists {
 		blocks := GetContinuousMissedBlock(cfg, c)
 		currentHeightFromDb := GetlatestCurrentHeightFromDB(cfg, c)
@@ -154,6 +160,7 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			return
 
 		}
+       	}
 	}
 }
 
