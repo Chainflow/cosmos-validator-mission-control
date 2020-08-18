@@ -30,3 +30,14 @@ func SendEmailAlert(msg string, cfg *config.Config) error {
 	}
 	return nil
 }
+
+// SendEmergencyEmailAlert sends alert pager duty account
+func SendEmergencyEmailAlert(msg string, cfg *config.Config) error {
+	if strings.ToUpper(cfg.EnableEmailAlerts) == "YES" {
+		if err := alerting.NewEmailAlerter().Send(msg, cfg.SendGrid.Token, cfg.PagerdutyEmail); err != nil {
+			log.Printf("failed to send email alert to pager duty: %v", err)
+			return err
+		}
+	}
+	return nil
+}

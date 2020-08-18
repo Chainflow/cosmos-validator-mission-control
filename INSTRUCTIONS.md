@@ -1,6 +1,6 @@
 # Validator Mission Control
 
-**Validator Mission Control** provides a comprehensive set of metrics and alerts for Cosmos validator node operators. We utilized the power of Grafana + Telegraf and extended the monitoring & alerting with a custom built go server.
+**Validator Mission Control** provides a comprehensive set of metrics and alerts for Cosmos validator node operators. We utilized the power of Grafana + Telegraf and extended the monitoring & alerting with a custom built go server. It also sends emergency alerts and calls to you based on your pagerduty account configuration.
 
 It can be installed on a validator node directly or a separate monitoring node (with an appropriate firewall setup on validator node). These instructions assume the user will install Validator Mission Control on the validator. [See this section](https://github.com/chris-remus/chainflow-vitwit/blob/master/README.md#hosting-validator-mission-control-on-separate-monitoring-node) for details on installing it on a separate monitoring node. 
 
@@ -165,6 +165,17 @@ $ cp example.config.toml config.toml
 - *staking_denom*
 
     Give stakig denom to display along with self delegation balance (ex:uatom or umuon)
+
+- *pagerduty_email*
+
+    Give mail address of pager duty service to send alerts of emergency missed blocks.
+    Note : Have to give mail address which was generated after creation of a service in pager duty.
+
+    You can refer this to know about pagerduty (https://www.pagerduty.com/)
+
+- *emergency_missed_blocks_threshold*
+
+    Give threshold to notify about continuous missed blocks to your pager duty account. so that it will send mails, messages and makes you a call about alerts.
 
 After populating config.toml, check if you have connected to influxdb and created a database which you are going to use.
 
