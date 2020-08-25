@@ -38,27 +38,29 @@ type (
 
 	//Config
 	Config struct {
-		ValidatorRpcEndpoint  string   `mapstructure:"validator_rpc_endpoint"`
-		ValOperatorAddress    string   `mapstructure:"val_operator_addr"`
-		AccountAddress        string   `mapstructure:"account_addr"`
-		ValidatorHexAddress   string   `mapstructure:"validator_hex_addr"`
-		LCDEndpoint           string   `mapstructure:"lcd_endpoint"`
-		VotingPowerThreshold  int64    `mapstructure:"voting_power_threshold"`
-		NumPeersThreshold     int64    `mapstructure:"num_peers_threshold"`
-		Scraper               Scraper  `mapstructure:"scraper"`
-		Telegram              Telegram `mapstructure:"telegram"`
-		SendGrid              SendGrid `mapstructure:"sendgrid"`
-		InfluxDB              InfluxDB `mapstructure:"influxdb"`
-		RPCEndpoint           string   `mapstructure:"rpc_endpoint"`
-		ExternalRPC           string   `mapstructure:"external_rpc"`
-		MissedBlocksThreshold int64    `mapstructure:"missed_blocks_threshold"`
-		AlertTime1            string   `mapstructure:"alert_time1"`
-		AlertTime2            string   `mapstructure:"alert_time2"`
-		BlockDiffThreshold    int64    `mapstructure:"block_diff_threshold"`
-		EnableTelegramAlerts  string   `mapstructure:"enable_telegram_alerts"`
-		EnableEmailAlerts     string   `mapstructure:"enable_email_alerts"`
-		StakingDemon          string   `mapstructure:"staking_denom"`
-		ValidatorName         string   `mapstructure:"validator_name"`
+		ValidatorRpcEndpoint           string   `mapstructure:"validator_rpc_endpoint"`
+		ValOperatorAddress             string   `mapstructure:"val_operator_addr"`
+		AccountAddress                 string   `mapstructure:"account_addr"`
+		ValidatorHexAddress            string   `mapstructure:"validator_hex_addr"`
+		LCDEndpoint                    string   `mapstructure:"lcd_endpoint"`
+		VotingPowerThreshold           int64    `mapstructure:"voting_power_threshold"`
+		NumPeersThreshold              int64    `mapstructure:"num_peers_threshold"`
+		Scraper                        Scraper  `mapstructure:"scraper"`
+		Telegram                       Telegram `mapstructure:"telegram"`
+		SendGrid                       SendGrid `mapstructure:"sendgrid"`
+		InfluxDB                       InfluxDB `mapstructure:"influxdb"`
+		RPCEndpoint                    string   `mapstructure:"rpc_endpoint"`
+		ExternalRPC                    string   `mapstructure:"external_rpc"`
+		MissedBlocksThreshold          int64    `mapstructure:"missed_blocks_threshold"`
+		AlertTime1                     string   `mapstructure:"alert_time1"`
+		AlertTime2                     string   `mapstructure:"alert_time2"`
+		BlockDiffThreshold             int64    `mapstructure:"block_diff_threshold"`
+		EnableTelegramAlerts           string   `mapstructure:"enable_telegram_alerts"`
+		EnableEmailAlerts              string   `mapstructure:"enable_email_alerts"`
+		StakingDemon                   string   `mapstructure:"staking_denom"`
+		ValidatorName                  string   `mapstructure:"validator_name"`
+		EmergencyMissedBlocksThreshold int64    `mapstructure:"emergency_missed_blocks_threshold"`
+		PagerdutyEmail                 string   `mapstructure:"pagerduty_email"`
 	}
 )
 
