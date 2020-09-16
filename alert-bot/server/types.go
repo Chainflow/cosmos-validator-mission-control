@@ -134,7 +134,6 @@ type (
 
 	ValidatorRpcStatus struct {
 		Jsonrpc string `json:"jsonrpc"`
-		ID      string `json:"id"`
 		Result  struct {
 			NodeInfo interface{} `json:"node_info"`
 			SyncInfo struct {
@@ -158,7 +157,6 @@ type (
 	// ValidatorsHeight struct which represents the details of validator
 	ValidatorsHeight struct {
 		Jsonrpc string `json:"jsonrpc"`
-		ID      string `json:"id"`
 		Result  struct {
 			BlockHeight string `json:"block_height"`
 			Validators  []struct {
@@ -195,7 +193,6 @@ type (
 	// NetInfo is a structre which holds the details of address
 	NetInfo struct {
 		JSONRpc string        `json:"jsonrpc"`
-		ID      string        `json:"id"`
 		Result  NetInfoResult `json:"result"`
 	}
 )
