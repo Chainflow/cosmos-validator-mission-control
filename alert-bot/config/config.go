@@ -60,7 +60,6 @@ type (
 		LCDEndpoint          string            `mapstructure:"lcd_endpoint"`
 		Telegram             TelegramBotConfig `mapstructure:"telegram"`
 		SendGrid             EmailConfig       `mapstructure:"sendgrid"`
-		RPCEndpoint          string            `mapstructure:"rpc_endpoint"`
 		ExternalRPC          string            `mapstructure:"external_rpc"`
 		AlertTime1           string            `mapstructure:"alert_time1"`
 		AlertTime2           string            `mapstructure:"alert_time2"`

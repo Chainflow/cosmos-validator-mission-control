@@ -50,7 +50,7 @@ func GetValidatorVotingPower(ops HTTPOptions, cfg *config.Config, c client.Clien
 			} else {
 				vp = "0"
 			}
-			_ = writeToInfluxDb(c, bp, "vcf_voting_power", map[string]string{}, map[string]interface{}{"power": vp + "muon"})
+			_ = writeToInfluxDb(c, bp, "vcf_voting_power", map[string]string{}, map[string]interface{}{"power": vp})
 			log.Println("Voting Power \n", vp)
 
 			votingPower, err := strconv.Atoi(vp)

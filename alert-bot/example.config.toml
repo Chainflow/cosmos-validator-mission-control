@@ -1,30 +1,64 @@
+# Validator rpc end point(RPC of your own validator)
+#useful to gather information about network info, validatr voting power etc.
+validator_rpc_endpoint = "https://cosmos.chorus.one:26657"
+
 # Operator address of your validator
-#Here it will be used to get staking of a validator.
-val_operator_addr = "cosmosvaloper14l0fp639yudfl46zauvv8rkzjgd4u0zk2aseys"
+#which will be used to get staking, delegation and distribution rewards.
+val_operator_addr = "cosmosvaloper1j0vaeh27t4rll7zhmarwcuqastrmvqhudrgcky"
+
 
 # Validator hex address
-#useful to know about missed blocks.
-validator_hex_addr = "8F2927C1D0180B19087BB35DE19BABA4E0DE9238"
+#useful to know about last proposed block, missed blocks and voting power.
+validator_hex_addr = "2C9CCC317FB283D54AC748838A64F29106039H98"
 
 # Address of your lcd client
-lcd_endpoint = "http://localhost:1317"
+lcd_endpoint = "https://cosmos-lcd.chorus.one:1317"
 
 # External open RPC endpoint(secondary RPC other than your own validator).
 #useful to gather information like validator caught up, syncing and missed blocks etc.
-external_rpc = "http://localhost:26657"
+external_rpc = "http://13.52.88.75:26657"
 
-# Name of your validator
-#it will be displayed in telegram alerts
-validator_name = "ValName"
+# Name of your validator to be displayed in alerts
+validator_name = "Chainflow"
 
-[daily-alert]
-alert_time1 = "07:23PM"
-alert_time2 = "08:15AM"
+# These are for regular status updates. 
+# To receive validator status daily (twice), configure these parameters in the form of "02:25PM". The time here refers to UTC time.
+alert_time1 = "02:30PM"
+alert_time2 = "02:30AM"
+
+# An integer value to receive block difference alerts
+#If you want to receive this alert make enable_alert to yes otherwise no
+[block_diff_alert]
+enable_alert = "yes"
+block_diff_threshold = 1
+
+# Configure the threshold to receive alert when the voting power reaches or drops below of the threshold given.
+#If you want to receive this alert make enable_alert to yes otherwise no
+[voting_power_alert]
+enable_alert = "yes"
+voting_power_threshold = 50
+
+# Configure the threshold to get an alert if the no.of connected peers falls below the threshold.
+#If you want to receive this alert make enable_alert to yes otherwise no
+[Peers_alert]
+enable_alert = "yes"
+num_peers_threshold = 0
+
+[scraper]
+rate = "3s"
+port = ":8080"
+validator_rate = "60s"
 
 [telegram]
-tg_chat_id = 510331001
-tg_bot_token="1117273891:AAEtr35x4JRj5YSF4LBeu1fPFAJ4xj-UK"
+tg_chat_id = -100130357121
+tg_bot_token = "1117273891:AAEtr3ZU5x4JRj5YSF4LBeu1fPAhk9xj-UI"
+
 
 [sendgrid]
-sendgrid_token = "1234567890"
+sendgrid_token = "SG.fMdY2lmRQ8absbcgllGpqQ.5OKsFzyc_1ccoC8y_kwvIxsofJ_1UuOvAFiQAVBdM12Q"
 email_address = "xyz@domain.com"
+
+[influxdb]
+port = "8086"
+database = "alert_bot"
+username = "vitwit"
