@@ -42,35 +42,37 @@ cp example.config.toml config.toml
 
 - *tg_chat_id*
 
-    Telegram chat ID to receive Telegram alerts, required for Telegram alerting.
+    - Telegram chat ID to receive Telegram alerts, required for Telegram alerting.
     
 - *tg_bot_token*
 
-    Telegram bot token, required for Telegram alerting. The bot should be added to the chat and should have send message permission.
+    - Telegram bot token, required for Telegram alerting. The bot should be added to the chat and should have send message permission.
 
 - *alert_time1* and *alert_time2*
 
-    These are for regular status updates. To receive validator status daily (twice), configure these parameters in the form of "02:25PM". The time here refers to UTC time.
+    - These are for regular status updates. To receive validator status daily (twice), configure these parameters in the form of "02:25PM". The time here refers to UTC time.
 
 - *val_operator_addr*
 
-    Operator address of your validator which will be used to get staking, delegation and distribution rewards.
+    - Operator address of your validator which will be used to get staking, delegation and distribution rewards.
 
 - *validator_hex_addr*
 
-    Validator hex address useful to know about last proposed block, missed blocks and voting power.
+    - Validator hex address useful to know about last proposed block, missed blocks and voting power.
 
 - *lcd_endpoint*
 
-    Address of your lcd client (ex: http://localhost:1317).
+    - Address of your lcd client (ex: http://localhost:1317).
+    
+    - If you want to start the rest server you can follow this (ex: gaiacli rest-server --laddr "http://localhost:1317" --chain-id testing) 
 
 - *external_rpc*
 
-    External open RPC endpoint(secondary RPC other than your own validator). Useful to gather information like validator caught up, syncing and missed blocks etc.
+    - External open RPC endpoint(secondary RPC other than your own validator). Useful to gather information like validator caught up, syncing and missed blocks etc.
 
 - *validator_rpc_endpoint*
 
-     Validator rpc end point (RPC of your own validator) useful to gather information about network info, validator voting power etc.
+     - Validator rpc end point (RPC of your own validator) useful to gather information about network info, validator voting power etc.
 
 - *block_diff_alert*
 
