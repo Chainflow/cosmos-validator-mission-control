@@ -34,6 +34,24 @@ type (
 		ValidatorRate string `mapstructure:"validator_rate"`
 	}
 
+	// BlockDiffAlert defines about block diff alert
+	BlockDiffAlert struct {
+		EnableAlert        string `mapstructure:"enable_alert"`
+		BlockDiffThreshold int64  `mapstructure:"block_diff_threshold"`
+	}
+
+	// VotingPowerAlert defines about voting power alert
+	VotingPowerAlert struct {
+		EnableAlert          string `mapstructure:"enable_alert"`
+		VotingPowerThreshold int64  `mapstructure:"voting_power_threshold"`
+	}
+
+	// PeersAlert defines about peer alerts
+	PeersAlert struct {
+		EnableAlert       string `mapstructure:"enable_alert"`
+		NumPeersThreshold int64  `mapstructure:"num_peers_threshold"`
+	}
+
 	// Config defines all the app configurations
 	Config struct {
 		ValidatorRPCEndpoint string            `mapstructure:"validator_rpc_endpoint"`
@@ -49,9 +67,9 @@ type (
 		ValidatorName        string            `mapstructure:"validator_name"`
 		InfluxDB             InfluxDB          `mapstructure:"influxdb"`
 		Scraper              Scraper           `mapstructure:"scraper"`
-		BlockDiffThreshold   int64             `mapstructure:"block_diff_threshold"`
-		VotingPowerThreshold int64             `mapstructure:"voting_power_threshold"`
-		NumPeersThreshold    int64             `mapstructure:"num_peers_threshold"`
+		BlockDiffAlert       BlockDiffAlert    `mapstructure:"block_diff_alert"`
+		VotingPowerAlert     VotingPowerAlert  `mapstructure:"voting_power_alert"`
+		PeersAlert           PeersAlert        `mapstructure:"Peers_alert"`
 	}
 )
 

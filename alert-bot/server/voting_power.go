@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"strings"
 
 	client "github.com/influxdata/influxdb1-client/v2"
 )
@@ -57,9 +58,10 @@ func GetValidatorVotingPower(ops HTTPOptions, cfg *config.Config, c client.Clien
 				log.Println("Error wile converting string to int of voting power \t", err)
 			}
 
-			if int64(votingPower) <= cfg.VotingPowerThreshold {
-				_ = SendTelegramAlert(fmt.Sprintf("Your validator %s voting power has dropped below %d", cfg.ValidatorName, cfg.VotingPowerThreshold), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("Your validator %s voting power has dropped below %d", cfg.ValidatorName, cfg.VotingPowerThreshold), cfg)
+			votingPowerThreshold := cfg.VotingPowerAlert.VotingPowerThreshold
+			if strings.ToUpper(cfg.VotingPowerAlert.EnableAlert) == "YES" && int64(votingPower) <= votingPowerThreshold {
+				_ = SendTelegramAlert(fmt.Sprintf("Your validator %s voting power has dropped below %d", cfg.ValidatorName, votingPowerThreshold), cfg)
+				_ = SendEmailAlert(fmt.Sprintf("Your validator %s voting power has dropped below %d", cfg.ValidatorName, votingPowerThreshold), cfg)
 			}
 		}
 	}
