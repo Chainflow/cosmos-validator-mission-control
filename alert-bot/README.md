@@ -30,10 +30,6 @@ cp example.config.toml config.toml
 
     Operator address of your validator which will be used to get staking, delegation and distribution rewards.
 
-- *account_addr* 
-
-    Your validator account address which will be used to get account informtion etc.
-
 - *validator_hex_addr*
 
     Validator hex address useful to know about last proposed block, missed blocks and voting power.
@@ -46,8 +42,17 @@ cp example.config.toml config.toml
 
     External open RPC endpoint(secondary RPC other than your own validator). Useful to gather information like validator caught up, syncing and missed blocks etc.
 
-After populating config.toml -  build and run the alerting bot binary
+After populating config.toml 
+
+- Build and run the alerting bot using binary
 
 ```bash
 $ go build -o cosmos-alert-bot && ./cosmos-alert-bot
+```
+
+- Run using docker
+
+```bash
+$ docker build -t alertbot .
+$ docker run -d --name chainflow-vitwit alertbot
 ```
