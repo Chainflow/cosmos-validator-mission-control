@@ -62,7 +62,7 @@ type (
 
 	// CommitInfo struct
 	CommitInfo struct {
-		Type             int64       `json:"type"`
+		// Type             int64       `json:"type"`
 		Height           string      `json:"height"`
 		Round            string      `json:"round"`
 		BlockID          interface{} `json:"block_id"`
@@ -97,9 +97,9 @@ type (
 
 	// BlockResponse response of a block information
 	BlockResponse struct {
-		JSONRPC string      `json:"jsonrpc"`
-		ID      string      `json:"id"`
-		Result  BlockResult `json:"result"`
+		JSONRPC string `json:"jsonrpc"`
+		// ID      string      `json:"id"`
+		Result BlockResult `json:"result"`
 	}
 
 	// NetworkLatestBlock stores latest block height info
