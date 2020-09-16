@@ -1,5 +1,11 @@
 package server
 
+import (
+	"cosmos-validator-mission-control/alert-bot/config"
+
+	client "github.com/influxdata/influxdb1-client/v2"
+)
+
 type (
 	// QueryParams to map the query params of an url
 	QueryParams map[string]string
@@ -109,5 +115,87 @@ type (
 				LatestBlockHeight string `json:"latest_block_height"`
 			} `json:"sync_info"`
 		} `json:"result"`
+	}
+
+	// Target is a structure which holds all the parameters of a target
+	//this could be used to write endpoints for each functionality
+	Target struct {
+		ExecutionType string
+		HTTPOptions   HTTPOptions
+		Name          string
+		Func          func(m HTTPOptions, cfg *config.Config, c client.Client)
+		ScraperRate   string
+	}
+
+	// Targets list of all the targets
+	Targets struct {
+		List []Target
+	}
+
+	ValidatorRpcStatus struct {
+		Jsonrpc string `json:"jsonrpc"`
+		ID      string `json:"id"`
+		Result  struct {
+			NodeInfo interface{} `json:"node_info"`
+			SyncInfo struct {
+				LatestBlockHash   string `json:"latest_block_hash"`
+				LatestAppHash     string `json:"latest_app_hash"`
+				LatestBlockHeight string `json:"latest_block_height"`
+				LatestBlockTime   string `json:"latest_block_time"`
+				CatchingUp        bool   `json:"catching_up"`
+			} `json:"sync_info"`
+			ValidatorInfo struct {
+				Address string `json:"address"`
+				PubKey  struct {
+					Type  string `json:"type"`
+					Value string `json:"value"`
+				} `json:"pub_key"`
+				VotingPower string `json:"voting_power"`
+			} `json:"validator_info"`
+		} `json:"result"`
+	}
+
+	// ValidatorsHeight struct which represents the details of validator
+	ValidatorsHeight struct {
+		Jsonrpc string `json:"jsonrpc"`
+		ID      string `json:"id"`
+		Result  struct {
+			BlockHeight string `json:"block_height"`
+			Validators  []struct {
+				Address string `json:"address"`
+				PubKey  struct {
+					Type  string `json:"type"`
+					Value string `json:"value"`
+				} `json:"pub_key"`
+				VotingPower      string `json:"voting_power"`
+				ProposerPriority string `json:"proposer_priority"`
+			} `json:"validators"`
+		} `json:"result"`
+	}
+
+	// Peer is a structure which holds the info about a peer address
+	Peer struct {
+		RemoteIP         string      `json:"remote_ip"`
+		ConnectionStatus interface{} `json:"connection_status"`
+		IsOutbound       bool        `json:"is_outbound"`
+		NodeInfo         struct {
+			Moniker string `json:"moniker"`
+			Network string `json:"network"`
+		} `json:"node_info"`
+	}
+
+	// NetInfoResult struct
+	NetInfoResult struct {
+		Listening bool          `json:"listening"`
+		Listeners []interface{} `json:"listeners"`
+		NumPeers  string        `json:"n_peers"`
+		Peers     []Peer        `json:"peers"`
+	}
+
+	// NetInfo is a structre which holds the details of address
+	NetInfo struct {
+		JSONRpc string        `json:"jsonrpc"`
+		ID      string        `json:"id"`
+		Result  NetInfoResult `json:"result"`
 	}
 )

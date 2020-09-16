@@ -7,6 +7,8 @@ import (
 	"log"
 	"sync"
 	"time"
+
+	client "github.com/influxdata/influxdb1-client/v2"
 )
 
 func main() {
@@ -15,28 +17,32 @@ func main() {
 		log.Fatal(err)
 	}
 
+	m := server.InitTargets(cfg)
+	runner := server.NewRunner()
+
+	c, err := client.NewHTTPClient(client.HTTPConfig{
+		Addr:     fmt.Sprintf("http://localhost:%s", cfg.InfluxDB.Port),
+		Username: cfg.InfluxDB.Username,
+		Password: cfg.InfluxDB.Password,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer c.Close()
+
 	var wg sync.WaitGroup
-	wg.Add(1)
-
-	// Calling go routine to send alerts for missed blocks
-	go func() {
-		for {
-			if err := server.SendSingleMissedBlockAlert(cfg); err != nil {
-				fmt.Println("Error while sending missed block alerts", err)
+	for _, tg := range m.List {
+		wg.Add(1)
+		go func(target server.Target) {
+			scrapeRate, err := time.ParseDuration(target.ScraperRate)
+			if err != nil {
+				log.Fatal(err)
 			}
-			time.Sleep(4 * time.Second)
-		}
-	}()
-
-	// Calling go routine to send alert about validator status
-	go func() {
-		for {
-			if err := server.ValidatorStatusAlert(cfg); err != nil {
-				fmt.Println("Error while sending jailed alerts", err)
+			for {
+				runner.Run(target.Func, target.HTTPOptions, cfg, c)
+				time.Sleep(scrapeRate)
 			}
-			time.Sleep(60 * time.Second)
-		}
-	}()
-
+		}(tg)
+	}
 	wg.Wait()
 }

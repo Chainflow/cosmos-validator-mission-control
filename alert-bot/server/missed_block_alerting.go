@@ -5,27 +5,25 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+
+	client "github.com/influxdata/influxdb1-client/v2"
 )
 
 // SendSingleMissedBlockAlert to send missed block alerting
-func SendSingleMissedBlockAlert(cfg *config.Config) error {
+func SendSingleMissedBlockAlert(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	log.Println("Calling missed block alerting")
-	ops := HTTPOptions{
-		Endpoint: cfg.ExternalRPC + "/status",
-		Method:   "GET",
-	}
 
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
 		log.Printf("Error: %v", err)
-		return err
+		return
 	}
 
 	var networkLatestBlock NetworkLatestBlock
 	err = json.Unmarshal(resp.Body, &networkLatestBlock)
 	if err != nil {
 		log.Printf("Error: %v", err)
-		return err
+		return
 	}
 
 	cbh := networkLatestBlock.Result.SyncInfo.LatestBlockHeight
@@ -37,14 +35,14 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 	})
 	if err != nil {
 		log.Printf("Error getting details of current block: %v", err)
-		return err
+		return
 	}
 
 	var b BlockResponse
 	err = json.Unmarshal(resp.Body, &b)
 	if err != nil {
 		log.Printf("Error: %v", err)
-		return err
+		return
 	}
 
 	addrExists := false
@@ -65,8 +63,8 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 	err = CheckValidatorJailed(cfg)
 	if err != nil {
 		log.Printf("Error while sending jailed alerting: %v", err)
-		return err
+		return
 	}
 
-	return nil
+	return
 }
