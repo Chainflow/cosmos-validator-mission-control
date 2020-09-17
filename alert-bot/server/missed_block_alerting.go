@@ -49,7 +49,9 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 
 	addrExists := false
 
-	for _, c := range b.Result.Block.LastCommit.Precommits {
+	log.Println("length of signatures..", len(b.Result.Block.LastCommit.Signatures))
+
+	for _, c := range b.Result.Block.LastCommit.Signatures {
 		if c.ValidatorAddress == cfg.ValidatorHexAddress {
 			addrExists = true
 		}
