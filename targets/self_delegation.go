@@ -29,15 +29,9 @@ func GetSelfDelegation(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
-	denom := ""
+	denom := delegationResp.Result.Balance.Denom
 
-	if cfg.StakingDemon == "" {
-		denom = "uatom"
-	} else {
-		denom = cfg.StakingDemon
-	}
-
-	addressBalance := convertToCommaSeparated(delegationResp.Result.Balance) + denom
+	addressBalance := convertToCommaSeparated(delegationResp.Result.Balance.Amount) + denom
 	_ = writeToInfluxDb(c, bp, "vcf_self_delegation_balance", map[string]string{}, map[string]interface{}{"balance": addressBalance})
 	log.Printf("Address Balance: %s", addressBalance)
 }

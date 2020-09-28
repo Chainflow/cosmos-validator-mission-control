@@ -250,7 +250,10 @@ type (
 
 	// SelfDelegationBalance struct
 	SelfDelegationBalance struct {
-		Balance string `json:"balance"`
+		Balance struct {
+			Denom  string `json:"denom"`
+			Amount string `json:"amount"`
+		} `json:"balance"`
 	}
 
 	// SelfDelegation struct which holds the result of a self delegation
