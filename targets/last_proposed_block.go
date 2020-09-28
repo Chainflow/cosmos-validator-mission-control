@@ -30,15 +30,14 @@ func GetLatestProposedBlockAndTime(ops HTTPOptions, cfg *config.Config, c client
 		return
 	}
 
-	blockTime := GetUserDateFormat(blockResp.BlockMeta.Header.Time)
+	blockTime := GetUserDateFormat(blockResp.Block.Header.Time)
 	fmt.Println("last proposed block time", blockTime)
 
-	if cfg.ValidatorHexAddress == blockResp.BlockMeta.Header.ProposerAddress {
+	if cfg.ValidatorHexAddress == blockResp.Block.Header.ProposerAddress {
 		fields := map[string]interface{}{
-			"height":     blockResp.BlockMeta.Header.Height,
+			"height":     blockResp.Block.Header.Height,
 			"block_time": blockTime,
 		}
-
 		_ = writeToInfluxDb(c, bp, "vcf_last_proposed_block", map[string]string{}, fields)
 	}
 }

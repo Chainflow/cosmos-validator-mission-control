@@ -2,6 +2,7 @@ package targets
 
 import (
 	"cosmos-validator-mission-control/config"
+	"time"
 
 	client "github.com/influxdata/influxdb1-client/v2"
 )
@@ -61,7 +62,6 @@ type (
 	// NetInfo is a structre which holds the details of address
 	NetInfo struct {
 		JSONRpc string        `json:"jsonrpc"`
-		ID      string        `json:"id"`
 		Result  NetInfoResult `json:"result"`
 	}
 
@@ -191,9 +191,33 @@ type (
 
 	// CurrentBlockWithHeight struct holds the details of particular block
 	CurrentBlockWithHeight struct {
-		JSONRPC string                       `json:"jsonrpc"`
-		ID      string                       `json:"id"`
-		Result  CurrentBlockWithHeightResult `json:"result"`
+		Jsonrpc string `json:"jsonrpc"`
+		Result  struct {
+			BlockID interface{} `json:"block_id"`
+			Block   struct {
+				Header struct {
+					Height string `json:"height"`
+					Time   string `json:"time"`
+				} `json:"header"`
+				Data struct {
+					Txs interface{} `json:"txs"`
+				} `json:"data"`
+				Evidence struct {
+					Evidence interface{} `json:"evidence"`
+				} `json:"evidence"`
+				LastCommit struct {
+					Height     string      `json:"height"`
+					Round      string      `json:"round"`
+					BlockID    interface{} `json:"block_id"`
+					Signatures []struct {
+						BlockIDFlag      int       `json:"block_id_flag"`
+						ValidatorAddress string    `json:"validator_address"`
+						Timestamp        time.Time `json:"timestamp"`
+						Signature        string    `json:"signature"`
+					} `json:"signatures"`
+				} `json:"last_commit"`
+			} `json:"block"`
+		} `json:"result"`
 	}
 
 	// ProposalResultContent struct holds the parameters of a proposal content result
@@ -243,31 +267,41 @@ type (
 
 	// LastProposedBlockAndTime struct holds the parameters of last proposed block
 	LastProposedBlockAndTime struct {
-		BlockMeta struct {
-			BlockID interface{} `json:"block_id"`
-			Header  struct {
+		BlockID interface{} `json:"block_id"`
+		Block   struct {
+			Header struct {
 				Version struct {
 					Block string `json:"block"`
 					App   string `json:"app"`
 				} `json:"version"`
-				ChainID            string      `json:"chain_id"`
-				Height             string      `json:"height"`
-				Time               string      `json:"time"`
-				NumTxs             string      `json:"num_txs"`
-				TotalTxs           string      `json:"total_txs"`
-				LastBlockID        interface{} `json:"last_block_id"`
-				LastCommitHash     string      `json:"last_commit_hash"`
-				DataHash           string      `json:"data_hash"`
-				ValidatorsHash     string      `json:"validators_hash"`
-				NextValidatorsHash string      `json:"next_validators_hash"`
-				ConsensusHash      string      `json:"consensus_hash"`
-				AppHash            string      `json:"app_hash"`
-				LastResultsHash    string      `json:"last_results_hash"`
-				EvidenceHash       string      `json:"evidence_hash"`
-				ProposerAddress    string      `json:"proposer_address"`
+				ChainID     string `json:"chain_id"`
+				Height      string `json:"height"`
+				Time        string `json:"time"`
+				LastBlockID struct {
+					Hash  string `json:"hash"`
+					Parts struct {
+						Total string `json:"total"`
+						Hash  string `json:"hash"`
+					} `json:"parts"`
+				} `json:"last_block_id"`
+				LastCommitHash     string `json:"last_commit_hash"`
+				DataHash           string `json:"data_hash"`
+				ValidatorsHash     string `json:"validators_hash"`
+				NextValidatorsHash string `json:"next_validators_hash"`
+				ConsensusHash      string `json:"consensus_hash"`
+				AppHash            string `json:"app_hash"`
+				LastResultsHash    string `json:"last_results_hash"`
+				EvidenceHash       string `json:"evidence_hash"`
+				ProposerAddress    string `json:"proposer_address"`
 			} `json:"header"`
-		} `json:"block_meta"`
-		Block interface{} `json:"block"`
+			Data struct {
+				Txs interface{} `json:"txs"`
+			} `json:"data"`
+			Evidence struct {
+				Evidence interface{} `json:"evidence"`
+			} `json:"evidence"`
+			LastCommit interface{} `json:"last_commit"`
+		} `json:"block"`
 	}
 
 	// ProposalVoters struct holds the parameters of proposal voters
@@ -292,7 +326,6 @@ type (
 	// ValidatorsHeight struct which represents the details of validator
 	ValidatorsHeight struct {
 		Jsonrpc string `json:"jsonrpc"`
-		ID      string `json:"id"`
 		Result  struct {
 			BlockHeight string `json:"block_height"`
 			Validators  []struct {
@@ -323,7 +356,6 @@ type (
 	// UnconfirmedTxns struct which holds the parameters of unconfirmed txns
 	UnconfirmedTxns struct {
 		Jsonrpc string `json:"jsonrpc"`
-		ID      string `json:"id"`
 		Result  struct {
 			NTxs       string      `json:"n_txs"`
 			Total      string      `json:"total"`
@@ -334,7 +366,6 @@ type (
 
 	ValidatorRpcStatus struct {
 		Jsonrpc string `json:"jsonrpc"`
-		ID      string `json:"id"`
 		Result  struct {
 			NodeInfo struct {
 				ProtocolVersion struct {
@@ -342,7 +373,6 @@ type (
 					Block string `json:"block"`
 					App   string `json:"app"`
 				} `json:"protocol_version"`
-				ID         string `json:"id"`
 				ListenAddr string `json:"listen_addr"`
 				Network    string `json:"network"`
 				Version    string `json:"version"`

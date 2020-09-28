@@ -41,7 +41,10 @@ func GetBlockTimeDifference(ops HTTPOptions, cfg *config.Config, c client.Client
 	}
 
 	currentBlockTime := currentBlockResp.Result.Block.Header.Time
-	currentHeight, _ := strconv.Atoi(currentBlockHeight)
+	var currentHeight int
+	if currentBlockHeight != "" {
+		currentHeight, _ = strconv.Atoi(currentBlockHeight)
+	}
 
 	prevHeight := currentHeight - 1
 	ops.Endpoint = cfg.ValidatorRpcEndpoint + "/block"
@@ -67,6 +70,5 @@ func GetBlockTimeDifference(ops HTTPOptions, cfg *config.Config, c client.Client
 	diffSeconds := fmt.Sprintf("%.2f", timeDiff.Seconds())
 
 	_ = writeToInfluxDb(c, bp, "vcf_block_time_diff", map[string]string{}, map[string]interface{}{"time_diff": diffSeconds})
-	log.Printf("time diff: %d", timeDiff)
-
+	log.Printf("time diff: %s", diffSeconds)
 }

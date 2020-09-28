@@ -81,6 +81,5 @@ func GetValidatorBlock(cfg *config.Config, c client.Client) string {
 			}
 		}
 	}
-
 	return validatorHeight
 }

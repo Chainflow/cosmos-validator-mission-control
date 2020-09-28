@@ -53,7 +53,7 @@ func SendSingleMissedBlockAlert(ops HTTPOptions, cfg *config.Config, c client.Cl
 	if &b != nil {
 
 		addrExists := false
-		for _, c := range b.Result.Block.LastCommit.Precommits {
+		for _, c := range b.Result.Block.LastCommit.Signatures {
 			if c.ValidatorAddress == cfg.ValidatorHexAddress {
 				addrExists = true
 			}
@@ -117,7 +117,7 @@ func GetMissedBlocks(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	if &b != nil {
 		addrExists := false
-		for _, c := range b.Result.Block.LastCommit.Precommits {
+		for _, c := range b.Result.Block.LastCommit.Signatures {
 			if c.ValidatorAddress == cfg.ValidatorHexAddress {
 				addrExists = true
 			}

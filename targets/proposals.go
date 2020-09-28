@@ -14,7 +14,6 @@ import (
 
 // GetValidatorVoted to check validator voted for the proposal or not
 func GetValidatorVoted(LCDEndpoint string, proposalID string, accountAddress string) string {
-
 	proposalURL := LCDEndpoint + "/gov/proposals/" + proposalID + "/votes"
 	res, err := http.Get(proposalURL)
 	if err != nil {

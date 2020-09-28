@@ -11,7 +11,6 @@ import (
 
 // GetCurrentRewardsAmount to get current rewards of a validator using operator address
 func GetCurrentRewardsAmount(ops HTTPOptions, cfg *config.Config, c client.Client) {
-
 	bp, err := createBatchPoints(cfg.InfluxDB.Database)
 	if err != nil {
 		log.Printf("Error: %v", err)
