@@ -78,6 +78,16 @@ func InitTargets(cfg *config.Config) *Targets {
 			ScraperRate: cfg.Scraper.Rate,
 		},
 		{
+			ExecutionType: "http",
+			Name:          "Validator Voting Power",
+			HTTPOptions: HTTPOptions{
+				Endpoint: cfg.ValidatorRPCEndpoint + "/validators",
+				Method:   http.MethodGet,
+			},
+			Func:        GetValidatorVotingPower,
+			ScraperRate: cfg.Scraper.Rate,
+		},
+		{
 			ExecutionType: "Telegram command",
 			Name:          "command based alerts",
 			Func:          TelegramAlerting,

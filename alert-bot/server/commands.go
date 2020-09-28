@@ -39,8 +39,6 @@ func TelegramAlerting(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			msgToSend = GetStatus(cfg, c)
 		} else if update.Message.Text == "/node" {
 			msgToSend = NodeStatus(cfg, c)
-		} else if update.Message.Text == "/account" {
-
 		} else if update.Message.Text == "/peers" {
 			msgToSend = GetPeersCountMsg(cfg, c)
 		} else if update.Message.Text == "/help" {

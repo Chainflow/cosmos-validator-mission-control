@@ -52,7 +52,7 @@ func GetNetInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 // GetPeersCount returns count of peer addresses from db
 func GetPeersCount(cfg *config.Config, c client.Client) string {
 	var count string
-	q := client.NewQuery("SELECT last(addresses_count) FROM vcf_peer_addresses", cfg.InfluxDB.Database, "")
+	q := client.NewQuery("SELECT last(count) FROM vcf_num_peers", cfg.InfluxDB.Database, "")
 	if response, err := c.Query(q); err == nil && response.Error() == nil {
 		for _, r := range response.Results {
 			if len(r.Series) != 0 {
