@@ -13,7 +13,7 @@ import (
 func TelegramAlerting(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	bot, err := tgbotapi.NewBotAPI(cfg.Telegram.BotToken)
 	if err != nil {
-		log.Panic(err)
+		log.Fatalf("Please configure your telegram bot token ", err)
 	}
 
 	bot.Debug = true
@@ -30,7 +30,6 @@ func TelegramAlerting(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	msgToSend := ""
 
 	for update := range updates {
-		log.Println("Cmng here..", update.Message.Text)
 		if update.Message == nil { // ignore any non-Message Updates
 			continue
 		}
@@ -41,10 +40,10 @@ func TelegramAlerting(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			msgToSend = NodeStatus(cfg, c)
 		} else if update.Message.Text == "/peers" {
 			msgToSend = GetPeersCountMsg(cfg, c)
-		} else if update.Message.Text == "/help" {
+		} else if update.Message.Text == "/list" {
 			msgToSend = GetHelp()
 		} else {
-			msgToSend = "Command not found do /help to know about available commands"
+			msgToSend = "Command not found do /list to know about available commands"
 		}
 
 		log.Printf("[%s] %s", update.Message.From.UserName, msgToSend)
@@ -56,11 +55,11 @@ func TelegramAlerting(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 }
 
-// GetHelp returns the msg to show for /help
+// GetHelp returns the msg to show for /list
 func GetHelp() string {
 	msg := "List of available commands\n /status - returns validator status, voting power, current block height " +
 		"and network block height\n /peers - returns number of connected peers\n /node - return status of caught-up\n" +
-		"/help - list out the available commands"
+		"/list - list out the available commands"
 
 	return msg
 }

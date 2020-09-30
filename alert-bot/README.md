@@ -137,7 +137,7 @@ $ docker run -d --name chainflow-vitwit alertbot
  - /status : Gives validator's status,current block height, voting power and network current block height.
  - /node : Gives status of caught-up
  - /peers : Returns number of connected peers
- - /help : list out the available commands
+ - /list : list out the available commands
 
  ## Feedback and Questions
 
