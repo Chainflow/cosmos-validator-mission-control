@@ -30,10 +30,11 @@ type (
 
 	//InfluxDB details
 	InfluxDB struct {
-		Port     string `mapstructure:"port"`
-		Database string `mapstructure:"database"`
-		Username string `mapstructure:"username"`
-		Password string `mapstructure:"password"`
+		Port      string `mapstructure:"port"`
+		Database  string `mapstructure:"database"`
+		Username  string `mapstructure:"username"`
+		Password  string `mapstructure:"password"`
+		InfluxURL string `mapstructure:"influx_url"`
 	}
 
 	//Config
