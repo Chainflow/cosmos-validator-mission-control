@@ -24,7 +24,7 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 	var networkLatestBlock NetworkLatestBlock
 	err = json.Unmarshal(resp.Body, &networkLatestBlock)
 	if err != nil {
-		log.Printf("Error: %v", err)
+		log.Printf("Error while unmarshalling n/w status res: %v", err)
 		return err
 	}
 
@@ -43,7 +43,7 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 	var b BlockResponse
 	err = json.Unmarshal(resp.Body, &b)
 	if err != nil {
-		log.Printf("Error: %v", err)
+		log.Printf("Error while unmarshelling block res : %v", err)
 		return err
 	}
 

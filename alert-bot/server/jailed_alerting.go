@@ -70,14 +70,14 @@ func CheckValidatorJailed(cfg *config.Config) error {
 
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
-		log.Printf("Error: %v", err)
+		log.Printf("Error : %v", err)
 		return err
 	}
 
 	var validatorResp ValidatorResp
 	err = json.Unmarshal(resp.Body, &validatorResp)
 	if err != nil {
-		log.Printf("Error: %v", err)
+		log.Printf("Error while unmarshelling staking val res: %v", err)
 		return err
 	}
 

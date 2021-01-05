@@ -18,40 +18,10 @@ type (
 		Body       []byte
 	}
 
-	// ValidatorDescription struct
-	ValidatorMetaInfo struct {
-		Moniker  string `json:"moniker"`
-		Identity string `json:"identity"`
-		Website  string `json:"website"`
-		Details  string `json:"details"`
-	}
-
-	// ValidatorCommissionRates struct
-	ValidatorCommissionRates struct {
-		Rate          string `json:"rate"`
-		MaxRate       string `json:"max_rate"`
-		MaxChangeRate string `json:"max_change_rate"`
-	}
-
-	// ValidatorCommission struct
-	ValidatorCommission struct {
-		CommissionRates ValidatorCommissionRates `json:"commission_rates"`
-		UpdateTime      string                   `json:"update_time"`
-	}
-
 	// ValidatorResult struct
 	ValidatorDetails struct {
-		OperatorAddress   string              `json:"operator_address"`
-		ConsensusPubKey   string              `json:"consensus_pubkey"`
-		Jailed            bool                `json:"jailed"`
-		Status            int                 `json:"status"`
-		Tokens            string              `json:"tokens"`
-		DelegatorShares   string              `json:"delegator_shares"`
-		Description       ValidatorMetaInfo   `json:"description"`
-		UnbondingHeight   string              `json:"unbonding_height"`
-		UnbondingTime     string              `json:"unbonding_time"`
-		Commission        ValidatorCommission `json:"commission"`
-		MinSelfDelegation string              `json:"min_self_delegation"`
+		OperatorAddress string `json:"operator_address"`
+		Jailed          bool   `json:"jailed"`
 	}
 
 	// ValidatorResp defines validator result on a particular height
@@ -62,14 +32,8 @@ type (
 
 	// CommitInfo struct
 	CommitInfo struct {
-		// Type             int64       `json:"type"`
-		Height           string      `json:"height"`
-		Round            string      `json:"round"`
-		BlockID          interface{} `json:"block_id"`
-		Timestamp        string      `json:"timestamp"`
-		ValidatorAddress string      `json:"validator_address"`
-		ValidatorIndex   string      `json:"validator_index"`
-		Signature        string      `json:"signature"`
+		ValidatorAddress string `json:"validator_address"`
+		Signature        string `json:"signature"`
 	}
 
 	// LastCommitInfo stores block precommits
@@ -80,10 +44,7 @@ type (
 
 	// BlockInfo stores latest block details
 	BlockInfo struct {
-		Header struct {
-			Height string `json:"height"`
-			Time   string `json:"time`
-		} `json:"header"`
+		Header     interface{}    `json:"header"`
 		Data       interface{}    `json:"data"`
 		Evidence   interface{}    `json:"evidence"`
 		LastCommit LastCommitInfo `json:"last_commit"`
@@ -97,9 +58,8 @@ type (
 
 	// BlockResponse response of a block information
 	BlockResponse struct {
-		JSONRPC string `json:"jsonrpc"`
-		// ID      string      `json:"id"`
-		Result BlockResult `json:"result"`
+		JSONRPC string      `json:"jsonrpc"`
+		Result  BlockResult `json:"result"`
 	}
 
 	// NetworkLatestBlock stores latest block height info
