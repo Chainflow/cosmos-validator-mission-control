@@ -13,7 +13,7 @@ import (
 func ValidatorStatusAlert(cfg *config.Config) error {
 	log.Println("Coming inside validator status alerting")
 	ops := HTTPOptions{
-		Endpoint: cfg.LCDEndpoint + "/staking/validators/" + cfg.ValOperatorAddress,
+		Endpoint: cfg.LCDEndpoint + "/stake/validators/" + cfg.ValOperatorAddress,
 		Method:   http.MethodGet,
 	}
 
@@ -45,7 +45,7 @@ func ValidatorStatusAlert(cfg *config.Config) error {
 	log.Println("a1, a2 and present time : ", a1, a2, t)
 
 	if t == a1 || t == a2 {
-		validatorStatus := validatorResp.Result.Jailed
+		validatorStatus := validatorResp.Jailed
 		if !validatorStatus {
 			_ = SendTelegramAlert(fmt.Sprintf("%s validator is currently voting", cfg.ValidatorName), cfg)
 			_ = SendEmailAlert(fmt.Sprintf("%s validator is currently voting", cfg.ValidatorName), cfg)
@@ -64,7 +64,7 @@ func ValidatorStatusAlert(cfg *config.Config) error {
 func CheckValidatorJailed(cfg *config.Config) error {
 	log.Println("Coming inside jailed alerting")
 	ops := HTTPOptions{
-		Endpoint: cfg.LCDEndpoint + "/staking/validators/" + cfg.ValOperatorAddress,
+		Endpoint: cfg.LCDEndpoint + "/stake/validators/" + cfg.ValOperatorAddress,
 		Method:   http.MethodGet,
 	}
 
@@ -81,11 +81,12 @@ func CheckValidatorJailed(cfg *config.Config) error {
 		return err
 	}
 
-	validatorStatus := validatorResp.Result.Jailed
+	validatorStatus := validatorResp.Jailed
 	if validatorStatus {
 		_ = SendTelegramAlert(fmt.Sprintf("%s validator is in jailed status", cfg.ValidatorName), cfg)
 		_ = SendEmailAlert(fmt.Sprintf("%s validator is in jailed status", cfg.ValidatorName), cfg)
 		log.Println("Sent validator jailed status alert")
 	}
+
 	return nil
 }

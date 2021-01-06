@@ -18,16 +18,10 @@ type (
 		Body       []byte
 	}
 
-	// ValidatorResult struct
-	ValidatorDetails struct {
-		OperatorAddress string `json:"operator_address"`
-		Jailed          bool   `json:"jailed"`
-	}
-
 	// ValidatorResp defines validator result on a particular height
 	ValidatorResp struct {
-		Height string           `json:"height"`
-		Result ValidatorDetails `json:"result"`
+		OperatorAddress string `json:"operator_address"`
+		Jailed          bool   `json:"jailed"`
 	}
 
 	// CommitInfo struct
