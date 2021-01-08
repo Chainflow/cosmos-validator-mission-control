@@ -60,9 +60,9 @@ type (
 
 	// NetInfo is a structre which holds the details of address
 	NetInfo struct {
-		JSONRpc string        `json:"jsonrpc"`
-		ID      string        `json:"id"`
-		Result  NetInfoResult `json:"result"`
+		JSONRpc string `json:"jsonrpc"`
+		// ID      string        `json:"id"`
+		Result NetInfoResult `json:"result"`
 	}
 
 	// SyncInfo response
@@ -84,7 +84,6 @@ type (
 	// GaiaCliStatusNodeInfo struct holds the parameters of a node status
 	GaiaCliStatusNodeInfo struct {
 		ProtocolVersion interface{} `json:"protocol_version"`
-		ID              string      `json:"id"`
 		ListenAddr      string      `json:"listen_addr"`
 		Network         string      `json:"network"`
 		Version         string      `json:"version"`
@@ -192,7 +191,6 @@ type (
 	// CurrentBlockWithHeight struct holds the details of particular block
 	CurrentBlockWithHeight struct {
 		JSONRPC string                       `json:"jsonrpc"`
-		ID      string                       `json:"id"`
 		Result  CurrentBlockWithHeightResult `json:"result"`
 	}
 
@@ -292,7 +290,6 @@ type (
 	// ValidatorsHeight struct which represents the details of validator
 	ValidatorsHeight struct {
 		Jsonrpc string `json:"jsonrpc"`
-		ID      string `json:"id"`
 		Result  struct {
 			BlockHeight string `json:"block_height"`
 			Validators  []struct {
@@ -323,7 +320,6 @@ type (
 	// UnconfirmedTxns struct which holds the parameters of unconfirmed txns
 	UnconfirmedTxns struct {
 		Jsonrpc string `json:"jsonrpc"`
-		ID      string `json:"id"`
 		Result  struct {
 			NTxs       string      `json:"n_txs"`
 			Total      string      `json:"total"`
@@ -334,7 +330,6 @@ type (
 
 	ValidatorRpcStatus struct {
 		Jsonrpc string `json:"jsonrpc"`
-		ID      string `json:"id"`
 		Result  struct {
 			NodeInfo struct {
 				ProtocolVersion struct {
@@ -342,7 +337,6 @@ type (
 					Block string `json:"block"`
 					App   string `json:"app"`
 				} `json:"protocol_version"`
-				ID         string `json:"id"`
 				ListenAddr string `json:"listen_addr"`
 				Network    string `json:"network"`
 				Version    string `json:"version"`
