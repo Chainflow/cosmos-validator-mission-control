@@ -26,6 +26,13 @@ func SendSingleMissedBlockAlert(cfg *config.Config, c client.Client, addrExists 
 		}
 	}
 
+	// Calling function to check validator jailed status
+	err = CheckValidatorJailed(cfg)
+	if err != nil {
+		log.Printf("Error while sending jailed alerting: %v", err)
+		return err
+	}
+
 	return nil
 }
 
