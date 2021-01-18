@@ -22,14 +22,10 @@ func SendSingleMissedBlockAlert(cfg *config.Config, c client.Client, addrExists 
 		if cfg.MissedBlocksThreshold == 1 {
 			_ = SendTelegramAlert(fmt.Sprintf("%s validator missed a block at block height %s", cfg.ValidatorName, cbh), cfg)
 			_ = SendEmailAlert(fmt.Sprintf("%s validator missed a block at block height %s", cfg.ValidatorName, cbh), cfg)
-			// _ = writeToInfluxDb(c, bp, "iris_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": cbh, "range": cbh})
 			_ = writeToInfluxDb(c, bp, "iris_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
-			_ = writeToInfluxDb(c, bp, "iris_total_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
-		} else {
-			_ = writeToInfluxDb(c, bp, "iris_total_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": cbh, "current_height": cbh})
 		}
 	}
-	
+
 	return nil
 }
 
@@ -104,6 +100,7 @@ func GetMissedBlocks(cfg *config.Config, c client.Client) error {
 					missedBlocks := strings.Split(blocks, ",")
 					err = SendTelegramAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
 					err = SendEmailAlert(fmt.Sprintf("%s validator missed blocks from height %s to %s", cfg.ValidatorName, missedBlocks[0], missedBlocks[len(missedBlocks)-2]), cfg)
+					// _ = writeToInfluxDb(c, bp, "iris_continuous_missed_blocks", map[string]string{}, map[string]interface{}{"missed_blocks": blocks, "range": missedBlocks[0] + " - " + missedBlocks[len(missedBlocks)-2]})
 					err = writeToInfluxDb(c, bp, "iris_missed_blocks", map[string]string{}, map[string]interface{}{"block_height": "", "current_height": cbh})
 					if err != nil {
 						return err
