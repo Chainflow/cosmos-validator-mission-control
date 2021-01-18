@@ -7,6 +7,8 @@ import (
 	"log"
 	"sync"
 	"time"
+
+	client "github.com/influxdata/influxdb1-client/v2"
 )
 
 func main() {
@@ -15,13 +17,19 @@ func main() {
 		log.Fatal(err)
 	}
 
+	c, err := client.NewHTTPClient(client.HTTPConfig{
+		Addr:     fmt.Sprintf("http://localhost:%s", cfg.InfluxDB.Port),
+		Username: cfg.InfluxDB.Username,
+		Password: cfg.InfluxDB.Password,
+	})
+
 	var wg sync.WaitGroup
 	wg.Add(1)
 
 	// Calling go routine to send alerts for missed blocks
 	go func() {
 		for {
-			if err := server.SendSingleMissedBlockAlert(cfg); err != nil {
+			if err := server.GetMissedBlocks(cfg, c); err != nil {
 				fmt.Println("Error while sending missed block alerts", err)
 			}
 			time.Sleep(4 * time.Second)
