@@ -96,7 +96,7 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 			log.Println("timeDiff...", timeDiff.Hours())
 
 			var proposalAlertCount = 1
-			count := GetVotesProposalAlertsCount(cfg, c)
+			count := GetVotesProposalAlertsCount(cfg, c, proposal.ID)
 			if count != "" {
 				pac, err := strconv.Atoi(count)
 				if err != nil {
@@ -111,7 +111,7 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 				_ = SendEmailAlert(fmt.Sprintf("%s validator has not voted on proposal = %s", cfg.ValidatorName, proposal.ID), cfg)
 
 				proposalAlertCount = proposalAlertCount + 1
-				_ = writeToInfluxDb(c, bp, "vcf_votes_proposal_alert_count", map[string]string{}, map[string]interface{}{"count": proposalAlertCount})
+				_ = writeToInfluxDb(c, bp, "vcf_votes_proposal_alert_count", map[string]string{}, map[string]interface{}{"count": proposalAlertCount, "proposal_id": proposal.ID})
 
 				log.Println("Sent alert of voting period proposals")
 			}
@@ -121,7 +121,7 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 				_ = SendEmailAlert(fmt.Sprintf("%s validator has not voted on proposal = %s", cfg.ValidatorName, proposal.ID), cfg)
 
 				proposalAlertCount = proposalAlertCount + 1
-				_ = writeToInfluxDb(c, bp, "vcf_votes_proposal_alert_count", map[string]string{}, map[string]interface{}{"count": proposalAlertCount})
+				_ = writeToInfluxDb(c, bp, "vcf_votes_proposal_alert_count", map[string]string{}, map[string]interface{}{"count": proposalAlertCount, "proposal_id": proposal.ID})
 
 				log.Println("Sent alert of voting period proposals")
 			}
@@ -313,9 +313,9 @@ func GetUserDateFormat(timeToConvert string) string {
 }
 
 // GetVotesProposalAlertsCount returns the count of voting period alerts
-func GetVotesProposalAlertsCount(cfg *config.Config, c client.Client) string {
+func GetVotesProposalAlertsCount(cfg *config.Config, c client.Client, proposalID string) string {
 	var count string
-	q := client.NewQuery("SELECT last(count) FROM vcf_votes_proposal_alert_count", cfg.InfluxDB.Database, "")
+	q := client.NewQuery(fmt.Sprintf("SELECT last(count) FROM vcf_votes_proposal_alert_count WHERE proposal_id = '%s'", proposalID), cfg.InfluxDB.Database, "")
 	if response, err := c.Query(q); err == nil && response.Error() == nil {
 		for _, r := range response.Results {
 			if len(r.Series) != 0 {
