@@ -190,15 +190,20 @@ type (
 		Result []ProposalResult `json:"result"`
 	}
 
-	// SelfDelegationBalance struct
-	SelfDelegationBalance struct {
-		Balance string `json:"balance"`
-	}
-
 	// SelfDelegation struct which holds the result of a self delegation
 	SelfDelegation struct {
-		Height string                `json:"height"`
-		Result SelfDelegationBalance `json:"result"`
+		Height string `json:"height"`
+		Result struct {
+			Delegation struct {
+				DelegatorAddress string `json:"delegator_address"`
+				ValidatorAddress string `json:"validator_address"`
+				Shares           string `json:"shares"`
+			} `json:"delegation"`
+			Balance struct {
+				Denom  string `json:"denom"`
+				Amount string `json:"amount"`
+			} `json:"balance"`
+		} `json:"result"`
 	}
 
 	// CurrentRewardsAmount struct holds the parameters of current rewards amount
@@ -271,8 +276,7 @@ type (
 
 	// UnconfirmedTxns struct which holds the parameters of unconfirmed txns
 	UnconfirmedTxns struct {
-		Jsonrpc string `json:"jsonrpc"`
-		Result  struct {
+		Result struct {
 			NTxs       string      `json:"n_txs"`
 			Total      string      `json:"total"`
 			TotalBytes string      `json:"total_bytes"`
