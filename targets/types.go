@@ -152,45 +152,24 @@ type (
 		Result []AccountBalance `json:"result"`
 	}
 
-	// CurrentBlockPrecommit struct holds the parameters of a block precommit details
-	CurrentBlockPrecommit struct {
-		Type             int64       `json:"type"`
-		Height           string      `json:"height"`
-		Round            string      `json:"round"`
-		BlockID          interface{} `json:"block_id"`
-		Timestamp        string      `json:"timestamp"`
-		ValidatorAddress string      `json:"validator_address"`
-		ValidatorIndex   string      `json:"validator_index"`
-		Signature        string      `json:"signature"`
-	}
-
-	// CurrentBlockLastCommit struct holds the parameters of a block lastcommit details
-	CurrentBlockLastCommit struct {
-		BlockID    interface{}             `json:"block_id"`
-		Precommits []CurrentBlockPrecommit `json:"precommits"`
-	}
-
-	// CurrentBlock struct holds the parameters of block details
-	CurrentBlock struct {
-		Header struct {
-			Height string `json:"height"`
-			Time   string `json:"time`
-		} `json:"header"`
-		Data       interface{}            `json:"data"`
-		Evidence   interface{}            `json:"evidence"`
-		LastCommit CurrentBlockLastCommit `json:"last_commit"`
-	}
-
-	// CurrentBlockWithHeightResult struct
-	CurrentBlockWithHeightResult struct {
-		BlockMeta interface{}  `json:"block_meta"`
-		Block     CurrentBlock `json:"block"`
-	}
-
 	// CurrentBlockWithHeight struct holds the details of particular block
 	CurrentBlockWithHeight struct {
-		JSONRPC string                       `json:"jsonrpc"`
-		Result  CurrentBlockWithHeightResult `json:"result"`
+		// JSONRPC string                       `json:"jsonrpc"`
+		// Result  CurrentBlockWithHeightResult `json:"result"`
+		Result struct {
+			Block struct {
+				Header struct {
+					Height string `json:"height"`
+					Time   string `json:"time`
+				} `json:"header"`
+				LastCommit struct {
+					Signatures []struct {
+						ValidatorAddress string `json:"validator_address"`
+						Signature        string `json:"signature"`
+					} `json:"signatures"`
+				} `json:"last_commit"`
+			} `json:"block"`
+		} `json:"result"`
 	}
 
 	// ProposalResultContent struct holds the parameters of a proposal content result
