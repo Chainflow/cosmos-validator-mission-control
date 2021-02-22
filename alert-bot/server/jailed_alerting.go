@@ -13,7 +13,7 @@ import (
 func ValidatorStatusAlert(cfg *config.Config) error {
 	log.Println("Coming inside validator status alerting")
 	ops := HTTPOptions{
-		Endpoint: cfg.LCDEndpoint + "/staking/validators/" + cfg.ValOperatorAddress,
+		Endpoint: cfg.LCDEndpoint + "/cosmos/staking/v1beta1/validators/" + cfg.ValOperatorAddress,
 		Method:   http.MethodGet,
 	}
 
@@ -23,7 +23,7 @@ func ValidatorStatusAlert(cfg *config.Config) error {
 		return err
 	}
 
-	var validatorResp ValidatorResp
+	var validatorResp Validator
 	err = json.Unmarshal(resp.Body, &validatorResp)
 	if err != nil {
 		log.Printf("Error while unmarshelling staking val res : %v", err)
@@ -45,7 +45,7 @@ func ValidatorStatusAlert(cfg *config.Config) error {
 	log.Println("a1, a2 and present time : ", a1, a2, t)
 
 	if t == a1 || t == a2 {
-		validatorStatus := validatorResp.Result.Jailed
+		validatorStatus := validatorResp.Validator.Jailed
 		if !validatorStatus {
 			_ = SendTelegramAlert(fmt.Sprintf("%s validator is currently voting", cfg.ValidatorName), cfg)
 			_ = SendEmailAlert(fmt.Sprintf("%s validator is currently voting", cfg.ValidatorName), cfg)
@@ -64,7 +64,7 @@ func ValidatorStatusAlert(cfg *config.Config) error {
 func CheckValidatorJailed(cfg *config.Config) error {
 	log.Println("Coming inside jailed alerting")
 	ops := HTTPOptions{
-		Endpoint: cfg.LCDEndpoint + "/staking/validators/" + cfg.ValOperatorAddress,
+		Endpoint: cfg.LCDEndpoint + "/cosmos/staking/v1beta1/validators/" + cfg.ValOperatorAddress,
 		Method:   http.MethodGet,
 	}
 
@@ -74,14 +74,14 @@ func CheckValidatorJailed(cfg *config.Config) error {
 		return err
 	}
 
-	var validatorResp ValidatorResp
+	var validatorResp Validator
 	err = json.Unmarshal(resp.Body, &validatorResp)
 	if err != nil {
 		log.Printf("Error while unmarshelling staking val res : %v", err)
 		return err
 	}
 
-	validatorStatus := validatorResp.Result.Jailed
+	validatorStatus := validatorResp.Validator.Jailed
 	if validatorStatus {
 		_ = SendTelegramAlert(fmt.Sprintf("%s validator is in jailed status", cfg.ValidatorName), cfg)
 		_ = SendEmailAlert(fmt.Sprintf("%s validator is in jailed status", cfg.ValidatorName), cfg)

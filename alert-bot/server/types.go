@@ -18,50 +18,6 @@ type (
 		Body       []byte
 	}
 
-	// ValidatorResult struct
-	ValidatorDetails struct {
-		Jailed bool `json:"jailed"`
-	}
-
-	// ValidatorResp defines validator result on a particular height
-	ValidatorResp struct {
-		Height string           `json:"height"`
-		Result ValidatorDetails `json:"result"`
-	}
-
-	// CommitInfo struct
-	CommitInfo struct {
-		ValidatorAddress string `json:"validator_address"`
-		Signature        string `json:"signature"`
-	}
-
-	// LastCommitInfo stores block precommits
-	LastCommitInfo struct {
-		BlockID    interface{}  `json:"block_id"`
-		Precommits []CommitInfo `json:"precommits"`
-	}
-
-	// BlockInfo stores latest block details
-	BlockInfo struct {
-		Header     interface{}    `json:"header"`
-		Data       interface{}    `json:"data"`
-		Evidence   interface{}    `json:"evidence"`
-		LastCommit LastCommitInfo `json:"last_commit"`
-	}
-
-	// BlockResult stores block meta information
-	BlockResult struct {
-		BlockMeta interface{} `json:"block_meta"`
-		Block     BlockInfo   `json:"block"`
-	}
-
-	// BlockResponse response of a block information
-	BlockResponse struct {
-		JSONRPC string `json:"jsonrpc"`
-		// ID      string      `json:"id"`
-		Result BlockResult `json:"result"`
-	}
-
 	// NetworkLatestBlock stores latest block height info
 	NetworkLatestBlock struct {
 		Result struct {
@@ -69,5 +25,27 @@ type (
 				LatestBlockHeight string `json:"latest_block_height"`
 			} `json:"sync_info"`
 		} `json:"result"`
+	}
+
+	// CurrentBlock is a struct which holds latest current block details
+	CurrentBlock struct {
+		Result struct {
+			Block struct {
+				LastCommit struct {
+					Signatures []struct {
+						ValidatorAddress string `json:"validator_address"`
+						Signature        string `json:"signature"`
+					} `json:"signatures"`
+				} `json:"last_commit"`
+			} `json:"block"`
+		} `json:"result"`
+	}
+
+	// Validator is a struct which holds validator staking info
+	Validator struct {
+		Validator struct {
+			Jailed bool   `json:"jailed"`
+			Status string `json:"status"`
+		} `json:"validator"`
 	}
 )
