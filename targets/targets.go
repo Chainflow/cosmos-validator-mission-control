@@ -71,7 +71,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Operator Account Information",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "/bank/balances/" + cfg.AccountAddress,
+				Endpoint: cfg.LCDEndpoint + "/cosmos/bank/v1beta1/balances/" + cfg.AccountAddress,
 				Method:   http.MethodGet,
 			},
 			Func:        GetAccountInfo,

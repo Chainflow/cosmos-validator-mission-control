@@ -148,8 +148,12 @@ type (
 
 	// AccountResp struct which holds the response paramaters of an account
 	AccountResp struct {
-		Height string           `json:"height"`
-		Result []AccountBalance `json:"result"`
+		Result   []AccountBalance `json:"result"`
+		Balances []struct {
+			Denom  string `json:"denom"`
+			Amount string `json:"amount"`
+		} `json:"balances"`
+		Pagination interface{} `json:"pagination"`
 	}
 
 	// CurrentBlockWithHeight struct holds the details of particular block
