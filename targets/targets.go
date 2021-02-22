@@ -61,7 +61,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Operator Information",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "/staking/validators/" + cfg.ValOperatorAddress,
+				Endpoint: cfg.LCDEndpoint + "/cosmos/staking/v1beta1/validators/" + cfg.ValOperatorAddress,
 				Method:   http.MethodGet,
 			},
 			Func:        GetOperatorInfo,
@@ -188,7 +188,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Get Validator status alerting",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "/staking/validators/",
+				Endpoint: cfg.LCDEndpoint + "/cosmos/staking/v1beta1/validators/",
 				Method:   http.MethodGet,
 			},
 			Func:        ValidatorStatusAlert,

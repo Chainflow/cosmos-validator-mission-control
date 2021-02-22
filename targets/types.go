@@ -99,45 +99,31 @@ type (
 		ValidatorInfo ValidatorInfo         `json:"validator_info"`
 	}
 
-	// ValidatorDescription structure which holds the parameters of a validator description
-	ValidatorDescription struct {
-		Moniker  string `json:"moniker"`
-		Identity string `json:"identity"`
-		Website  string `json:"website"`
-		Details  string `json:"details"`
-	}
-
-	// ValidatorCommissionRates structure holds the parameters of commision rates
-	ValidatorCommissionRates struct {
-		Rate          string `json:"rate"`
-		MaxRate       string `json:"max_rate"`
-		MaxChangeRate string `json:"max_change_rate"`
-	}
-
-	// ValidatorCommission strcut holds the parameters of commission details of a validator
-	ValidatorCommission struct {
-		CommissionRates ValidatorCommissionRates `json:"commission_rates"`
-		UpdateTime      string                   `json:"update_time"`
-	}
-
-	// ValidatorResult structure is a sub struct of validator response
-	ValidatorResult struct {
-		OperatorAddress   string               `json:"operator_address"`
-		Jailed            bool                 `json:"jailed"`
-		Status            int                  `json:"status"`
-		Tokens            string               `json:"tokens"`
-		DelegatorShares   string               `json:"delegator_shares"`
-		Description       ValidatorDescription `json:"description"`
-		UnbondingHeight   string               `json:"unbonding_height"`
-		UnbondingTime     string               `json:"unbonding_time"`
-		Commission        ValidatorCommission  `json:"commission"`
-		MinSelfDelegation string               `json:"min_self_delegation"`
-	}
-
 	// ValidatorResp structure which holds the parameters of a validator response
 	ValidatorResp struct {
-		Height string          `json:"height"`
-		Result ValidatorResult `json:"result"`
+		Validator struct {
+			OperatorAddress string `json:"operator_address"`
+			Jailed          bool   `json:"jailed"`
+			Status          string `json:"status"`
+			Description     struct {
+				Moniker         string `json:"moniker"`
+				Identity        string `json:"identity"`
+				Website         string `json:"website"`
+				SecurityContact string `json:"security_contact"`
+				Details         string `json:"details"`
+			} `json:"description"`
+			UnbondingHeight string `json:"unbonding_height"`
+			UnbondingTime   string `json:"unbonding_time"`
+			Commission      struct {
+				CommissionRates struct {
+					Rate          string `json:"rate"`
+					MaxRate       string `json:"max_rate"`
+					MaxChangeRate string `json:"max_change_rate"`
+				} `json:"commission_rates"`
+				UpdateTime string `json:"update_time"`
+			} `json:"commission"`
+			MinSelfDelegation string `json:"min_self_delegation"`
+		} `json:"validator"`
 	}
 
 	// AccountBalance struct which holds the parameters of an account amount

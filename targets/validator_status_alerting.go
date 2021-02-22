@@ -44,7 +44,7 @@ func ValidatorStatusAlert(ops HTTPOptions, cfg *config.Config, c client.Client) 
 	log.Println("a1, a2 and present time : ", a1, a2, t)
 
 	if t == a1 || t == a2 {
-		validatorStatus := validatorResp.Result.Jailed
+		validatorStatus := validatorResp.Validator.Jailed
 		if !validatorStatus {
 			_ = SendTelegramAlert(fmt.Sprintf("Your validator %s is currently voting", cfg.ValidatorName), cfg)
 			_ = SendEmailAlert(fmt.Sprintf("Your validator is currently voting"), cfg)
