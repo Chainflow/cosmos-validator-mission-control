@@ -67,6 +67,6 @@ func GetBlockTimeDifference(ops HTTPOptions, cfg *config.Config, c client.Client
 	diffSeconds := fmt.Sprintf("%.2f", timeDiff.Seconds())
 
 	_ = writeToInfluxDb(c, bp, "vcf_block_time_diff", map[string]string{}, map[string]interface{}{"time_diff": diffSeconds})
-	log.Printf("time diff: %d", timeDiff)
+	log.Printf("time diff: %s", diffSeconds)
 
 }
