@@ -144,8 +144,6 @@ type (
 
 	// CurrentBlockWithHeight struct holds the details of particular block
 	CurrentBlockWithHeight struct {
-		// JSONRPC string                       `json:"jsonrpc"`
-		// Result  CurrentBlockWithHeightResult `json:"result"`
 		Result struct {
 			Block struct {
 				Header struct {
@@ -164,18 +162,16 @@ type (
 
 	// ProposalResultContent struct holds the parameters of a proposal content result
 	ProposalResultContent struct {
-		Type  string `json:"type"`
-		Value struct {
-			Title       string `json:"title"`
-			Description string `json:"description"`
-		} `json:"value"`
+		Type        string `json:"@type"`
+		Title       string `json:"title"`
+		Description string `json:"description"`
 	}
 
 	// ProposalResult struct holds the parameters of proposal result
 	ProposalResult struct {
 		Content          ProposalResultContent `json:"content"`
-		ID               string                `json:"id"`
-		ProposalStatus   string                `json:"proposal_status"`
+		ProposalID       string                `json:"proposal_id"`
+		Status           string                `json:"status"`
 		FinalTallyResult interface{}           `json:"final_tally_result"`
 		SubmitTime       string                `json:"submit_time"`
 		DepositEndTime   string                `json:"deposit_end_time"`
@@ -186,8 +182,7 @@ type (
 
 	// Proposals struct holds result of array of proposals
 	Proposals struct {
-		Height string           `json:"height"`
-		Result []ProposalResult `json:"result"`
+		Proposals []ProposalResult `json:"proposals"`
 	}
 
 	// SelfDelegation struct which holds the result of a self delegation
@@ -227,12 +222,15 @@ type (
 
 	// ProposalVoters struct holds the parameters of proposal voters
 	ProposalVoters struct {
-		Height string `json:"height"`
-		Result []struct {
+		Votes []struct {
 			ProposalID string `json:"proposal_id"`
 			Voter      string `json:"voter"`
 			Option     string `json:"option"`
-		} `json:"result"`
+		} `json:"votes"`
+		Pagination struct {
+			NextKey interface{} `json:"next_key"`
+			Total   string      `json:"total"`
+		} `json:"pagination"`
 	}
 
 	// NetworkLatestBlock struct holds the parameters of network latest block
@@ -261,17 +259,20 @@ type (
 		} `json:"result"`
 	}
 
-	// Depositors struct which holds the parameters of depositors
+	// Depositors struct which holds the parameters of deposits
 	Depositors struct {
-		Height string `json:"height"`
-		Result []struct {
+		Deposits []struct {
 			ProposalID string `json:"proposal_id"`
 			Depositor  string `json:"depositor"`
 			Amount     []struct {
 				Denom  string `json:"denom"`
 				Amount string `json:"amount"`
 			} `json:"amount"`
-		} `json:"result"`
+		} `json:"deposits"`
+		Pagination struct {
+			NextKey interface{} `json:"next_key"`
+			Total   string      `json:"total"`
+		} `json:"pagination"`
 	}
 
 	// UnconfirmedTxns struct which holds the parameters of unconfirmed txns

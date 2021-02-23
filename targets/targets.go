@@ -91,7 +91,7 @@ func InitTargets(cfg *config.Config) *Targets {
 			ExecutionType: "http",
 			Name:          "Proposals",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "/gov/proposals",
+				Endpoint: cfg.LCDEndpoint + "/cosmos/gov/v1beta1/proposals",
 				Method:   http.MethodGet,
 			},
 			Func:        GetProposals,
