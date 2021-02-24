@@ -38,6 +38,16 @@ cp example.config.toml config.toml
 
     Address of your lcd client (ex: http://localhost:1317).
 
+     **Note** : If you are using stargate and if you are not aware to start lcd, then follow below steps.
+    
+    - Go to `config/app.toml`
+    - You can find below fields in that file
+        ```bash 
+           # Enable defines if the API server should be enabled.
+           enable = false
+        ```
+    - Then make it `true` and restart the server.
+
 - *external_rpc*
 
     External open RPC endpoint(secondary RPC other than your own validator). Useful to gather information like validator caught up, syncing and missed blocks etc.

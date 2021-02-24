@@ -166,7 +166,7 @@ $ cp example.config.toml config.toml
            # Enable defines if the API server should be enabled.
            enable = false
         ```
-    - Then make it true and restart the server.
+    - Then make it `true` and restart the server.
 
 
 - *external_rpc*
