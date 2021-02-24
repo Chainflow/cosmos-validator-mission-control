@@ -58,7 +58,7 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 		return err
 	}
 
-	proposalURL := LCDEndpoint + "/gov/proposals?proposal_status=2"
+	proposalURL := LCDEndpoint + "/cosmos/gov/v1beta1/proposals?proposal_status=2"
 	res, err := http.Get(proposalURL)
 	if err != nil {
 		log.Printf("Error: %v", err)
@@ -212,6 +212,7 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			"validator_voted":           validatorVoted,
 			"validator_deposited":       validatorDeposited,
 		}
+
 		newProposal := false
 		proposalStatus := ""
 		q := client.NewQuery(fmt.Sprintf("SELECT * FROM vcf_proposals WHERE proposal_id = '%s'", proposal.ProposalID), cfg.InfluxDB.Database, "")
