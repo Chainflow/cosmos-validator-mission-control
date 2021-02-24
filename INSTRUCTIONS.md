@@ -158,7 +158,7 @@ $ cp example.config.toml config.toml
 
     Address of your lcd client (ex: http://localhost:1317).
 
-    **Note** : If you are using stargate and if you are not aware to start lcd, then follow below steps.
+    **Note** : To start the lcd server for stargate node please do the following:
     
     - Go to `config/app.toml`
     - You can find below fields in that file
