@@ -2,7 +2,6 @@ package targets
 
 import (
 	"cosmos-validator-mission-control/config"
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -23,17 +22,9 @@ func CheckGaiad(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
-	var status ValidatorRpcStatus
-	err = json.Unmarshal(resp.Body, &status)
-	if err != nil {
-		log.Printf("Error: %v", err)
-		return
-	}
-
-	caughtUp := !status.Result.SyncInfo.CatchingUp
-	if !caughtUp {
-		_ = SendTelegramAlert(fmt.Sprintf("Gaiad on your validator instance is not running: \n%v", string(resp.Body)), cfg)
-		_ = SendEmailAlert(fmt.Sprintf("Gaiad on your validator instance is not running: \n%v", string(resp.Body)), cfg)
+	if (resp.StatusCode != 200) && (resp.StatusCode != 202) {
+		_ = SendTelegramAlert(fmt.Sprintf("Gaiad on your validator instance is not running: RPC is DOWN : \n%v", string(resp.Body)), cfg)
+		_ = SendEmailAlert(fmt.Sprintf("Gaiad on your validator instance is not running: RPC is DOWN : \n%v", string(resp.Body)), cfg)
 		_ = writeToInfluxDb(c, bp, "vcf_gaiad_status", map[string]string{}, map[string]interface{}{"status": 0})
 		return
 	}

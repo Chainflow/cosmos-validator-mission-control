@@ -43,7 +43,7 @@ func GetValidatorVotingPower(ops HTTPOptions, cfg *config.Config, c client.Clien
 	for _, val := range validatorHeightResp.Result.Validators {
 		if val.Address == cfg.ValidatorHexAddress {
 			var vp string
-			fmt.Printf("VOTING POWER: %s\n", val.VotingPower)
+			log.Printf("VOTING POWER: %s", val.VotingPower)
 			if val.VotingPower != "" {
 				vp = val.VotingPower
 			} else {

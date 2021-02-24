@@ -57,5 +57,5 @@ func GetNetInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	bp.AddPoints(pts)
 	_ = writeBatchPoints(c, bp)
-	log.Printf("No. of peers: %d \n Peer Addresses: %v", numPeers, peerAddrs)
+	log.Printf("No. of peers: %d \n", numPeers)
 }

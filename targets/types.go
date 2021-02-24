@@ -99,46 +99,31 @@ type (
 		ValidatorInfo ValidatorInfo         `json:"validator_info"`
 	}
 
-	// ValidatorDescription structure which holds the parameters of a validator description
-	ValidatorDescription struct {
-		Moniker  string `json:"moniker"`
-		Identity string `json:"identity"`
-		Website  string `json:"website"`
-		Details  string `json:"details"`
-	}
-
-	// ValidatorCommissionRates structure holds the parameters of commision rates
-	ValidatorCommissionRates struct {
-		Rate          string `json:"rate"`
-		MaxRate       string `json:"max_rate"`
-		MaxChangeRate string `json:"max_change_rate"`
-	}
-
-	// ValidatorCommission strcut holds the parameters of commission details of a validator
-	ValidatorCommission struct {
-		CommissionRates ValidatorCommissionRates `json:"commission_rates"`
-		UpdateTime      string                   `json:"update_time"`
-	}
-
-	// ValidatorResult structure is a sub struct of validator response
-	ValidatorResult struct {
-		OperatorAddress   string               `json:"operator_address"`
-		ConsensusPubKey   string               `json:"consensus_pubkey"`
-		Jailed            bool                 `json:"jailed"`
-		Status            int                  `json:"status"`
-		Tokens            string               `json:"tokens"`
-		DelegatorShares   string               `json:"delegator_shares"`
-		Description       ValidatorDescription `json:"description"`
-		UnbondingHeight   string               `json:"unbonding_height"`
-		UnbondingTime     string               `json:"unbonding_time"`
-		Commission        ValidatorCommission  `json:"commission"`
-		MinSelfDelegation string               `json:"min_self_delegation"`
-	}
-
 	// ValidatorResp structure which holds the parameters of a validator response
 	ValidatorResp struct {
-		Height string          `json:"height"`
-		Result ValidatorResult `json:"result"`
+		Validator struct {
+			OperatorAddress string `json:"operator_address"`
+			Jailed          bool   `json:"jailed"`
+			Status          string `json:"status"`
+			Description     struct {
+				Moniker         string `json:"moniker"`
+				Identity        string `json:"identity"`
+				Website         string `json:"website"`
+				SecurityContact string `json:"security_contact"`
+				Details         string `json:"details"`
+			} `json:"description"`
+			UnbondingHeight string `json:"unbonding_height"`
+			UnbondingTime   string `json:"unbonding_time"`
+			Commission      struct {
+				CommissionRates struct {
+					Rate          string `json:"rate"`
+					MaxRate       string `json:"max_rate"`
+					MaxChangeRate string `json:"max_change_rate"`
+				} `json:"commission_rates"`
+				UpdateTime string `json:"update_time"`
+			} `json:"commission"`
+			MinSelfDelegation string `json:"min_self_delegation"`
+		} `json:"validator"`
 	}
 
 	// AccountBalance struct which holds the parameters of an account amount
@@ -149,65 +134,44 @@ type (
 
 	// AccountResp struct which holds the response paramaters of an account
 	AccountResp struct {
-		Height string           `json:"height"`
-		Result []AccountBalance `json:"result"`
-	}
-
-	// CurrentBlockPrecommit struct holds the parameters of a block precommit details
-	CurrentBlockPrecommit struct {
-		Type             int64       `json:"type"`
-		Height           string      `json:"height"`
-		Round            string      `json:"round"`
-		BlockID          interface{} `json:"block_id"`
-		Timestamp        string      `json:"timestamp"`
-		ValidatorAddress string      `json:"validator_address"`
-		ValidatorIndex   string      `json:"validator_index"`
-		Signature        string      `json:"signature"`
-	}
-
-	// CurrentBlockLastCommit struct holds the parameters of a block lastcommit details
-	CurrentBlockLastCommit struct {
-		BlockID    interface{}             `json:"block_id"`
-		Precommits []CurrentBlockPrecommit `json:"precommits"`
-	}
-
-	// CurrentBlock struct holds the parameters of block details
-	CurrentBlock struct {
-		Header struct {
-			Height string `json:"height"`
-			Time   string `json:"time`
-		} `json:"header"`
-		Data       interface{}            `json:"data"`
-		Evidence   interface{}            `json:"evidence"`
-		LastCommit CurrentBlockLastCommit `json:"last_commit"`
-	}
-
-	// CurrentBlockWithHeightResult struct
-	CurrentBlockWithHeightResult struct {
-		BlockMeta interface{}  `json:"block_meta"`
-		Block     CurrentBlock `json:"block"`
+		Result   []AccountBalance `json:"result"`
+		Balances []struct {
+			Denom  string `json:"denom"`
+			Amount string `json:"amount"`
+		} `json:"balances"`
+		Pagination interface{} `json:"pagination"`
 	}
 
 	// CurrentBlockWithHeight struct holds the details of particular block
 	CurrentBlockWithHeight struct {
-		JSONRPC string                       `json:"jsonrpc"`
-		Result  CurrentBlockWithHeightResult `json:"result"`
+		Result struct {
+			Block struct {
+				Header struct {
+					Height string `json:"height"`
+					Time   string `json:"time`
+				} `json:"header"`
+				LastCommit struct {
+					Signatures []struct {
+						ValidatorAddress string `json:"validator_address"`
+						Signature        string `json:"signature"`
+					} `json:"signatures"`
+				} `json:"last_commit"`
+			} `json:"block"`
+		} `json:"result"`
 	}
 
 	// ProposalResultContent struct holds the parameters of a proposal content result
 	ProposalResultContent struct {
-		Type  string `json:"type"`
-		Value struct {
-			Title       string `json:"title"`
-			Description string `json:"description"`
-		} `json:"value"`
+		Type        string `json:"@type"`
+		Title       string `json:"title"`
+		Description string `json:"description"`
 	}
 
 	// ProposalResult struct holds the parameters of proposal result
 	ProposalResult struct {
 		Content          ProposalResultContent `json:"content"`
-		ID               string                `json:"id"`
-		ProposalStatus   string                `json:"proposal_status"`
+		ProposalID       string                `json:"proposal_id"`
+		Status           string                `json:"status"`
 		FinalTallyResult interface{}           `json:"final_tally_result"`
 		SubmitTime       string                `json:"submit_time"`
 		DepositEndTime   string                `json:"deposit_end_time"`
@@ -218,19 +182,23 @@ type (
 
 	// Proposals struct holds result of array of proposals
 	Proposals struct {
-		Height string           `json:"height"`
-		Result []ProposalResult `json:"result"`
-	}
-
-	// SelfDelegationBalance struct
-	SelfDelegationBalance struct {
-		Balance string `json:"balance"`
+		Proposals []ProposalResult `json:"proposals"`
 	}
 
 	// SelfDelegation struct which holds the result of a self delegation
 	SelfDelegation struct {
-		Height string                `json:"height"`
-		Result SelfDelegationBalance `json:"result"`
+		Height string `json:"height"`
+		Result struct {
+			Delegation struct {
+				DelegatorAddress string `json:"delegator_address"`
+				ValidatorAddress string `json:"validator_address"`
+				Shares           string `json:"shares"`
+			} `json:"delegation"`
+			Balance struct {
+				Denom  string `json:"denom"`
+				Amount string `json:"amount"`
+			} `json:"balance"`
+		} `json:"result"`
 	}
 
 	// CurrentRewardsAmount struct holds the parameters of current rewards amount
@@ -239,43 +207,30 @@ type (
 		Result []AccountBalance `json:"result"`
 	}
 
-	// LastProposedBlockAndTime struct holds the parameters of last proposed block
+	// LastProposedBlockAndTime struct which holds the parameters of last proposed block
 	LastProposedBlockAndTime struct {
-		BlockMeta struct {
-			BlockID interface{} `json:"block_id"`
-			Header  struct {
-				Version struct {
-					Block string `json:"block"`
-					App   string `json:"app"`
-				} `json:"version"`
-				ChainID            string      `json:"chain_id"`
-				Height             string      `json:"height"`
-				Time               string      `json:"time"`
-				NumTxs             string      `json:"num_txs"`
-				TotalTxs           string      `json:"total_txs"`
-				LastBlockID        interface{} `json:"last_block_id"`
-				LastCommitHash     string      `json:"last_commit_hash"`
-				DataHash           string      `json:"data_hash"`
-				ValidatorsHash     string      `json:"validators_hash"`
-				NextValidatorsHash string      `json:"next_validators_hash"`
-				ConsensusHash      string      `json:"consensus_hash"`
-				AppHash            string      `json:"app_hash"`
-				LastResultsHash    string      `json:"last_results_hash"`
-				EvidenceHash       string      `json:"evidence_hash"`
-				ProposerAddress    string      `json:"proposer_address"`
+		BlockID interface{} `json:"block_id"`
+		Block   struct {
+			Header struct {
+				ChainID         string `json:"chain_id"`
+				Height          string `json:"height"`
+				Time            string `json:"time"`
+				ProposerAddress string `json:"proposer_address"`
 			} `json:"header"`
-		} `json:"block_meta"`
-		Block interface{} `json:"block"`
+		} `json:"block"`
 	}
 
 	// ProposalVoters struct holds the parameters of proposal voters
 	ProposalVoters struct {
-		Height string `json:"height"`
-		Result []struct {
+		Votes []struct {
 			ProposalID string `json:"proposal_id"`
 			Voter      string `json:"voter"`
 			Option     string `json:"option"`
-		} `json:"result"`
+		} `json:"votes"`
+		Pagination struct {
+			NextKey interface{} `json:"next_key"`
+			Total   string      `json:"total"`
+		} `json:"pagination"`
 	}
 
 	// NetworkLatestBlock struct holds the parameters of network latest block
@@ -304,23 +259,25 @@ type (
 		} `json:"result"`
 	}
 
-	// Depositors struct which holds the parameters of depositors
+	// Depositors struct which holds the parameters of deposits
 	Depositors struct {
-		Height string `json:"height"`
-		Result []struct {
+		Deposits []struct {
 			ProposalID string `json:"proposal_id"`
 			Depositor  string `json:"depositor"`
 			Amount     []struct {
 				Denom  string `json:"denom"`
 				Amount string `json:"amount"`
 			} `json:"amount"`
-		} `json:"result"`
+		} `json:"deposits"`
+		Pagination struct {
+			NextKey interface{} `json:"next_key"`
+			Total   string      `json:"total"`
+		} `json:"pagination"`
 	}
 
 	// UnconfirmedTxns struct which holds the parameters of unconfirmed txns
 	UnconfirmedTxns struct {
-		Jsonrpc string `json:"jsonrpc"`
-		Result  struct {
+		Result struct {
 			NTxs       string      `json:"n_txs"`
 			Total      string      `json:"total"`
 			TotalBytes string      `json:"total_bytes"`
@@ -328,25 +285,10 @@ type (
 		} `json:"result"`
 	}
 
+	// ValidatorRpcStatus is a struct which holds the status response
 	ValidatorRpcStatus struct {
 		Jsonrpc string `json:"jsonrpc"`
 		Result  struct {
-			NodeInfo struct {
-				ProtocolVersion struct {
-					P2P   string `json:"p2p"`
-					Block string `json:"block"`
-					App   string `json:"app"`
-				} `json:"protocol_version"`
-				ListenAddr string `json:"listen_addr"`
-				Network    string `json:"network"`
-				Version    string `json:"version"`
-				Channels   string `json:"channels"`
-				Moniker    string `json:"moniker"`
-				Other      struct {
-					TxIndex    string `json:"tx_index"`
-					RPCAddress string `json:"rpc_address"`
-				} `json:"other"`
-			} `json:"node_info"`
 			SyncInfo struct {
 				LatestBlockHash   string `json:"latest_block_hash"`
 				LatestAppHash     string `json:"latest_app_hash"`
@@ -355,11 +297,6 @@ type (
 				CatchingUp        bool   `json:"catching_up"`
 			} `json:"sync_info"`
 			ValidatorInfo struct {
-				Address string `json:"address"`
-				PubKey  struct {
-					Type  string `json:"type"`
-					Value string `json:"value"`
-				} `json:"pub_key"`
 				VotingPower string `json:"voting_power"`
 			} `json:"validator_info"`
 		} `json:"result"`
