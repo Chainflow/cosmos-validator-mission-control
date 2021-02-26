@@ -37,7 +37,7 @@ func GetAccountInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	var accResp AccountResp
 	err = json.Unmarshal(resp.Body, &accResp)
 	if err != nil {
-		log.Printf("Error: %v", err)
+		log.Printf("Error while unmarshalling bank balances res: %v", err)
 		_ = writeToInfluxDb(c, bp, "vcf_account_balance", map[string]string{}, map[string]interface{}{"balance": "NA"})
 		return
 	}
