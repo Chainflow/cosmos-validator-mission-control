@@ -25,7 +25,7 @@ func GetSelfDelegation(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	var delegationResp SelfDelegation
 	err = json.Unmarshal(resp.Body, &delegationResp)
 	if err != nil {
-		log.Printf("Error: %v", err)
+		log.Printf("Error while unmarshelling self delegation balance: %v", err)
 		return
 	}
 
@@ -33,5 +33,5 @@ func GetSelfDelegation(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	addressBalance := convertToCommaSeparated(delegationResp.Result.Balance.Amount) + denom
 	_ = writeToInfluxDb(c, bp, "vcf_self_delegation_balance", map[string]string{}, map[string]interface{}{"balance": addressBalance})
-	log.Printf("Address Balance: %s", addressBalance)
+	log.Printf("Self Delegation Balance: %s", addressBalance)
 }
