@@ -201,12 +201,6 @@ type (
 		} `json:"result"`
 	}
 
-	// CurrentRewardsAmount struct holds the parameters of current rewards amount
-	CurrentRewardsAmount struct {
-		Height string           `json:"height"`
-		Result []AccountBalance `json:"result"`
-	}
-
 	// LastProposedBlockAndTime struct which holds the parameters of last proposed block
 	LastProposedBlockAndTime struct {
 		BlockID interface{} `json:"block_id"`
@@ -314,5 +308,25 @@ type (
 			BuildTags  string `json:"build_tags"`
 			Go         string `json:"go"`
 		} `json:"application_version"`
+	}
+
+	// Rewards is a struct which holds outstanding rewards of a validator
+	Rewards struct {
+		Rewards struct {
+			Rewards []struct {
+				Denom  string `json:"denom"`
+				Amount string `json:"amount"`
+			} `json:"rewards"`
+		} `json:"rewards"`
+	}
+
+	// Commission is a struct which holds the commission of a validator
+	Commission struct {
+		Commission struct {
+			Commission []struct {
+				Denom  string `json:"denom"`
+				Amount string `json:"amount"`
+			} `json:"commission"`
+		} `json:"commission"`
 	}
 )
