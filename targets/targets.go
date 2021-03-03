@@ -110,9 +110,9 @@ func InitTargets(cfg *config.Config) *Targets {
 		},
 		{
 			ExecutionType: "http",
-			Name:          "Current Rewards Amount",
+			Name:          "Calculate rewards",
 			HTTPOptions: HTTPOptions{
-				Endpoint: cfg.LCDEndpoint + "/distribution/validators/" + cfg.ValOperatorAddress + "/rewards",
+				Endpoint: cfg.LCDEndpoint + "/cosmos/distribution/v1beta1/validators/" + cfg.ValOperatorAddress + "/outstanding_rewards",
 				Method:   http.MethodGet,
 			},
 			Func:        GetCurrentRewardsAmount,
