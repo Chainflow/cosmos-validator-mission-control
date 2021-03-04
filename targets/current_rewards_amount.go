@@ -71,7 +71,7 @@ func GetValCommission(ops HTTPOptions, cfg *config.Config, c client.Client) floa
 	var result Commission
 	err = json.Unmarshal(resp.Body, &result)
 	if err != nil {
-		log.Printf("Error while unmarshalling current rewards: %v", err)
+		log.Printf("Error while unmarshalling commission: %v", err)
 		return commission
 	}
 
