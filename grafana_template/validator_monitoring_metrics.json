@@ -12,12 +12,12 @@
       }
     ]
   },
-  "description": "InfluxDB dashboards for telegraf metrics",
+  "description": "InfluxDB dashboard for validator metrics",
   "editable": true,
   "gnetId": 928,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1614923403081,
+  "iteration": 1614924372890,
   "links": [],
   "panels": [
     {
@@ -462,7 +462,7 @@
           "value": "null"
         }
       ],
-      "valueName": "first"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -565,7 +565,7 @@
           "value": "null"
         }
       ],
-      "valueName": "first"
+      "valueName": "current"
     },
     {
       "collapsed": false,
@@ -783,7 +783,7 @@
           "value": "0"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -3745,5 +3745,5 @@
   "variables": {
     "list": []
   },
-  "version": 12
+  "version": 15
 }
