@@ -105,6 +105,7 @@ type (
 			OperatorAddress string `json:"operator_address"`
 			Jailed          bool   `json:"jailed"`
 			Status          string `json:"status"`
+			DelegatorShares string `json:"delegator_shares"`
 			Description     struct {
 				Moniker         string `json:"moniker"`
 				Identity        string `json:"identity"`

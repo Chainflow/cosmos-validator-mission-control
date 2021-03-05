@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math"
 	"strconv"
 
 	client "github.com/influxdata/influxdb1-client/v2"
@@ -18,50 +19,46 @@ func GetValidatorVotingPower(ops HTTPOptions, cfg *config.Config, c client.Clien
 		return
 	}
 
-	// Calling function to get current block height
-	currentHeight := GetValidatorBlock(cfg, c)
-	if currentHeight == "" {
-		log.Println("Error while fetching current block height from db ", currentHeight)
-		return
-	}
-
-	ops.Endpoint = ops.Endpoint + "?height=" + currentHeight
-
 	resp, err := HitHTTPTarget(ops)
 	if err != nil {
-		log.Printf("Error: %v", err)
+		log.Printf("Error in voting power: %v", err)
 		return
 	}
 
-	var validatorHeightResp ValidatorsHeight
-	err = json.Unmarshal(resp.Body, &validatorHeightResp)
+	var validatorResp ValidatorResp
+	err = json.Unmarshal(resp.Body, &validatorResp)
 	if err != nil {
-		log.Printf("Error: %v", err)
+		log.Printf("Error while unamrshelling ValidatorResp of voting power: %v", err)
 		return
 	}
 
-	for _, val := range validatorHeightResp.Result.Validators {
-		if val.Address == cfg.ValidatorHexAddress {
-			var vp string
-			log.Printf("VOTING POWER: %s", val.VotingPower)
-			if val.VotingPower != "" {
-				vp = val.VotingPower
-			} else {
-				vp = "0"
-			}
-			_ = writeToInfluxDb(c, bp, "vcf_voting_power", map[string]string{}, map[string]interface{}{"power": vp + "muon"})
-			log.Println("Voting Power \n", vp)
+	v := validatorResp.Validator.DelegatorShares
+	vp := convertValue(v)
+	if vp == "" {
+		vp = "0"
+	}
+	log.Printf("VOTING POWER: %s", vp)
 
-			votingPower, err := strconv.Atoi(vp)
-			if err != nil {
-				log.Println("Error wile converting string to int of voting power \t", err)
-			}
+	_ = writeToInfluxDb(c, bp, "vcf_voting_power", map[string]string{}, map[string]interface{}{"power": vp + "muon"})
 
-			if int64(votingPower) <= cfg.VotingPowerThreshold {
-				_ = SendTelegramAlert(fmt.Sprintf("Your validator %s voting power has dropped below %d", cfg.ValidatorName, cfg.VotingPowerThreshold), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("Your validator %s voting power has dropped below %d", cfg.ValidatorName, cfg.VotingPowerThreshold), cfg)
-			}
-		}
+	votingPower, err := strconv.Atoi(vp)
+	if err != nil {
+		log.Println("Error wile converting string to int of voting power \t", err)
+		return
 	}
 
+	if int64(votingPower) <= cfg.VotingPowerThreshold {
+		_ = SendTelegramAlert(fmt.Sprintf("Your validator %s voting power has dropped below %d", cfg.ValidatorName, cfg.VotingPowerThreshold), cfg)
+		_ = SendEmailAlert(fmt.Sprintf("Your validator %s voting power has dropped below %d", cfg.ValidatorName, cfg.VotingPowerThreshold), cfg)
+	}
+
+}
+
+func convertValue(value string) string {
+	bal, _ := strconv.ParseFloat(value, 64)
+
+	a1 := bal / math.Pow(10, 6)
+	amount := strconv.FormatFloat(a1, 'f', -1, 64)
+
+	return amount
 }
