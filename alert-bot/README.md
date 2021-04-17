@@ -3,7 +3,7 @@
  -   **Cosmos alerting bot** will send alerts to your telegram account about your **validator status**(jailed or voting) and about **missed blocks**.
 
 ## Install Prerequisites
-- **Go 13.x+**
+- **Go 1.13.x+**
 
 ### Getting Started
 
