@@ -2,7 +2,7 @@
 
 **Validator Mission Control** provides a comprehensive set of metrics and alerts for Cosmos validator node operators. We utilized the power of Grafana + Telegraf and extended the monitoring & alerting with a custom built go server. It also sends emergency alerts and calls to you based on your pagerduty account configuration.
 
-It can be installed on a validator node directly or a separate monitoring node (with an appropriate firewall setup on validator node). These instructions assume the user will install Validator Mission Control on the validator. [See this section](https://github.com/chris-remus/chainflow-vitwit/blob/master/README.md#hosting-validator-mission-control-on-separate-monitoring-node) for details on installing it on a separate monitoring node. 
+It can be installed on a validator node directly or a separate monitoring node (with an appropriate firewall setup on validator node). These instructions assume the user will install Validator Mission Control on the validator. [See this section](#hosting-validator-mission-control-on-separate-monitoring-node) for details on installing it on a separate monitoring node. 
 
 ## Install Prerequisites
 - **Go 1.13.x+**
