@@ -58,7 +58,7 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 		return err
 	}
 
-	proposalURL := LCDEndpoint + "/cosmos/gov/v1beta1/proposals?proposal_status=2"
+	proposalURL := LCDEndpoint + "/cosmos/gov/v1beta1/proposals?status=PROPOSAL_STATUS_VOTING_PERIOD"
 	res, err := http.Get(proposalURL)
 	if err != nil {
 		log.Printf("Error: %v", err)
