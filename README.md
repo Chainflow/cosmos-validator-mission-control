@@ -132,8 +132,6 @@ PWD: user3
 
 See the alerts in action in [this Telegram group](https://t.me/joinchat/LZH9y02zCwwOcEjuhU8-yw).
 
-You can find installation and implementation instructions at [this Github issue](https://github.com/chris-remus/chainflow-icf-validator-tool-grant/issues/21).
-
 Please address any questions or feedback you may have, including feature requests at [this Github issue](https://github.com/chris-remus/chainflow-icf-validator-tool-grant/issues/21) or the [Chainflow Telegram group](https://chainflow.io/cosmos-validator-mission-control/t.me/chainflowpos).
 
 (First published on the Chainflow blog [here](https://chainflow.io/cosmos-validator-mission-control/).)
