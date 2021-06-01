@@ -15,8 +15,7 @@ import (
 
 // GetValidatorVoted to check validator voted for the proposal or not
 func GetValidatorVoted(LCDEndpoint string, proposalID string, accountAddress string) string {
-
-	proposalURL := LCDEndpoint + "/gov/proposals/" + proposalID + "/votes"
+	proposalURL := LCDEndpoint + "/cosmos/gov/v1beta1/proposals/" + proposalID + "/votes"
 	res, err := http.Get(proposalURL)
 	if err != nil {
 		log.Printf("Error: %v", err)
@@ -32,12 +31,24 @@ func GetValidatorVoted(LCDEndpoint string, proposalID string, accountAddress str
 	}
 
 	validatorVoted := "not voted"
-	for _, value := range voters.Result {
+	for _, value := range voters.Votes {
 		if value.Voter == accountAddress {
-			validatorVoted = value.Option
+			validatorVoted = returnVoteOption(value.Option)
 		}
 	}
 	return validatorVoted
+}
+
+func returnVoteOption(option string) string {
+	m := map[string]string{
+		"VOTE_OPTION_YES":          "Yes",
+		"VOTE_OPTION_ABSTAIN":      "Abstain",
+		"VOTE_OPTION_NO":           "No",
+		"VOTE_OPTION_NO_WITH_VETO": "NoWithVeto",
+	}
+
+	value := m[option]
+	return value
 }
 
 // SendVotingPeriodProposalAlerts which send alerts of voting period proposals
@@ -47,7 +58,7 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 		return err
 	}
 
-	proposalURL := LCDEndpoint + "/gov/proposals?status=voting_period"
+	proposalURL := LCDEndpoint + "/cosmos/gov/v1beta1/proposals?proposal_status=2"
 	res, err := http.Get(proposalURL)
 	if err != nil {
 		log.Printf("Error: %v", err)
@@ -64,8 +75,8 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 		_ = json.Unmarshal(body, &p)
 	}
 
-	for _, proposal := range p.Result {
-		proposalVotesURL := LCDEndpoint + "/gov/proposals/" + proposal.ID + "/votes"
+	for _, proposal := range p.Proposals {
+		proposalVotesURL := LCDEndpoint + "/cosmos/gov/v1beta1/proposals/" + proposal.ProposalID + "/votes"
 		res, err := http.Get(proposalVotesURL)
 		if err != nil {
 			log.Printf("Error: %v", err)
@@ -83,9 +94,9 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 		}
 
 		var validatorVoted string
-		for _, value := range voters.Result {
+		for _, value := range voters.Votes {
 			if value.Voter == accountAddress {
-				validatorVoted = value.Option
+				validatorVoted = returnVoteOption(value.Option)
 			}
 		}
 
@@ -96,7 +107,7 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 			log.Println("timeDiff...", timeDiff.Hours())
 
 			var proposalAlertCount = 1
-			count := GetVotesProposalAlertsCount(cfg, c, proposal.ID)
+			count := GetVotesProposalAlertsCount(cfg, c, proposal.ProposalID)
 			if count != "" {
 				pac, err := strconv.Atoi(count)
 				if err != nil {
@@ -107,21 +118,21 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 			}
 
 			if timeDiff.Hours() == 24 && proposalAlertCount <= 1 {
-				_ = SendTelegramAlert(fmt.Sprintf("%s validator has not voted on proposal = %s, No.of hours left to vote is : %f", cfg.ValidatorName, proposal.ID, timeDiff.Hours()), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("%s validator has not voted on proposal = %s", cfg.ValidatorName, proposal.ID), cfg)
+				_ = SendTelegramAlert(fmt.Sprintf("%s validator has not voted on proposal = %s, No.of hours left to vote is : %f", cfg.ValidatorName, proposal.ProposalID, timeDiff.Hours()), cfg)
+				_ = SendEmailAlert(fmt.Sprintf("%s validator has not voted on proposal = %s", cfg.ValidatorName, proposal.ProposalID), cfg)
 
 				proposalAlertCount = proposalAlertCount + 1
-				_ = writeToInfluxDb(c, bp, "vcf_votes_proposal_alert_count", map[string]string{}, map[string]interface{}{"count": proposalAlertCount, "proposal_id": proposal.ID})
+				_ = writeToInfluxDb(c, bp, "vcf_votes_proposal_alert_count", map[string]string{}, map[string]interface{}{"count": proposalAlertCount, "proposal_id": proposal.ProposalID})
 
 				log.Println("Sent alert of voting period proposals")
 			}
 
 			if timeDiff.Hours() == 12 && proposalAlertCount <= 2 {
-				_ = SendTelegramAlert(fmt.Sprintf("%s validator has not voted on proposal = %s, No.of hours left to vote is : %f", cfg.ValidatorName, proposal.ID, timeDiff.Hours()), cfg)
-				_ = SendEmailAlert(fmt.Sprintf("%s validator has not voted on proposal = %s", cfg.ValidatorName, proposal.ID), cfg)
+				_ = SendTelegramAlert(fmt.Sprintf("%s validator has not voted on proposal = %s, No.of hours left to vote is : %f", cfg.ValidatorName, proposal.ProposalID, timeDiff.Hours()), cfg)
+				_ = SendEmailAlert(fmt.Sprintf("%s validator has not voted on proposal = %s", cfg.ValidatorName, proposal.ProposalID), cfg)
 
 				proposalAlertCount = proposalAlertCount + 1
-				_ = writeToInfluxDb(c, bp, "vcf_votes_proposal_alert_count", map[string]string{}, map[string]interface{}{"count": proposalAlertCount, "proposal_id": proposal.ID})
+				_ = writeToInfluxDb(c, bp, "vcf_votes_proposal_alert_count", map[string]string{}, map[string]interface{}{"count": proposalAlertCount, "proposal_id": proposal.ProposalID})
 
 				log.Println("Sent alert of voting period proposals")
 			}
@@ -132,8 +143,7 @@ func SendVotingPeriodProposalAlerts(LCDEndpoint string, accountAddress string, c
 
 // GetValidatorDeposited to check validator deposited for the proposal or not
 func GetValidatorDeposited(LCDEndpoint string, proposalID string, accountAddress string) string {
-
-	proposalURL := LCDEndpoint + "/gov/proposals/" + proposalID + "/deposits"
+	proposalURL := LCDEndpoint + "/cosmos/gov/v1beta1/proposals/" + proposalID + "/deposits"
 	res, err := http.Get(proposalURL)
 	if err != nil {
 		log.Printf("Error: %v", err)
@@ -149,9 +159,10 @@ func GetValidatorDeposited(LCDEndpoint string, proposalID string, accountAddress
 	}
 
 	validateDeposit := "no"
-	for _, value := range depositors.Result {
+	for _, value := range depositors.Deposits {
 		if value.Depositor == accountAddress && len(value.Amount) != 0 {
 			validateDeposit = "yes"
+			break
 		}
 	}
 	return validateDeposit
@@ -177,21 +188,21 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		return
 	}
 
-	for _, proposal := range p.Result {
-		validatorVoted := GetValidatorVoted(cfg.LCDEndpoint, proposal.ID, cfg.AccountAddress)
-		validatorDeposited := GetValidatorDeposited(cfg.LCDEndpoint, proposal.ID, cfg.AccountAddress)
+	for _, proposal := range p.Proposals {
+		validatorVoted := GetValidatorVoted(cfg.LCDEndpoint, proposal.ProposalID, cfg.AccountAddress)
+		validatorDeposited := GetValidatorDeposited(cfg.LCDEndpoint, proposal.ProposalID, cfg.AccountAddress)
 		err = SendVotingPeriodProposalAlerts(cfg.LCDEndpoint, cfg.AccountAddress, cfg, c)
 		if err != nil {
 			log.Printf("Error while sending voting period alert: %v", err)
 		}
 
-		tag := map[string]string{"id": proposal.ID}
+		tag := map[string]string{"id": proposal.ProposalID}
 		fields := map[string]interface{}{
-			"proposal_id":               proposal.ID,
+			"proposal_id":               proposal.ProposalID,
 			"content_type":              proposal.Content.Type,
-			"content_value_title":       proposal.Content.Value.Title,
-			"content_value_description": proposal.Content.Value.Description,
-			"proposal_status":           proposal.ProposalStatus,
+			"content_value_title":       proposal.Content.Title,
+			"content_value_description": proposal.Content.Description,
+			"proposal_status":           proposal.Status,
 			"final_tally_result":        proposal.FinalTallyResult,
 			"submit_time":               GetUserDateFormat(proposal.SubmitTime),
 			"deposit_end_time":          GetUserDateFormat(proposal.DepositEndTime),
@@ -201,9 +212,10 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			"validator_voted":           validatorVoted,
 			"validator_deposited":       validatorDeposited,
 		}
+
 		newProposal := false
 		proposalStatus := ""
-		q := client.NewQuery(fmt.Sprintf("SELECT * FROM vcf_proposals WHERE proposal_id = '%s'", proposal.ID), cfg.InfluxDB.Database, "")
+		q := client.NewQuery(fmt.Sprintf("SELECT * FROM vcf_proposals WHERE proposal_id = '%s'", proposal.ProposalID), cfg.InfluxDB.Database, "")
 		if response, err := c.Query(q); err == nil && response.Error() == nil {
 			for _, r := range response.Results {
 				if len(r.Series) == 0 {
@@ -220,36 +232,36 @@ func GetProposals(ops HTTPOptions, cfg *config.Config, c client.Client) {
 			}
 
 			if newProposal {
-				log.Printf("New Proposal Came: %s", proposal.ID)
+				log.Printf("New Proposal Came: %s", proposal.ProposalID)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
 
-				if proposal.ProposalStatus == "Rejected" || proposal.ProposalStatus == "Passed" {
-					_ = SendTelegramAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been %s", proposal.ID, proposal.ProposalStatus), cfg)
-					_ = SendEmailAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been = %s", proposal.ID, proposal.ProposalStatus), cfg)
-				} else if proposal.ProposalStatus == "VotingPeriod" {
-					_ = SendTelegramAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been moved to %s", proposal.ID, proposal.ProposalStatus), cfg)
-					_ = SendEmailAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been moved to %s", proposal.ID, proposal.ProposalStatus), cfg)
+				if proposal.Status == "PROPOSAL_STATUS_REJECTED" || proposal.Status == "PROPOSAL_STATUS_PASSED" { // proposal status
+					_ = SendTelegramAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been %s", proposal.ProposalID, proposal.Status), cfg)
+					_ = SendEmailAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been = %s", proposal.ProposalID, proposal.Status), cfg)
+				} else if proposal.Status == "PROPOSAL_STATUS_VOTING_PERIOD" {
+					_ = SendTelegramAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been moved to %s", proposal.ProposalID, proposal.Status), cfg)
+					_ = SendEmailAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been moved to %s", proposal.ProposalID, proposal.Status), cfg)
 				} else {
-					_ = SendTelegramAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
-					_ = SendEmailAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.ProposalStatus+" with proposal id = %s", proposal.ID), cfg)
+					_ = SendTelegramAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.Status+" with proposal id = %s", proposal.ProposalID), cfg)
+					_ = SendEmailAlert(fmt.Sprintf("A new proposal "+proposal.Content.Type+" has been added to "+proposal.Status+" with proposal id = %s", proposal.ProposalID), cfg)
 				}
 			} else {
-				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", proposal.ID), cfg.InfluxDB.Database, "")
+				q := client.NewQuery(fmt.Sprintf("DELETE FROM vcf_proposals WHERE id = '%s'", proposal.ProposalID), cfg.InfluxDB.Database, "")
 				if response, err := c.Query(q); err == nil && response.Error() == nil {
-					log.Printf("Delete proposal %s from vcf_proposals", proposal.ID)
+					log.Printf("Delete proposal %s from vcf_proposals", proposal.ProposalID)
 				} else {
-					log.Printf("Failed to delete proposal %s from vcf_proposals", proposal.ID)
+					log.Printf("Failed to delete proposal %s from vcf_proposals", proposal.ProposalID)
 					log.Printf("Reason for proposal deletion failure %v", response)
 				}
-				log.Printf("Writing the proposal: %s", proposal.ID)
+				log.Printf("Writing the proposal: %s", proposal.ProposalID)
 				_ = writeToInfluxDb(c, bp, "vcf_proposals", tag, fields)
-				if proposal.ProposalStatus != proposalStatus {
-					if proposal.ProposalStatus == "Rejected" || proposal.ProposalStatus == "Passed" {
-						_ = SendTelegramAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been %s", proposal.ID, proposal.ProposalStatus), cfg)
-						_ = SendEmailAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been = %s", proposal.ID, proposal.ProposalStatus), cfg)
+				if proposal.Status != proposalStatus {
+					if proposal.Status == "PROPOSAL_STATUS_REJECTED" || proposal.Status == "PROPOSAL_STATUS_PASSED" {
+						_ = SendTelegramAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been %s", proposal.ProposalID, proposal.Status), cfg)
+						_ = SendEmailAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been = %s", proposal.ProposalID, proposal.Status), cfg)
 					} else {
-						_ = SendTelegramAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been moved to %s", proposal.ID, proposal.ProposalStatus), cfg)
-						_ = SendEmailAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been moved to %s", proposal.ID, proposal.ProposalStatus), cfg)
+						_ = SendTelegramAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been moved to %s", proposal.ProposalID, proposal.Status), cfg)
+						_ = SendEmailAlert(fmt.Sprintf("Proposal "+proposal.Content.Type+" with proposal id = %s has been moved to %s", proposal.ProposalID, proposal.Status), cfg)
 					}
 				}
 			}
@@ -277,8 +289,8 @@ func DeleteDepoitEndProposals(cfg *config.Config, c client.Client, p Proposals) 
 					proposalID := r.Series[0].Values[idx][7]
 					ID = fmt.Sprintf("%v", proposalID)
 
-					for _, proposal := range p.Result {
-						if proposal.ID == ID {
+					for _, proposal := range p.Proposals {
+						if proposal.ProposalID == ID {
 							found = true
 							break
 						} else {

@@ -1,3789 +1,3749 @@
 {
-    "__inputs": [
+  "annotations": {
+    "list": [
       {
-        "name": "DS_INFLUXDBTELEGRAF",
-        "label": "InfluxDBTelegraf",
-        "description": "",
-        "type": "datasource",
-        "pluginId": "influxdb",
-        "pluginName": "InfluxDB"
-      },
-      {
-        "name": "DS_INFLUXDBVCF",
-        "label": "InfluxDBVCF",
-        "description": "",
-        "type": "datasource",
-        "pluginId": "influxdb",
-        "pluginName": "InfluxDB"
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
       }
-    ],
-    "__requires": [
-      {
-        "type": "grafana",
-        "id": "grafana",
-        "name": "Grafana",
-        "version": "6.6.1"
+    ]
+  },
+  "description": "InfluxDB dashboard for validator metrics",
+  "editable": true,
+  "gnetId": 928,
+  "graphTooltip": 1,
+  "id": 1,
+  "iteration": 1614924372890,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": "InfluxDBTelegraf",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
       },
-      {
-        "type": "panel",
-        "id": "graph",
-        "name": "Graph",
-        "version": ""
-      },
-      {
-        "type": "datasource",
-        "id": "influxdb",
-        "name": "InfluxDB",
-        "version": "1.0.0"
-      },
-      {
-        "type": "panel",
-        "id": "singlestat",
-        "name": "Singlestat",
-        "version": ""
-      },
-      {
-        "type": "panel",
-        "id": "table",
-        "name": "Table",
-        "version": ""
-      }
-    ],
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": "-- Grafana --",
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "type": "dashboard"
-        }
-      ]
+      "id": 62149,
+      "panels": [],
+      "title": "Validator Identity",
+      "type": "row"
     },
-    "description": "InfluxDB dashboards for telegraf metrics",
-    "editable": true,
-    "gnetId": 928,
-    "graphTooltip": 1,
-    "id": null,
-    "iteration": 1587108472593,
-    "links": [],
-    "panels": [
-      {
-        "collapsed": false,
-        "datasource": "${DS_INFLUXDBTELEGRAF}",
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 0
-        },
-        "id": 62149,
-        "panels": [],
-        "title": "Validator Identity",
-        "type": "row"
+    {
+      "columns": [],
+      "datasource": "InfluxDBVCF",
+      "fontSize": "90%",
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 1
       },
-      {
-        "columns": [],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "fontSize": "90%",
-        "gridPos": {
-          "h": 4,
-          "w": 24,
-          "x": 0,
-          "y": 1
-        },
-        "id": 62138,
-        "options": {},
-        "pageSize": null,
-        "showHeader": true,
-        "sort": {
-          "col": null,
-          "desc": false
-        },
-        "styles": [
-          {
-            "alias": "website",
-            "align": "left",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "rgba(237, 129, 40, 0.89)",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "decimals": 2,
-            "link": false,
-            "mappingType": 1,
-            "pattern": "Time",
-            "preserveFormat": true,
-            "sanitize": true,
-            "thresholds": [],
-            "type": "hidden",
-            "unit": "short",
-            "valueMaps": [
-              {
-                "text": "-",
-                "value": ""
-              }
-            ]
-          },
-          {
-            "alias": "Keybase Identity",
-            "align": "",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "rgba(237, 129, 40, 0.89)",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "decimals": 2,
-            "link": false,
-            "mappingType": 1,
-            "pattern": "Keybase Identity",
-            "preserveFormat": true,
-            "sanitize": true,
-            "thresholds": [],
-            "type": "string",
-            "unit": "short",
-            "valueMaps": [
-              {
-                "text": "-",
-                "value": ""
-              }
-            ]
-          },
-          {
-            "alias": "",
-            "align": "auto",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "rgba(237, 129, 40, 0.89)",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "decimals": 2,
-            "mappingType": 1,
-            "pattern": "/.*/",
-            "thresholds": [],
-            "type": "string",
-            "unit": "short"
-          },
-          {
-            "alias": "Details",
-            "align": "left",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "rgba(237, 129, 40, 0.89)",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "decimals": 2,
-            "mappingType": 1,
-            "pattern": "Details",
-            "preserveFormat": true,
-            "sanitize": true,
-            "thresholds": [],
-            "type": "string",
-            "unit": "short",
-            "valueMaps": [
-              {
-                "text": "-",
-                "value": ""
-              }
-            ]
-          },
-          {
-            "alias": "operator address",
-            "align": "auto",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "rgba(237, 129, 40, 0.89)",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "decimals": 2,
-            "mappingType": 1,
-            "pattern": "operator_addr",
-            "preserveFormat": true,
-            "sanitize": true,
-            "thresholds": [],
-            "type": "string",
-            "unit": "short"
-          },
-          {
-            "alias": "address",
-            "align": "auto",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "rgba(237, 129, 40, 0.89)",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "decimals": 2,
-            "mappingType": 1,
-            "pattern": "addr",
-            "preserveFormat": true,
-            "sanitize": true,
-            "thresholds": [],
-            "type": "string",
-            "unit": "short"
-          },
-          {
-            "alias": "moniker",
-            "align": "auto",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "rgba(237, 129, 40, 0.89)",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "decimals": 2,
-            "mappingType": 1,
-            "pattern": "moniker",
-            "thresholds": [],
-            "type": "string",
-            "unit": "short"
-          }
-        ],
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_validator_desc",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "query": "SELECT last(\"val\") AS \"moniker\" FROM \"vcf_validator_desc\" WHERE (\"tag\" = 'moniker') AND $timeFilter",
-            "rawQuery": false,
-            "refId": "A",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "val"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [],
-                  "type": "last"
-                },
-                {
-                  "params": [
-                    "Moniker"
-                  ],
-                  "type": "alias"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "tag",
-                "operator": "=",
-                "value": "moniker"
-              }
-            ]
-          },
-          {
-            "alias": "",
-            "groupBy": [],
-            "measurement": "vcf_validator_desc",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "query": "SELECT last(\"value\") AS \"website\" FROM \"vcf_validator_desc\" WHERE (\"tag\" = 'website') ",
-            "rawQuery": false,
-            "refId": "B",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "val"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [],
-                  "type": "last"
-                },
-                {
-                  "params": [
-                    "Website"
-                  ],
-                  "type": "alias"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "tag",
-                "operator": "=",
-                "value": "website"
-              }
-            ]
-          },
-          {
-            "groupBy": [],
-            "measurement": "vcf_validator_desc",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "C",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "val"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [],
-                  "type": "last"
-                },
-                {
-                  "params": [
-                    "Keybase Identity"
-                  ],
-                  "type": "alias"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "tag",
-                "operator": "=",
-                "value": "identity"
-              }
-            ]
-          },
-          {
-            "groupBy": [],
-            "measurement": "vcf_validator_desc",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "D",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "val"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [],
-                  "type": "last"
-                },
-                {
-                  "params": [
-                    "Details"
-                  ],
-                  "type": "alias"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "tag",
-                "operator": "=",
-                "value": "details"
-              }
-            ]
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Validator Details",
-        "transform": "table",
-        "type": "table"
+      "id": 62138,
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": null,
+        "desc": false
       },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": false,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
+      "styles": [
+        {
+          "alias": "website",
+          "align": "left",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": false,
+          "mappingType": 1,
+          "pattern": "Time",
+          "preserveFormat": true,
+          "sanitize": true,
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short",
+          "valueMaps": [
+            {
+              "text": "-",
+              "value": ""
+            }
+          ]
         },
-        "gridPos": {
-          "h": 3,
-          "w": 12,
-          "x": 0,
-          "y": 5
+        {
+          "alias": "Keybase Identity",
+          "align": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": false,
+          "mappingType": 1,
+          "pattern": "Keybase Identity",
+          "preserveFormat": true,
+          "sanitize": true,
+          "thresholds": [],
+          "type": "string",
+          "unit": "short",
+          "valueMaps": [
+            {
+              "text": "-",
+              "value": ""
+            }
+          ]
         },
-        "id": 62225,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short",
+          "valueMaps": [
+            {
+              "text": "-",
+              "value": ""
+            }
+          ]
         },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_operator_address",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "address"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "operator address"
-                  ],
-                  "type": "alias"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Operator Address",
-        "type": "singlestat",
-        "valueFontSize": "50%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "first"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": false,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
+        {
+          "alias": "Details",
+          "align": "left",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Details",
+          "preserveFormat": true,
+          "sanitize": true,
+          "thresholds": [],
+          "type": "string",
+          "unit": "short",
+          "valueMaps": [
+            {
+              "text": "-",
+              "value": ""
+            }
+          ]
         },
-        "gridPos": {
-          "h": 3,
-          "w": 12,
-          "x": 12,
-          "y": 5
+        {
+          "alias": "operator address",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "operator_addr",
+          "preserveFormat": true,
+          "sanitize": true,
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
         },
-        "id": 62227,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
+        {
+          "alias": "address",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "addr",
+          "preserveFormat": true,
+          "sanitize": true,
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
         },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_address",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "address"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "address"
-                  ],
-                  "type": "alias"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Account Address",
-        "type": "singlestat",
-        "valueFontSize": "50%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "first"
-      },
-      {
-        "collapsed": false,
-        "datasource": "${DS_INFLUXDBTELEGRAF}",
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 8
-        },
-        "id": 62083,
-        "panels": [],
-        "title": "Validator Availability",
-        "type": "row"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": false,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 3,
-          "x": 0,
-          "y": 9
-        },
-        "id": 62068,
-        "interval": "",
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "#96D98D",
-          "show": true,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_gaiad_status",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "status"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Gaiad Status",
-        "type": "singlestat",
-        "valueFontSize": "70%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "UP",
-            "value": "1"
-          },
-          {
-            "op": "=",
-            "text": "DOWN",
-            "value": "0"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 3,
-          "x": 3,
-          "y": 9
-        },
-        "id": 62081,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "#96D98D",
-          "show": true,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_validator_status",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "status"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Validator Status",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "Voting",
-            "value": "1"
-          },
-          {
-            "op": "=",
-            "text": "Jailed",
-            "value": "0"
-          }
-        ],
-        "valueName": "avg"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 3,
-          "x": 6,
-          "y": 9
-        },
-        "id": 62079,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_gaiad_version",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "v"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Gaiad Version",
-        "type": "singlestat",
-        "valueFontSize": "100%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "collapsed": false,
-        "datasource": "${DS_INFLUXDBTELEGRAF}",
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 14
-        },
-        "id": 62098,
-        "panels": [],
-        "title": "Validator Performance",
-        "type": "row"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 6,
-          "w": 5,
-          "x": 0,
-          "y": 15
-        },
-        "id": 62096,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_node_synced",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "status"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Validator Caught Up",
-        "type": "singlestat",
-        "valueFontSize": "100%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "Yes",
-            "value": "1"
-          },
-          {
-            "op": "=",
-            "text": "No",
-            "value": "0"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": false,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "s",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 6,
-          "w": 5,
-          "x": 5,
-          "y": 15
-        },
-        "id": 62255,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_block_time_diff",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "time_diff"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Block Time Difference",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 6,
-          "w": 5,
-          "x": 10,
-          "y": 15
-        },
-        "id": 62094,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_current_block_height",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "height"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Current Block Height - Validator",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorPrefix": false,
-        "colorValue": true,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 6,
-          "w": 5,
-          "x": 15,
-          "y": 15
-        },
-        "id": 62241,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_network_latest_block",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "block_height"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [],
-                  "type": "last"
-                },
-                {
-                  "params": [
-                    "height"
-                  ],
-                  "type": "alias"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Latest Block Height - Network",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": false,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 6,
-          "w": 4,
-          "x": 20,
-          "y": 15
-        },
-        "id": 62243,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_height_difference",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "difference"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "height_difference"
-                  ],
-                  "type": "alias"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Height Difference",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 6,
-          "w": 9,
-          "x": 0,
-          "y": 21
-        },
-        "id": 62164,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_continuous_missed_blocks",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "range"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Last Missed Block Range",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": false,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 6,
-          "w": 5,
-          "x": 9,
-          "y": 21
-        },
-        "id": 62166,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_total_missed_blocks",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "block_height"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [],
-                  "type": "distinct"
-                },
-                {
-                  "params": [],
-                  "type": "count"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Blocks Missed In Last 48hrs",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": false,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 6,
-          "w": 5,
-          "x": 14,
-          "y": 21
-        },
-        "id": 62261,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_unconfirmed_txns",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "unconfirmed_txns"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Unconfirmed Txs",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "collapsed": false,
-        "datasource": "${DS_INFLUXDBTELEGRAF}",
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 27
-        },
-        "id": 62113,
-        "panels": [],
-        "title": "Validator Connectivity",
-        "type": "row"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 6,
-          "w": 4,
-          "x": 0,
-          "y": 28
-        },
-        "id": 62109,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": " Connected",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "#96D98D",
-          "full": false,
-          "lineColor": "#96D98D",
-          "show": true,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_num_peers",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "count"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "No. of Peers",
-        "type": "singlestat",
-        "valueFontSize": "100%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": false,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 6,
-          "w": 9,
-          "x": 4,
-          "y": 28
-        },
-        "id": 62111,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "pluginVersion": "6.6.2",
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_peer_addresses",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "addresses"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [],
-                  "type": "last"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "addresses_count",
-                "operator": "!=",
-                "value": "0"
-              }
-            ]
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Peer Addresses",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "${DS_INFLUXDBVCF}",
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 6,
-          "w": 11,
-          "x": 13,
-          "y": 28
-        },
-        "hiddenSeries": false,
-        "id": 62257,
-        "legend": {
-          "alignAsTable": true,
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "null",
-        "options": {
-          "dataLinks": []
-        },
-        "percentage": false,
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "groupBy": [
+        {
+          "alias": "moniker",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "moniker",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_validator_desc",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"val\") AS \"moniker\" FROM \"vcf_validator_desc\" WHERE (\"tag\" = 'moniker') AND $timeFilter",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
               {
                 "params": [
-                  "peer_address"
+                  "val"
                 ],
-                "type": "tag"
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              },
+              {
+                "params": [
+                  "Moniker"
+                ],
+                "type": "alias"
               }
-            ],
-            "measurement": "vcf_validator_latency",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "avg_rtt"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Latency",
-        "tooltip": {
-          "shared": true,
-          "sort": 0,
-          "value_type": "individual"
+            ]
+          ],
+          "tags": [
+            {
+              "key": "tag",
+              "operator": "=",
+              "value": "moniker"
+            }
+          ]
         },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
+        {
+          "alias": "",
+          "groupBy": [],
+          "measurement": "vcf_validator_desc",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"value\") AS \"website\" FROM \"vcf_validator_desc\" WHERE (\"tag\" = 'website') ",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "val"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              },
+              {
+                "params": [
+                  "Website"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "tag",
+              "operator": "=",
+              "value": "website"
+            }
+          ]
         },
-        "yaxes": [
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": "0",
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
+        {
+          "groupBy": [],
+          "measurement": "vcf_validator_desc",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "val"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              },
+              {
+                "params": [
+                  "Keybase Identity"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "tag",
+              "operator": "=",
+              "value": "identity"
+            }
+          ]
+        },
+        {
+          "groupBy": [],
+          "measurement": "vcf_validator_desc",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "val"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              },
+              {
+                "params": [
+                  "Details"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "tag",
+              "operator": "=",
+              "value": "details"
+            }
+          ]
         }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Validator Details",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
       },
-      {
-        "collapsed": false,
-        "datasource": "${DS_INFLUXDBTELEGRAF}",
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 34
-        },
-        "id": 62259,
-        "panels": [],
-        "title": "Validator Details",
-        "type": "row"
+      "gridPos": {
+        "h": 3,
+        "w": 12,
+        "x": 0,
+        "y": 4
       },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "percent",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
+      "id": 62225,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "gridPos": {
-          "h": 5,
-          "w": 4,
-          "x": 0,
-          "y": 35
-        },
-        "id": 62128,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "pluginVersion": "6.6.1",
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_validator_fee",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "rate"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Validator Fee",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
       },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "percent",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 4,
-          "x": 4,
-          "y": 35
-        },
-        "id": 62132,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "pluginVersion": "6.6.1",
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_validator_max_change_rate",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "rate"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Max Change Rate",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "percent",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 4,
-          "x": 8,
-          "y": 35
-        },
-        "id": 62130,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "pluginVersion": "6.6.1",
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_validator_max_rate",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "rate"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Max Rate",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 5,
-          "x": 12,
-          "y": 35
-        },
-        "id": 62136,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "pluginVersion": "6.6.1",
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_voting_power",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "power"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Voting Power",
-        "type": "singlestat",
-        "valueFontSize": "100%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": false,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 7,
-          "x": 17,
-          "y": 35
-        },
-        "id": 62178,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_self_delegation_balance",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "balance"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Self Delegation Balance",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "first"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": false,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 6,
-          "x": 0,
-          "y": 40
-        },
-        "id": 62134,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_account_balance",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "balance"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Current Balance",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": false,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 6,
-          "x": 6,
-          "y": 40
-        },
-        "id": 62180,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_current_rewards_amount",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "amount"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Unclaimed Rewards",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "first"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorPostfix": false,
-        "colorValue": true,
-        "colors": [
-          "#37872D",
-          "#FADE2A",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 6,
-          "x": 12,
-          "y": 40
-        },
-        "id": 62213,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "pluginVersion": "6.6.2",
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "#73BF69",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_last_proposed_block",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "height"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Last Proposed Block Height",
-        "type": "singlestat",
-        "valueFontSize": "100%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": false,
-        "colors": [
-          "#299c46",
-          "rgba(237, 129, 40, 0.89)",
-          "#d44a3a"
-        ],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "format": "none",
-        "gauge": {
-          "maxValue": 100,
-          "minValue": 0,
-          "show": false,
-          "thresholdLabels": false,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 6,
-          "x": 18,
-          "y": 40
-        },
-        "id": 62229,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": false,
-          "ymax": null,
-          "ymin": null
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_last_proposed_block",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "block_time"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": "",
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Last Proposed Block Time",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "first"
-      },
-      {
-        "collapsed": false,
-        "datasource": "${DS_INFLUXDBTELEGRAF}",
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 45
-        },
-        "id": 62204,
-        "panels": [],
-        "title": "Proposals",
-        "type": "row"
-      },
-      {
-        "columns": [],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "fontSize": "100%",
-        "gridPos": {
-          "h": 7,
-          "w": 24,
-          "x": 0,
-          "y": 46
-        },
-        "id": 62202,
-        "options": {},
-        "pageSize": null,
-        "showHeader": true,
-        "sort": {
-          "col": 0,
-          "desc": true
-        },
-        "styles": [
-          {
-            "alias": "Time",
-            "align": "auto",
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "pattern": "Time",
-            "type": "hidden"
-          },
-          {
-            "alias": "Validator Vote Status",
-            "align": "auto",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "rgba(237, 129, 40, 0.89)",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "decimals": 2,
-            "mappingType": 1,
-            "pattern": "Validator Vote Status",
-            "thresholds": [],
-            "type": "string",
-            "unit": "short",
-            "valueMaps": [
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_operator_address",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
               {
-                "text": "Voted Yes",
-                "value": "Yes"
+                "params": [
+                  "address"
+                ],
+                "type": "field"
               },
               {
-                "text": "Validator didn't vote on proposal",
-                "value": "not voted"
-              },
-              {
-                "text": "Voted No",
-                "value": "No"
-              },
-              {
-                "text": "Voted Abstain",
-                "value": "Abstain"
-              },
-              {
-                "text": "Voted NoWithVeto",
-                "value": "NoWithVeto"
+                "params": [
+                  "operator address"
+                ],
+                "type": "alias"
               }
             ]
-          },
-          {
-            "alias": "",
-            "align": "",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "rgba(237, 129, 40, 0.89)",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "decimals": 2,
-            "pattern": "/.*/",
-            "thresholds": [],
-            "type": "string",
-            "unit": "short"
-          }
-        ],
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_proposals",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "proposal_id"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Prposal ID"
-                  ],
-                  "type": "alias"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "content_value_title"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Proposal Title"
-                  ],
-                  "type": "alias"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "proposal_status"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Proposal Status"
-                  ],
-                  "type": "alias"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "validator_voted"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Validator Vote Status"
-                  ],
-                  "type": "alias"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "voting_start_time"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Voting Start Time"
-                  ],
-                  "type": "alias"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "voting_end_time"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Voting End Time"
-                  ],
-                  "type": "alias"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "proposal_status",
-                "operator": "=",
-                "value": "VotingPeriod"
-              }
-            ]
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Voting Period Proposals",
-        "transform": "table",
-        "type": "table"
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Operator Address",
+      "type": "singlestat",
+      "valueFontSize": "50%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
       },
-      {
-        "columns": [],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "fontSize": "100%",
-        "gridPos": {
-          "h": 7,
-          "w": 24,
-          "x": 0,
-          "y": 53
-        },
-        "id": 62198,
-        "options": {},
-        "pageSize": null,
-        "showHeader": true,
-        "sort": {
-          "col": 0,
-          "desc": true
-        },
-        "styles": [
-          {
-            "alias": "Time",
-            "align": "auto",
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "pattern": "Time",
-            "type": "hidden"
-          },
-          {
-            "alias": "Validator Deposit Status",
-            "align": "auto",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "rgba(237, 129, 40, 0.89)",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "decimals": 2,
-            "mappingType": 1,
-            "pattern": "Validator Deposit Status",
-            "thresholds": [],
-            "type": "string",
-            "unit": "short",
-            "valueMaps": [
-              {
-                "text": "Validator didn't deposit",
-                "value": "no"
-              },
-              {
-                "text": "Validator deposited",
-                "value": "yes"
-              }
-            ]
-          },
-          {
-            "alias": "",
-            "align": "",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "#73BF69",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "decimals": 2,
-            "pattern": "/.*/",
-            "thresholds": [
-              "100",
-              "120"
-            ],
-            "type": "string",
-            "unit": "short"
-          }
-        ],
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_proposals",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "proposal_id"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Proposal ID"
-                  ],
-                  "type": "alias"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "content_value_title"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Proposal Title"
-                  ],
-                  "type": "alias"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "proposal_status"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Proposal Status"
-                  ],
-                  "type": "alias"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "validator_deposited"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Validator Deposit Status"
-                  ],
-                  "type": "alias"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "submit_time"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Proposal Submit Time"
-                  ],
-                  "type": "alias"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "deposit_end_time"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Deposit End Time"
-                  ],
-                  "type": "alias"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "proposal_status",
-                "operator": "=",
-                "value": "DepositPeriod"
-              }
-            ]
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Deposit Period Proposals",
-        "transform": "table",
-        "type": "table"
+      "gridPos": {
+        "h": 3,
+        "w": 12,
+        "x": 12,
+        "y": 4
       },
-      {
-        "columns": [],
-        "datasource": "${DS_INFLUXDBVCF}",
-        "fontSize": "100%",
-        "gridPos": {
-          "h": 7,
-          "w": 24,
-          "x": 0,
-          "y": 60
+      "id": 62227,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "id": 62200,
-        "options": {},
-        "pageSize": null,
-        "showHeader": true,
-        "sort": {
-          "col": null,
-          "desc": false
-        },
-        "styles": [
-          {
-            "alias": "Time",
-            "align": "auto",
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "pattern": "Time",
-            "type": "hidden"
-          },
-          {
-            "alias": "Validator Vote Status",
-            "align": "auto",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "rgba(237, 129, 40, 0.89)",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "decimals": 2,
-            "mappingType": 1,
-            "pattern": "Validator Vote Status",
-            "thresholds": [],
-            "type": "string",
-            "unit": "short",
-            "valueMaps": [
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_address",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
               {
-                "text": "Voted Yes",
-                "value": "Yes"
+                "params": [
+                  "address"
+                ],
+                "type": "field"
               },
               {
-                "text": "Validator didn't vote on proposal",
-                "value": "not voted"
-              },
-              {
-                "text": "Voted No",
-                "value": "No"
-              },
-              {
-                "text": "Voted Abstain",
-                "value": "Abstain"
-              },
-              {
-                "text": "Voted NoWithVeto",
-                "value": "NoWithVeto"
+                "params": [
+                  "address"
+                ],
+                "type": "alias"
               }
             ]
-          },
-          {
-            "alias": "",
-            "align": "",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "rgba(237, 129, 40, 0.89)",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "decimals": 2,
-            "pattern": "/.*/",
-            "thresholds": [],
-            "type": "string",
-            "unit": "short"
-          }
-        ],
-        "targets": [
-          {
-            "groupBy": [],
-            "measurement": "vcf_proposals",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "table",
-            "select": [
-              [
-                {
-                  "params": [
-                    "proposal_id"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Proposal ID"
-                  ],
-                  "type": "alias"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "content_value_title"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Proposal Title"
-                  ],
-                  "type": "alias"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "validator_voted"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Validator Vote Status"
-                  ],
-                  "type": "alias"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "proposal_status"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [
-                    "Proposal Status"
-                  ],
-                  "type": "alias"
-                }
-              ]
-            ],
-            "tags": [
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Account Address",
+      "type": "singlestat",
+      "valueFontSize": "50%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "collapsed": false,
+      "datasource": "InfluxDBTelegraf",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 62083,
+      "panels": [],
+      "title": "Validator Availability",
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 8
+      },
+      "id": 62068,
+      "interval": "",
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "#96D98D",
+        "show": true,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_gaiad_status",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
               {
-                "key": "proposal_status",
-                "operator": "=",
-                "value": "Passed"
-              },
-              {
-                "condition": "OR",
-                "key": "proposal_status",
-                "operator": "=",
-                "value": "Rejected"
+                "params": [
+                  "status"
+                ],
+                "type": "field"
               }
             ]
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Completed Proposals",
-        "transform": "table",
-        "type": "table"
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Gaiad Status",
+      "type": "singlestat",
+      "valueFontSize": "70%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "UP",
+          "value": "1"
+        },
+        {
+          "op": "=",
+          "text": "DOWN",
+          "value": "0"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 8
+      },
+      "id": 62081,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "#96D98D",
+        "show": true,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_validator_status",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "status"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Validator Status",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "Voting",
+          "value": "1"
+        },
+        {
+          "op": "=",
+          "text": "Jailed",
+          "value": "0"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 8
+      },
+      "id": 62079,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_gaiad_version",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "v"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Gaiad Version",
+      "type": "singlestat",
+      "valueFontSize": "100%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "collapsed": false,
+      "datasource": "InfluxDBTelegraf",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 62098,
+      "panels": [],
+      "title": "Validator Performance",
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 0,
+        "y": 13
+      },
+      "id": 62096,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_node_synced",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "status"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Validator Caught Up",
+      "type": "singlestat",
+      "valueFontSize": "100%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "Yes",
+          "value": "1"
+        },
+        {
+          "op": "=",
+          "text": "No",
+          "value": "0"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "s",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 5,
+        "y": 13
+      },
+      "id": 62255,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_block_time_diff",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "time_diff"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Block Time Difference",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 10,
+        "y": 13
+      },
+      "id": 62094,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_current_block_height",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "height"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current Block Height - Validator",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorPrefix": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 15,
+        "y": 13
+      },
+      "id": 62241,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_network_latest_block",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "block_height"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              },
+              {
+                "params": [
+                  "height"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Latest Block Height - Network",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 13
+      },
+      "id": 62243,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_height_difference",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "difference"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "height_difference"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Height Difference",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 18
+      },
+      "id": 62164,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_continuous_missed_blocks",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "range"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last Missed Block Range",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 8,
+        "y": 18
+      },
+      "id": 62166,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_total_missed_blocks",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "block_height"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Blocks Missed In Last 48hrs",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 13,
+        "y": 18
+      },
+      "id": 62261,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_unconfirmed_txns",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "unconfirmed_txns"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Unconfirmed Txs",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "collapsed": false,
+      "datasource": "InfluxDBTelegraf",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 62113,
+      "panels": [],
+      "title": "Validator Connectivity",
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 0,
+        "y": 24
+      },
+      "id": 62109,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": " Connected",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "#96D98D",
+        "full": false,
+        "lineColor": "#96D98D",
+        "show": true,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_num_peers",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "count"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "No. of Peers",
+      "type": "singlestat",
+      "valueFontSize": "100%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": "InfluxDBVCF",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 6,
+        "w": 9,
+        "x": 4,
+        "y": 24
+      },
+      "id": 62111,
+      "links": [],
+      "pageSize": null,
+      "pluginVersion": "6.7.2",
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "",
+          "align": "right",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_peer_addresses",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "addresses"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              },
+              {
+                "params": [
+                  "connected peer addresses"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "addresses_count",
+              "operator": "!=",
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Peer Addresses",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "InfluxDBVCF",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 11,
+        "x": 13,
+        "y": 24
+      },
+      "hiddenSeries": false,
+      "id": 62257,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "peer_address"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "vcf_validator_latency",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "avg_rtt"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Latency",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
       }
-    ],
-    "refresh": "10s",
-    "schemaVersion": 22,
-    "style": "dark",
-    "tags": [
-      "influxdb",
-      "telegraf"
-    ],
-    "templating": {
-      "list": [
+    },
+    {
+      "collapsed": false,
+      "datasource": "InfluxDBTelegraf",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 30
+      },
+      "id": 62259,
+      "panels": [],
+      "title": "Validator Details",
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 31
+      },
+      "id": 62128,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
         {
-          "allFormat": "glob",
-          "current": {
-            "text": "InfluxDBTelegraf",
-            "value": "InfluxDBTelegraf"
-          },
-          "datasource": "InfluxDB telegraf",
-          "hide": 0,
-          "includeAll": false,
-          "label": "",
-          "multi": false,
-          "name": "datasource",
-          "options": [],
-          "query": "influxdb",
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "type": "datasource"
+          "name": "value to text",
+          "value": 1
         },
         {
-          "auto": true,
-          "auto_count": 100,
-          "auto_min": "30s",
-          "current": {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "pluginVersion": "6.6.1",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_validator_fee",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Validator Fee",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 4,
+        "y": 31
+      },
+      "id": 62132,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "pluginVersion": "6.6.1",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_validator_max_change_rate",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Max Change Rate",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 8,
+        "y": 31
+      },
+      "id": 62130,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "pluginVersion": "6.6.1",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_validator_max_rate",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Max Rate",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 12,
+        "y": 31
+      },
+      "id": 62136,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "pluginVersion": "6.6.1",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_voting_power",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Voting Power",
+      "type": "singlestat",
+      "valueFontSize": "100%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 7,
+        "x": 17,
+        "y": 31
+      },
+      "id": 62178,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_self_delegation_balance",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "balance"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Self Delegation Balance",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 36
+      },
+      "id": 62134,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_account_balance",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "balance"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current Balance",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 6,
+        "y": 36
+      },
+      "id": 62180,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_current_rewards_amount",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "amount"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Unclaimed Rewards",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorPostfix": false,
+      "colorValue": true,
+      "colors": [
+        "#37872D",
+        "#FADE2A",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 36
+      },
+      "id": 62213,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "pluginVersion": "6.6.2",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "#73BF69",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_last_proposed_block",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "height"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last Proposed Block Height",
+      "type": "singlestat",
+      "valueFontSize": "100%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "InfluxDBVCF",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 36
+      },
+      "id": 62229,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_last_proposed_block",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "block_time"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last Proposed Block Time",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "collapsed": false,
+      "datasource": "InfluxDBTelegraf",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "id": 62204,
+      "panels": [],
+      "title": "Proposals",
+      "type": "row"
+    },
+    {
+      "columns": [],
+      "datasource": "InfluxDBVCF",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 42
+      },
+      "id": 62202,
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "Validator Vote Status",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Validator Vote Status",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short",
+          "valueMaps": [
+            {
+              "text": "Voted Yes",
+              "value": "Yes"
+            },
+            {
+              "text": "Validator didn't vote on proposal",
+              "value": "not voted"
+            },
+            {
+              "text": "Voted No",
+              "value": "No"
+            },
+            {
+              "text": "Voted Abstain",
+              "value": "Abstain"
+            },
+            {
+              "text": "Voted NoWithVeto",
+              "value": "NoWithVeto"
+            }
+          ]
+        },
+        {
+          "alias": "",
+          "align": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_proposals",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "proposal_id"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Prposal ID"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "content_value_title"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Proposal Title"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "proposal_status"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Proposal Status"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "validator_voted"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Validator Vote Status"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "voting_start_time"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Voting Start Time"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "voting_end_time"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Voting End Time"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "proposal_status",
+              "operator": "=",
+              "value": "VotingPeriod"
+            },
+            {
+              "condition": "OR",
+              "key": "proposal_status",
+              "operator": "=",
+              "value": "PROPOSAL_STATUS_VOTING_PERIOD"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Voting Period Proposals",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "columns": [],
+      "datasource": "InfluxDBVCF",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 49
+      },
+      "id": 62198,
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "Validator Deposit Status",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Validator Deposit Status",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short",
+          "valueMaps": [
+            {
+              "text": "Validator didn't deposit",
+              "value": "no"
+            },
+            {
+              "text": "Validator deposited",
+              "value": "yes"
+            }
+          ]
+        },
+        {
+          "alias": "",
+          "align": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "#73BF69",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [
+            "100",
+            "120"
+          ],
+          "type": "string",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_proposals",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "proposal_id"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Proposal ID"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "content_value_title"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Proposal Title"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "proposal_status"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Proposal Status"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "validator_deposited"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Validator Deposit Status"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "submit_time"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Proposal Submit Time"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "deposit_end_time"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Deposit End Time"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "proposal_status",
+              "operator": "=",
+              "value": "DepositPeriod"
+            },
+            {
+              "condition": "OR",
+              "key": "proposal_status",
+              "operator": "=",
+              "value": "PROPOSAL_STATUS_DEPOSIT_PERIOD"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Deposit Period Proposals",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "columns": [],
+      "datasource": "InfluxDBVCF",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 56
+      },
+      "id": 62200,
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": null,
+        "desc": false
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "Validator Vote Status",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Validator Vote Status",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short",
+          "valueMaps": [
+            {
+              "text": "Voted Yes",
+              "value": "Yes"
+            },
+            {
+              "text": "Validator didn't vote on proposal",
+              "value": "not voted"
+            },
+            {
+              "text": "Voted No",
+              "value": "No"
+            },
+            {
+              "text": "Voted Abstain",
+              "value": "Abstain"
+            },
+            {
+              "text": "Voted NoWithVeto",
+              "value": "NoWithVeto"
+            }
+          ]
+        },
+        {
+          "alias": "",
+          "align": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "vcf_proposals",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "proposal_id"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Proposal ID"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "content_value_title"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Proposal Title"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "validator_voted"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Validator Vote Status"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "proposal_status"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Proposal Status"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "proposal_status",
+              "operator": "=",
+              "value": "Passed"
+            },
+            {
+              "condition": "OR",
+              "key": "proposal_status",
+              "operator": "=",
+              "value": "Rejected"
+            },
+            {
+              "condition": "OR",
+              "key": "proposal_status",
+              "operator": "=",
+              "value": "PROPOSAL_STATUS_REJECTED"
+            },
+            {
+              "condition": "OR",
+              "key": "proposal_status",
+              "operator": "=",
+              "value": "PROPOSAL_STATUS_PASSED"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Completed Proposals",
+      "transform": "table",
+      "type": "table"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 22,
+  "style": "dark",
+  "tags": [
+    "influxdb"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allFormat": "glob",
+        "current": {
+          "selected": false,
+          "text": "InfluxDBTelegraf",
+          "value": "InfluxDBTelegraf"
+        },
+        "datasource": "InfluxDB telegraf",
+        "hide": 0,
+        "includeAll": false,
+        "label": "",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "influxdb",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "auto": true,
+        "auto_count": 100,
+        "auto_min": "30s",
+        "current": {
+          "selected": false,
+          "text": "10s",
+          "value": "10s"
+        },
+        "datasource": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Sampling",
+        "multi": false,
+        "name": "inter",
+        "options": [
+          {
             "selected": false,
+            "text": "auto",
+            "value": "$__auto_interval_inter"
+          },
+          {
+            "selected": true,
             "text": "10s",
             "value": "10s"
           },
-          "datasource": null,
-          "hide": 0,
-          "includeAll": false,
-          "label": "Sampling",
-          "multi": false,
-          "name": "inter",
-          "options": [
-            {
-              "selected": false,
-              "text": "auto",
-              "value": "$__auto_interval_inter"
-            },
-            {
-              "selected": true,
-              "text": "10s",
-              "value": "10s"
-            },
-            {
-              "selected": false,
-              "text": "30s",
-              "value": "30s"
-            },
-            {
-              "selected": false,
-              "text": "1m",
-              "value": "1m"
-            },
-            {
-              "selected": false,
-              "text": "2m",
-              "value": "2m"
-            },
-            {
-              "selected": false,
-              "text": "5m",
-              "value": "5m"
-            },
-            {
-              "selected": false,
-              "text": "10m",
-              "value": "10m"
-            },
-            {
-              "selected": false,
-              "text": "30m",
-              "value": "30m"
-            },
-            {
-              "selected": false,
-              "text": "1h",
-              "value": "1h"
-            }
-          ],
-          "query": "10s,30s,1m,2m,5m,10m,30m,1h",
-          "refresh": 2,
-          "skipUrlSync": false,
-          "type": "interval"
+          {
+            "selected": false,
+            "text": "30s",
+            "value": "30s"
+          },
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "2m",
+            "value": "2m"
+          },
+          {
+            "selected": false,
+            "text": "5m",
+            "value": "5m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          },
+          {
+            "selected": false,
+            "text": "30m",
+            "value": "30m"
+          },
+          {
+            "selected": false,
+            "text": "1h",
+            "value": "1h"
+          }
+        ],
+        "query": "10s,30s,1m,2m,5m,10m,30m,1h",
+        "refresh": 2,
+        "skipUrlSync": false,
+        "type": "interval"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
         },
-        {
-          "allValue": null,
-          "current": {},
-          "datasource": "${DS_INFLUXDBTELEGRAF}",
-          "definition": "",
-          "hide": 0,
-          "includeAll": false,
-          "label": "Server",
-          "multi": false,
-          "name": "server",
-          "options": [],
-          "query": "SHOW TAG VALUES FROM system WITH KEY=host",
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "sort": 0,
-          "tagValuesQuery": null,
-          "tags": [],
-          "tagsQuery": null,
-          "type": "query",
-          "useTags": false
+        "datasource": "InfluxDBTelegraf",
+        "definition": "",
+        "hide": 0,
+        "includeAll": false,
+        "index": -1,
+        "label": "Server",
+        "multi": false,
+        "name": "server",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM system WITH KEY=host",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
-        {
-          "allValue": null,
-          "current": {},
-          "datasource": "$datasource",
-          "definition": "",
-          "hide": 0,
-          "includeAll": true,
-          "label": "Mountpoint",
-          "multi": true,
-          "name": "mountpoint",
-          "options": [],
-          "query": "SHOW TAG VALUES FROM \"disk\" WITH KEY = \"path\" WHERE host =~ /$server/",
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "sort": 0,
-          "tagValuesQuery": null,
-          "tags": [],
-          "tagsQuery": null,
-          "type": "query",
-          "useTags": false
+        "datasource": "$datasource",
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "index": -1,
+        "label": "Mountpoint",
+        "multi": true,
+        "name": "mountpoint",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM \"disk\" WITH KEY = \"path\" WHERE host =~ /$server/",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
-        {
-          "allValue": null,
-          "current": {},
-          "datasource": "$datasource",
-          "definition": "",
-          "hide": 0,
-          "includeAll": true,
-          "label": "CPU",
-          "multi": true,
-          "name": "cpu",
-          "options": [],
-          "query": "SHOW TAG VALUES FROM \"cpu\" WITH KEY = \"cpu\" WHERE host =~ /$server/",
-          "refresh": 1,
-          "regex": "/cpu[0-9]/",
-          "skipUrlSync": false,
-          "sort": 1,
-          "tagValuesQuery": null,
-          "tags": [],
-          "tagsQuery": null,
-          "type": "query",
-          "useTags": false
+        "datasource": "$datasource",
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "index": -1,
+        "label": "CPU",
+        "multi": true,
+        "name": "cpu",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM \"cpu\" WITH KEY = \"cpu\" WHERE host =~ /$server/",
+        "refresh": 1,
+        "regex": "/cpu[0-9]/",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
-        {
-          "allValue": null,
-          "current": {},
-          "datasource": "$datasource",
-          "definition": "",
-          "hide": 0,
-          "includeAll": true,
-          "label": "Disk",
-          "multi": true,
-          "name": "disk",
-          "options": [],
-          "query": "SHOW TAG VALUES FROM \"diskio\" WITH KEY = \"name\" WHERE host =~ /$server/",
-          "refresh": 1,
-          "regex": "[a-z]d[\\D]$|nvme[\\d]n[\\d]$",
-          "skipUrlSync": false,
-          "sort": 0,
-          "tagValuesQuery": null,
-          "tags": [],
-          "tagsQuery": null,
-          "type": "query",
-          "useTags": false
+        "datasource": "$datasource",
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "index": -1,
+        "label": "Disk",
+        "multi": true,
+        "name": "disk",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM \"diskio\" WITH KEY = \"name\" WHERE host =~ /$server/",
+        "refresh": 1,
+        "regex": "[a-z]d[\\D]$|nvme[\\d]n[\\d]$",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
-        {
-          "allValue": null,
-          "current": {},
-          "datasource": "$datasource",
-          "definition": "",
-          "hide": 0,
-          "includeAll": true,
-          "label": "Network interface",
-          "multi": true,
-          "name": "netif",
-          "options": [],
-          "query": "SHOW TAG VALUES FROM \"net\" WITH KEY = \"interface\" WHERE host =~ /$server/",
-          "refresh": 1,
-          "regex": "^(?!.*veth|all|tap).*$",
-          "skipUrlSync": false,
-          "sort": 1,
-          "tagValuesQuery": null,
-          "tags": [],
-          "tagsQuery": null,
-          "type": "query",
-          "useTags": false
-        }
-      ]
-    },
-    "time": {
-      "from": "now-2d",
-      "to": "now"
-    },
-    "timepicker": {
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ]
-    },
-    "timezone": "browser",
-    "title": "Validator Monitoring Metrics",
-    "uid": "1AkQyN9Zk",
-    "version": 4
-  }
+        "datasource": "$datasource",
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "index": -1,
+        "label": "Network interface",
+        "multi": true,
+        "name": "netif",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM \"net\" WITH KEY = \"interface\" WHERE host =~ /$server/",
+        "refresh": 1,
+        "regex": "^(?!.*veth|all|tap).*$",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Validator Monitoring Metrics",
+  "uid": "1AkQyN9Zk",
+  "variables": {
+    "list": []
+  },
+  "version": 15
+}

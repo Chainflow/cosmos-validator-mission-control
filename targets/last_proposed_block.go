@@ -3,7 +3,6 @@ package targets
 import (
 	"cosmos-validator-mission-control/config"
 	"encoding/json"
-	"fmt"
 	"log"
 
 	client "github.com/influxdata/influxdb1-client/v2"
@@ -30,15 +29,15 @@ func GetLatestProposedBlockAndTime(ops HTTPOptions, cfg *config.Config, c client
 		return
 	}
 
-	blockTime := GetUserDateFormat(blockResp.BlockMeta.Header.Time)
-	fmt.Println("last proposed block time", blockTime)
+	blockTime := GetUserDateFormat(blockResp.Block.Header.Time)
 
-	if cfg.ValidatorHexAddress == blockResp.BlockMeta.Header.ProposerAddress {
+	if cfg.ValidatorHexAddress == blockResp.Block.Header.ProposerAddress {
 		fields := map[string]interface{}{
-			"height":     blockResp.BlockMeta.Header.Height,
+			"height":     blockResp.Block.Header.Height,
 			"block_time": blockTime,
 		}
 
 		_ = writeToInfluxDb(c, bp, "vcf_last_proposed_block", map[string]string{}, fields)
+		log.Printf("Last proposed block height %s and time : %s", blockResp.Block.Header.Height, blockTime)
 	}
 }

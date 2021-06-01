@@ -56,8 +56,8 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 	}
 
 	if !addrExists {
-		_ = SendTelegramAlert(fmt.Sprintf("%s validator missed a block at block height %s", cfg.ValidatorName, cbh), cfg)
-		_ = SendEmailAlert(fmt.Sprintf("%s validator missed a block at block height %s", cfg.ValidatorName, cbh), cfg)
+		_ = SendTelegramAlert(fmt.Sprintf("%s validator missed a block at height %s", cfg.ValidatorName, cbh), cfg)
+		_ = SendEmailAlert(fmt.Sprintf("%s validator missed a block at height %s", cfg.ValidatorName, cbh), cfg)
 	}
 
 	// Calling function to check validator jailed status

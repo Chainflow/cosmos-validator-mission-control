@@ -31,7 +31,7 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	var p0 *client.Point
-	validatorStatus := validatorResp.Result.Jailed
+	validatorStatus := validatorResp.Validator.Jailed
 	if !validatorStatus {
 		p0, err = createDataPoint("vcf_validator_status", map[string]string{}, map[string]interface{}{"status": 1})
 	} else {
@@ -41,7 +41,7 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		pts = append(pts, p0)
 	}
 
-	operatorAddress := validatorResp.Result.OperatorAddress
+	operatorAddress := validatorResp.Validator.OperatorAddress
 	p1, err := createDataPoint("vcf_operator_address", map[string]string{}, map[string]interface{}{"address": operatorAddress})
 	if err == nil {
 		pts = append(pts, p1)
@@ -54,7 +54,7 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	var fee float64
-	f, err := strconv.ParseFloat(validatorResp.Result.Commission.CommissionRates.Rate, 64)
+	f, err := strconv.ParseFloat(validatorResp.Validator.Commission.CommissionRates.Rate, 64)
 	if err != nil {
 		fee = 0
 	} else {
@@ -65,7 +65,7 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 		pts = append(pts, p3)
 	}
 
-	validatorDetails := validatorResp.Result.Description
+	validatorDetails := validatorResp.Validator.Description
 	p4, err := createDataPoint("vcf_validator_desc", map[string]string{"tag": "moniker"}, map[string]interface{}{"val": validatorDetails.Moniker})
 	if err == nil {
 		pts = append(pts, p4)
@@ -84,7 +84,7 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	var maxRate float64
-	mr, err := strconv.ParseFloat(validatorResp.Result.Commission.CommissionRates.MaxRate, 64)
+	mr, err := strconv.ParseFloat(validatorResp.Validator.Commission.CommissionRates.MaxRate, 64)
 	if err != nil {
 		maxRate = 0
 	} else {
@@ -96,7 +96,7 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	var maxChangeRate float64
-	mcr, err := strconv.ParseFloat(validatorResp.Result.Commission.CommissionRates.MaxChangeRate, 64)
+	mcr, err := strconv.ParseFloat(validatorResp.Validator.Commission.CommissionRates.MaxChangeRate, 64)
 	if err != nil {
 		log.Printf("error in atoi: %v", err)
 		maxChangeRate = 0
@@ -110,6 +110,6 @@ func GetOperatorInfo(ops HTTPOptions, cfg *config.Config, c client.Client) {
 
 	bp.AddPoints(pts)
 	_ = writeBatchPoints(c, bp)
-	log.Printf("Ooperator Addr: %s \nAddress: %s \nFee: %s \nValidator Details: %v \nMax Rate: %f \nMax Change Rate: %f \nValidator Status: %t \n",
+	log.Printf("Ooperator Addr: %s \nAddress: %s \nFee: %f \nValidator Details: %v \nMax Rate: %f \nMax Change Rate: %f \nValidator Jailed Status: %t \n",
 		operatorAddress, address, fee, validatorDetails, maxRate, maxChangeRate, validatorStatus)
 }
