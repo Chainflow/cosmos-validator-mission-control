@@ -8,8 +8,8 @@
 ### Getting Started
 
 ```bash
-git clone git@github.com:chris-remus/chainflow-vitwit.git
-cd chainflow-vitwit/alert-bot
+git clone https://github.com/Chainflow/cosmos-validator-mission-control.git
+cd cosmos-validator-mission-control/alert-bot
 cp example.config.toml config.toml
 ```
 ### Configure the following variables in `config.toml`
