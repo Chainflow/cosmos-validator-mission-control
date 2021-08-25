@@ -47,6 +47,11 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 		return err
 	}
 
+	if &b.Result == nil {
+		log.Printf("Got empty block response : %v", err)
+		return err
+	}
+
 	addrExists := false
 
 	for _, c := range b.Result.Block.LastCommit.Signatures {
