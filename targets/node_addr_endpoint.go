@@ -23,8 +23,8 @@ func CheckGaiad(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	}
 
 	if (resp.StatusCode != 200) && (resp.StatusCode != 202) {
-		_ = SendTelegramAlert(fmt.Sprintf("Gaiad on your validator instance is not running: RPC is DOWN : \n%v", string(resp.Body)), cfg)
-		_ = SendEmailAlert(fmt.Sprintf("Gaiad on your validator instance is not running: RPC is DOWN : \n%v", string(resp.Body)), cfg)
+		_ = SendTelegramAlert(fmt.Sprintf("%s Gaiad on your validator instance is not running: RPC is DOWN : \n%v", cfg.ValidatorName, string(resp.Body)), cfg)
+		_ = SendEmailAlert(fmt.Sprintf("%s Gaiad on your validator instance is not running: RPC is DOWN : \n%v", cfg.ValidatorName, string(resp.Body)), cfg)
 		_ = writeToInfluxDb(c, bp, "vcf_gaiad_status", map[string]string{}, map[string]interface{}{"status": 0})
 		return
 	}
