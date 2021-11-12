@@ -38,5 +38,14 @@ func main() {
 		}
 	}()
 
+	go func() {
+		for {
+			if err := server.GetEndpointStatus(cfg); err != nil {
+				fmt.Println("Error while sending RPC status alert", err)
+			}
+			time.Sleep(10 * time.Minute)
+		}
+	}()
+
 	wg.Wait()
 }
