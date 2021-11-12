@@ -3,6 +3,7 @@ package targets
 import (
 	"cosmos-validator-mission-control/config"
 	"encoding/json"
+	"fmt"
 	"log"
 	"strconv"
 
@@ -44,8 +45,8 @@ func GetGaiaCliStatus(ops HTTPOptions, cfg *config.Config, c client.Client) {
 	var synced int
 	caughtUp := !status.Result.SyncInfo.CatchingUp
 	if !caughtUp {
-		_ = SendTelegramAlert("Your validator node is not synced!", cfg)
-		_ = SendEmailAlert("Your validator node is not synced!", cfg)
+		_ = SendTelegramAlert(fmt.Sprintf("%s Your validator node is not synced!", cfg.ValidatorName), cfg)
+		_ = SendEmailAlert(fmt.Sprintf("%s Your validator node is not synced!", cfg.ValidatorName), cfg)
 		synced = 0
 	} else {
 		synced = 1
