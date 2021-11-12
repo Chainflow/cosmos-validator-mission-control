@@ -18,7 +18,6 @@ func GetEndpointStatus(cfg *config.Config) error {
 	if err != nil {
 		log.Printf("Error: %v", err)
 		msg = msg + fmt.Sprintf("⛔ Unreachable to %s RPC :: and the ERROR is: %v", cfg.ExternalRPC, err)
-
 	}
 
 	if msg != "" {
