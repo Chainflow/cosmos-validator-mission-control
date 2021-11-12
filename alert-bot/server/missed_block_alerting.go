@@ -47,24 +47,27 @@ func SendSingleMissedBlockAlert(cfg *config.Config) error {
 		return err
 	}
 
-	addrExists := false
+	if &b != nil {
 
-	for _, c := range b.Result.Block.LastCommit.Signatures {
-		if c.ValidatorAddress == cfg.ValidatorHexAddress {
-			addrExists = true
+		addrExists := false
+
+		for _, c := range b.Result.Block.LastCommit.Signatures {
+			if c.ValidatorAddress == cfg.ValidatorHexAddress {
+				addrExists = true
+			}
 		}
-	}
 
-	if !addrExists {
-		_ = SendTelegramAlert(fmt.Sprintf("%s validator missed a block at height %s", cfg.ValidatorName, cbh), cfg)
-		_ = SendEmailAlert(fmt.Sprintf("%s validator missed a block at height %s", cfg.ValidatorName, cbh), cfg)
-	}
+		if !addrExists {
+			_ = SendTelegramAlert(fmt.Sprintf("%s validator missed a block at height %s", cfg.ValidatorName, cbh), cfg)
+			_ = SendEmailAlert(fmt.Sprintf("%s validator missed a block at height %s", cfg.ValidatorName, cbh), cfg)
+		}
 
-	// Calling function to check validator jailed status
-	err = CheckValidatorJailed(cfg)
-	if err != nil {
-		log.Printf("Error while sending jailed alerting: %v", err)
-		return err
+		// Calling function to check validator jailed status
+		err = CheckValidatorJailed(cfg)
+		if err != nil {
+			log.Printf("Error while sending jailed alerting: %v", err)
+			return err
+		}
 	}
 
 	return nil
