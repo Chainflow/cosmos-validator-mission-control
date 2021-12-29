@@ -1,3 +1,7 @@
+# Validator rpc end point(RPC of your own validator)
+#useful to gather information about network info, validatr voting power, unconfirmed txns etc.
+validator_rpc_endpoint = "https://rpc.cosmos.network"
+
 # Operator address of your validator
 #Here it will be used to get staking of a validator.
 val_operator_addr = "cosmosvaloper14l0fp639yudfl46zauvv8rkzjgd4u0zk2aseys"
@@ -16,6 +20,9 @@ external_rpc = "http://localhost:26657"
 # Name of your validator
 #it will be displayed in telegram alerts
 validator_name = "ValName"
+
+# An integer value to receive block difference alerts
+block_diff_threshold = 10
 
 # Daily alerts of validator status
 alert_time1 = "07:23PM"

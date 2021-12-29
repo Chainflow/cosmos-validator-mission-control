@@ -21,16 +21,18 @@ type (
 
 	// Config defines all the app configurations
 	Config struct {
-		ValOperatorAddress  string            `mapstructure:"val_operator_addr"`
-		ValidatorHexAddress string            `mapstructure:"validator_hex_addr"`
-		LCDEndpoint         string            `mapstructure:"lcd_endpoint"`
-		Telegram            TelegramBotConfig `mapstructure:"telegram"`
-		SendGrid            EmailConfig       `mapstructure:"sendgrid"`
-		RPCEndpoint         string            `mapstructure:"rpc_endpoint"`
-		ExternalRPC         string            `mapstructure:"external_rpc"`
-		AlertTime1          string            `mapstructure:"alert_time1"`
-		AlertTime2          string            `mapstructure:"alert_time2"`
-		ValidatorName       string            `mapstructure:"validator_name"`
+		ValidatorRpcEndpoint string            `mapstructure:"validator_rpc_endpoint"`
+		ValOperatorAddress   string            `mapstructure:"val_operator_addr"`
+		ValidatorHexAddress  string            `mapstructure:"validator_hex_addr"`
+		LCDEndpoint          string            `mapstructure:"lcd_endpoint"`
+		Telegram             TelegramBotConfig `mapstructure:"telegram"`
+		SendGrid             EmailConfig       `mapstructure:"sendgrid"`
+		RPCEndpoint          string            `mapstructure:"rpc_endpoint"`
+		ExternalRPC          string            `mapstructure:"external_rpc"`
+		AlertTime1           string            `mapstructure:"alert_time1"`
+		AlertTime2           string            `mapstructure:"alert_time2"`
+		ValidatorName        string            `mapstructure:"validator_name"`
+		BlockDiffThreshold   int64             `mapstructure:"block_diff_threshold"`
 	}
 )
 

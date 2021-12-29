@@ -47,5 +47,14 @@ func main() {
 		}
 	}()
 
+	go func() {
+		for {
+			if err := server.GetNetworkBlock(cfg); err != nil {
+				fmt.Println("Error while sending block difference alerts", err)
+			}
+			time.Sleep(60 * time.Second)
+		}
+	}()
+
 	wg.Wait()
 }

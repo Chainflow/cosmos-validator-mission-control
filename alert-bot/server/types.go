@@ -48,4 +48,21 @@ type (
 			Status string `json:"status"`
 		} `json:"validator"`
 	}
+
+	// ValidatorRpcStatus is a struct which holds the status response
+	ValidatorRpcStatus struct {
+		Jsonrpc string `json:"jsonrpc"`
+		Result  struct {
+			SyncInfo struct {
+				LatestBlockHash   string `json:"latest_block_hash"`
+				LatestAppHash     string `json:"latest_app_hash"`
+				LatestBlockHeight string `json:"latest_block_height"`
+				LatestBlockTime   string `json:"latest_block_time"`
+				CatchingUp        bool   `json:"catching_up"`
+			} `json:"sync_info"`
+			ValidatorInfo struct {
+				VotingPower string `json:"voting_power"`
+			} `json:"validator_info"`
+		} `json:"result"`
+	}
 )
