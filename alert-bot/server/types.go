@@ -65,4 +65,58 @@ type (
 			} `json:"validator_info"`
 		} `json:"result"`
 	}
+
+	// ProposalVoters struct holds the parameters of proposal voters
+	ProposalVoters struct {
+		Votes []struct {
+			ProposalID string `json:"proposal_id"`
+			Voter      string `json:"voter"`
+			Option     string `json:"option"`
+		} `json:"votes"`
+		Pagination struct {
+			NextKey interface{} `json:"next_key"`
+			Total   string      `json:"total"`
+		} `json:"pagination"`
+	}
+
+	// Proposals struct holds result of array of proposals
+	Proposals struct {
+		Proposals []ProposalResult `json:"proposals"`
+	}
+
+	// ProposalResult struct holds the parameters of proposal result
+	ProposalResult struct {
+		Content          ProposalResultContent `json:"content"`
+		ProposalID       string                `json:"proposal_id"`
+		Status           string                `json:"status"`
+		FinalTallyResult interface{}           `json:"final_tally_result"`
+		SubmitTime       string                `json:"submit_time"`
+		DepositEndTime   string                `json:"deposit_end_time"`
+		TotalDeposit     []interface{}         `json:"total_deposit"`
+		VotingStartTime  string                `json:"voting_start_time"`
+		VotingEndTime    string                `json:"voting_end_time"`
+	}
+
+	// ProposalResultContent struct holds the parameters of a proposal content result
+	ProposalResultContent struct {
+		Type        string `json:"@type"`
+		Title       string `json:"title"`
+		Description string `json:"description"`
+	}
+
+	// Depositors struct which holds the parameters of deposits
+	Depositors struct {
+		Deposits []struct {
+			ProposalID string `json:"proposal_id"`
+			Depositor  string `json:"depositor"`
+			Amount     []struct {
+				Denom  string `json:"denom"`
+				Amount string `json:"amount"`
+			} `json:"amount"`
+		} `json:"deposits"`
+		Pagination struct {
+			NextKey interface{} `json:"next_key"`
+			Total   string      `json:"total"`
+		} `json:"pagination"`
+	}
 )

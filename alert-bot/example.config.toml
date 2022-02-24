@@ -6,6 +6,10 @@ validator_rpc_endpoint = "https://rpc.cosmos.network"
 #Here it will be used to get staking of a validator.
 val_operator_addr = "cosmosvaloper14l0fp639yudfl46zauvv8rkzjgd4u0zk2aseys"
 
+# Your validator account address
+#which will be used to get account informtion etc
+account_addr = "cosmos1dkwl3tumr7t5rswe674mczp1cq5xlf3avp0sxn"
+
 # Validator hex address
 #useful to know about missed blocks.
 validator_hex_addr = "8F2927C1D0180B19087BB35DE19BABA4E0DE9238"
@@ -35,3 +39,8 @@ tg_bot_token="1117273891:AAEtr35x4JRj5YSF4LBeu1fPFAJ4xj-UK"
 [sendgrid]
 sendgrid_token = "1234567890"
 email_address = "xyz@domain.com"
+
+[influxdb]
+port = "8086"
+database = "vcf"
+username = "admin"

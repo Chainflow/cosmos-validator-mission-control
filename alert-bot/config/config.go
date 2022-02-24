@@ -19,6 +19,14 @@ type (
 		ReceiverMailAddress string `mapstructure:"email_address"`
 	}
 
+	//InfluxDB details
+	InfluxDB struct {
+		Port     string `mapstructure:"port"`
+		Database string `mapstructure:"database"`
+		Username string `mapstructure:"username"`
+		Password string `mapstructure:"password"`
+	}
+
 	// Config defines all the app configurations
 	Config struct {
 		ValidatorRpcEndpoint string            `mapstructure:"validator_rpc_endpoint"`
@@ -33,6 +41,8 @@ type (
 		AlertTime2           string            `mapstructure:"alert_time2"`
 		ValidatorName        string            `mapstructure:"validator_name"`
 		BlockDiffThreshold   int64             `mapstructure:"block_diff_threshold"`
+		InfluxDB             InfluxDB          `mapstructure:"influxdb"`
+		AccountAddress       string            `mapstructure:"account_addr"`
 	}
 )
 
