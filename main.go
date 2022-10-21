@@ -21,7 +21,7 @@ func main() {
 	runner := targets.NewRunner()
 
 	c, err := client.NewHTTPClient(client.HTTPConfig{
-		Addr:     fmt.Sprintf("http://localhost:%s", cfg.InfluxDB.Port),
+		Addr:     fmt.Sprintf("http://%s:%s", cfg.InfluxDB.Host, cfg.InfluxDB.Port),
 		Username: cfg.InfluxDB.Username,
 		Password: cfg.InfluxDB.Password,
 	})

@@ -30,6 +30,7 @@ type (
 
 	//InfluxDB details
 	InfluxDB struct {
+		Host     string `mapstructure:"host"`
 		Port     string `mapstructure:"port"`
 		Database string `mapstructure:"database"`
 		Username string `mapstructure:"username"`
