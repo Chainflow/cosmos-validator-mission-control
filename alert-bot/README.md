@@ -30,6 +30,14 @@ cp example.config.toml config.toml
 
     Operator address of your validator which will be used to get staking, delegation and distribution rewards.
 
+- *validator_rpc_endpoint*
+
+    Validator rpc end point (RPC of your own validator) useful to gather information about network info, validator voting power, unconfirmed txns etc.
+
+- *account_addr*
+
+    Your validator account address which will be used to get account informtion etc.
+
 - *validator_hex_addr*
 
     Validator hex address useful to know about last proposed block, missed blocks and voting power.

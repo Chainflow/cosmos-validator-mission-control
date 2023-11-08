@@ -1,6 +1,14 @@
+# Validator rpc end point(RPC of your own validator)
+#useful to gather information about network info, validatr voting power, unconfirmed txns etc.
+validator_rpc_endpoint = "https://rpc.cosmos.network"
+
 # Operator address of your validator
 #Here it will be used to get staking of a validator.
 val_operator_addr = "cosmosvaloper14l0fp639yudfl46zauvv8rkzjgd4u0zk2aseys"
+
+# Your validator account address
+#which will be used to get account informtion etc
+account_addr = "cosmos1dkwl3tumr7t5rswe674mczp1cq5xlf3avp0sxn"
 
 # Validator hex address
 #useful to know about missed blocks.
@@ -17,6 +25,9 @@ external_rpc = "http://localhost:26657"
 #it will be displayed in telegram alerts
 validator_name = "ValName"
 
+# An integer value to receive block difference alerts
+block_diff_threshold = 10
+
 # Daily alerts of validator status
 alert_time1 = "07:23PM"
 alert_time2 = "08:15AM"
@@ -28,3 +39,8 @@ tg_bot_token="1117273891:AAEtr35x4JRj5YSF4LBeu1fPFAJ4xj-UK"
 [sendgrid]
 sendgrid_token = "1234567890"
 email_address = "xyz@domain.com"
+
+[influxdb]
+port = "8086"
+database = "vcf"
+username = "admin"
